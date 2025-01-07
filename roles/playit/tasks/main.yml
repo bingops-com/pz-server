@@ -1,0 +1,26 @@
+---
+
+- name: "Add {{ playit_user }} user"
+  user:
+    name: "{{ playit_user }}"
+    home: "/home/{{ playit_user }}"
+    shell: /bin/bash
+    create_home: yes
+    state: present
+
+- name: Download playit binary
+  ansible.builtin.get_url:
+    url: "https://github.com/playit-cloud/playit-agent/releases/download/v0.15.26/playit-linux-amd64"
+    dest: "/usr/local/bin/playit"
+    mode: '0755'
+
+- name: Deploy Playit service
+  template:
+    src: playit.service.j2
+    dest: /etc/systemd/system/playit.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Enable and start Playit
+
+

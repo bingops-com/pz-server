@@ -1,0 +1,19 @@
+---
+
+- name: Deploy Zomboid systemd service
+  template:
+    src: zomboid.service.j2
+    dest: /etc/systemd/system/zomboid.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Deploy Zomboid socket file
+  template:
+    src: zomboid.socket.j2
+    dest: /etc/systemd/system/zomboid.socket
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Enable and restart PZ socket

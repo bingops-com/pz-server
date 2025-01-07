@@ -1,0 +1,40 @@
+---
+
+- name: Ensure UFW is installed
+  apt:
+    name: ufw
+    state: present
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+
+- name: Ensure outgoing traffic is allowed
+  ufw:
+    default: allow
+    direction: outgoing
+
+- name: Allow Project Zomboid UDP port through UFW
+  ufw:
+    rule: allow
+    port: 16261
+    proto: udp
+
+- name: Allow Project Zomboid UDP port through UFW
+  ufw:
+    rule: allow
+    port: 16262
+    proto: tcp
+
+- name: Allow Project Zomboid RCON port through UFW
+  ufw:
+    rule: allow
+    port: 27015
+    proto: tcp
+
+- name: Allow SSH port through UFW (to avoid lockout)
+  ufw:
+    rule: allow
+    port: 22
+    proto: tcp
+  notify: Restart UFW

@@ -1,0 +1,56 @@
+---
+
+- name: Add Zomboid server user
+  user:
+    name: "{{ server_user }}"
+    home: "/home/{{ server_user }}"
+    shell: /bin/bash
+    create_home: yes
+    state: present
+
+- name: Create Zomboid server directory
+  file:
+    path: "{{ server_game_path }}"
+    state: directory
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+
+- name: Install zomboid dedicated server via SteamCMD
+  command: "sudo -u pzuser /usr/games/steamcmd +login anonymous +force_install_dir {{ server_game_path }} +app_update 380870 validate +quit"
+  register: pz_install
+  changed_when: >
+    "Success! App '380870' fully installed." in pz_install.stdout
+
+- name: Create server configuration directory
+  file:
+    path: "{{ server_config_path }}"
+    state: directory
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+
+- name: Deploy server.ini
+  template:
+    src: server.ini.j2
+    dest: "{{ server_config_path }}/{{ server_name }}.ini"
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+
+- name: Deploy SandboxVars.lua
+  template:
+    src: SandboxVars.lua.j2
+    dest: "{{ server_config_path }}/{{ server_name }}_SandboxVars.lua"
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+
+- name: Deploy zomboid.env
+  template:
+    src: zomboid.env.j2
+    dest: "{{ server_config_path }}/zomboid.env"
+    owner: "{{ server_user }}"
+    group: "{{ server_user }}"
+
+- name: Start Project Zomboid server
+  command: "sudo -u {{ server_user }} bash -c '{{ server_game_path }}/start-server.sh -servername {{ server_name }} -adminpassword {{ server_admin_password }} <{{ server_game_path }}/zomboid.control'"
+  async: 60
+  poll: 0
+  register: server_start

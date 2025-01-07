@@ -1,0 +1,17 @@
+[Unit]
+Description=Project Zomboid Dedicated Server
+After=network.target
+
+[Service]
+PrivateTmp=true
+Type=simple
+User=pzuser
+WorkingDirectory={{ server_game_path }}
+EnvironmentFile={{ server_config_path }}/zomboid.env
+ExecStart=/bin/sh -c "exec {{ server_game_path }}/start-server.sh -servername $SERVER_NAME -adminpassword $ADMIN_PASSWORD </opt/pzserver/zomboid.control"
+ExecStop=/bin/sh -c "echo save > {{ server_game_path }}/zomboid.control; sleep 15; echo quit > {{ server_game_path }}/zomboid.control"
+Sockets=zomboid.socket
+KillSignal=SIGCONT
+
+[Install]
+WantedBy=multi-user.target

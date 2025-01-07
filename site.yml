@@ -1,0 +1,9 @@
+- name: Project Zomboid playbook
+  hosts: game-servers
+  become: yes
+  remote_user: "{{ new_admin_user }}"
+  roles:
+    - ssh
+    - firewall
+    - server
+    - playit

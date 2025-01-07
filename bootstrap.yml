@@ -1,0 +1,7 @@
+---
+- hosts: game-servers
+  become: yes
+  remote_user: ubuntu
+  roles:
+    - ssh
+    - firewall

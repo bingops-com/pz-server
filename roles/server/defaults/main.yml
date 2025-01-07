@@ -1,0 +1,27 @@
+---
+
+server_game_path: "/opt/pzserver"
+
+server_name: "bingops"
+# server_admin_password: "ReallyHardPassword"
+
+server_user: "pzuser"
+server_user_home: "/home/{{ server_user }}"
+server_config_path: "{{ server_user_home }}/Zomboid/Server"
+
+# server.ini
+server_default_port: 16261
+server_password: ""
+server_max_players: 16
+server_public: false
+server_pvp: false
+server_max_account_per_user: 1
+
+server_rcon_port: 27015
+# server_rcon_password: "PickAStrongPassword"
+
+# SandboxVars.lua
+server_zombies_population: 5 # Low
+
+
+

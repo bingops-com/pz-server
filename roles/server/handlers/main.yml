@@ -1,0 +1,8 @@
+---
+
+- name: Enable and restart PZ socket
+  systemd:
+    name: zomboid.socket
+    state: started
+    daemon_reload: yes
+    enabled: yes

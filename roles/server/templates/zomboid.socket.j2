@@ -1,0 +1,9 @@
+[Unit]
+BindsTo=zomboid.service
+
+[Socket]
+ListenFIFO={{ server_game_path }}/zomboid.control
+FileDescriptorName=control
+RemoveOnStop=true
+SocketMode=0660
+SocketUser={{ server_user }}

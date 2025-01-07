@@ -1,0 +1,12 @@
+[Unit]
+Description=Playit service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/playit start
+Restart=always
+User={{ playit_user }}
+Group={{ playit_user }}
+
+[Install]
+WantedBy=multi-user.target

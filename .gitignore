@@ -1,0 +1,10 @@
+# Jetbrains
+.idea/
+
+# Terraform
+.terraform*
+terraform.tfstate*
+credentials.auto.tfvars
+
+# Ansible
+group_vars/game-servers.yml

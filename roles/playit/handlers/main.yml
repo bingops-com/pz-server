@@ -1,0 +1,8 @@
+---
+
+- name: Enable and start Playit
+  service:
+    name: playit
+    state: started
+    daemon_reload: yes
+    enabled: yes

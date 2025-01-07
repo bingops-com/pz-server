@@ -1,0 +1,39 @@
+---
+
+- name: Update and upgrade apt packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+    force_apt_get: yes
+
+- name: Install dependencies
+  apt:
+    name:
+      - software-properties-common
+      - lib32gcc-s1
+      - lib32stdc++6
+      - screen
+      - curl
+    state: present
+
+- name: Create SteamCMD directory
+  file:
+    path: /opt/steamcmd
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Install | Add i386 architecture
+  command: dpkg --add-architecture i386
+
+- name: accept steam license
+  debconf:
+    name: "steam"
+    question: "steam/question"
+    value: "I AGREE"
+    vtype: "select"
+
+- name: Install SteamCMD
+  apt:
+    name: steamcmd
+    update_cache: yes
