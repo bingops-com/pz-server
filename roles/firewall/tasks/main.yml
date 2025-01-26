@@ -32,6 +32,12 @@
     port: 27015
     proto: tcp
 
+- name: Allow Node Exporter port through UFW
+  ufw:
+    rule: allow
+    port: 9100
+    proto: tcp
+
 - name: Allow SSH port through UFW (to avoid lockout)
   ufw:
     rule: allow
