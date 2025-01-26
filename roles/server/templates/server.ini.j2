@@ -52,10 +52,10 @@ UDPPort=16262
 ResetID=580501
 
 # Enter the mod loading ID here. It can be found in \Steam\steamapps\workshop\modID\mods\modName\info.txt
-Mods=
+#Mods={% for mod in server_mods %}{{ mod.name }}{% if not loop.last %};{% endif %}{% endfor %}
 
 # Enter the foldername of the mod found in \Steam\steamapps\workshop\modID\mods\modName\media\maps\
-Map=Muldraugh, KY
+Map=Muldraugh, KY ;Grapeseed;BedfordFalls;North;South;West;vehicle_interior
 
 # Kick clients whose game files don't match the server's.
 DoLuaChecksum=true
@@ -97,7 +97,7 @@ NoFire=false
 AnnounceDeath=false
 
 # The number of in-game minutes it takes to read one page of a book\nMinimum=0.00 Maximum=60.00 Default=1.00
-MinutesPerPage=1.0
+MinutesPerPage={{ server_minutes_per_page }}
 
 # Loaded parts of the map are saved after this set number of real-world minutes have passed. (The map is usually saved only after clients leave a loaded area)\nMinimum=0 Maximum=2147483647 Default=0
 SaveWorldEveryMinutes=0
@@ -179,7 +179,7 @@ KnockedDownAllowed=true
 SneakModeHideFromOtherPlayers=true
 
 # List Workshop Mod IDs for the server to download. Each must be separated by a semicolon. Example: WorkshopItems=514427485;513111049
-WorkshopItems=
+#WorkshopItems={% for mod in server_mods %}{{ mod.id }}{% if not loop.last %};{% endif %}{% endfor %}
 
 # Show Steam usernames and avatars in the Players list. Can be true (visible to everyone), false (visible to no one), or admin (visible to only admins)
 SteamScoreboard=true
@@ -302,7 +302,7 @@ CarEngineAttractionModifier=0.5
 PlayerBumpPlayer=false
 
 # Controls display of remote players on the in-game map.\n1=Hidden 2=Friends 3=Everyone\nMinimum=1 Maximum=3 Default=1
-MapRemotePlayerVisibility=1
+MapRemotePlayerVisibility={{ server_map_remote_player_visibility }}
 
 # Minimum=1 Maximum=300 Default=5
 BackupsCount=5
@@ -315,72 +315,72 @@ BackupsOnVersionChange=true
 BackupsPeriod=0
 
 # Disables anti-cheat protection for type 1.
-AntiCheatProtectionType1=true
+AntiCheatProtectionType1={{ server_anti_cheat_protection_type_1 }}
 
 # Disables anti-cheat protection for type 2.
-AntiCheatProtectionType2=true
+AntiCheatProtectionType2={{ server_anti_cheat_protection_type_2 }}
 
 # Disables anti-cheat protection for type 3.
-AntiCheatProtectionType3=true
+AntiCheatProtectionType3={{ server_anti_cheat_protection_type_3 }}
 
 # Disables anti-cheat protection for type 4.
-AntiCheatProtectionType4=true
+AntiCheatProtectionType4={{ server_anti_cheat_protection_type_4 }}
 
 # Disables anti-cheat protection for type 5.
-AntiCheatProtectionType5=true
+AntiCheatProtectionType5={{ server_anti_cheat_protection_type_5 }}
 
 # Disables anti-cheat protection for type 6.
-AntiCheatProtectionType6=true
+AntiCheatProtectionType6={{ server_anti_cheat_protection_type_6 }}
 
 # Disables anti-cheat protection for type 7.
-AntiCheatProtectionType7=true
+AntiCheatProtectionType7={{ server_anti_cheat_protection_type_7 }}
 
 # Disables anti-cheat protection for type 8.
-AntiCheatProtectionType8=true
+AntiCheatProtectionType8={{ server_anti_cheat_protection_type_8 }}
 
 # Disables anti-cheat protection for type 9.
-AntiCheatProtectionType9=true
+AntiCheatProtectionType9={{ server_anti_cheat_protection_type_9 }}
 
 # Disables anti-cheat protection for type 10.
-AntiCheatProtectionType10=true
+AntiCheatProtectionType10={{ server_anti_cheat_protection_type_10 }}
 
 # Disables anti-cheat protection for type 11.
-AntiCheatProtectionType11=true
+AntiCheatProtectionType11={{ server_anti_cheat_protection_type_11 }}
 
 # Disables anti-cheat protection for type 12.
-AntiCheatProtectionType12=true
+AntiCheatProtectionType12={{ server_anti_cheat_protection_type_12 }}
 
 # Disables anti-cheat protection for type 13.
-AntiCheatProtectionType13=true
+AntiCheatProtectionType13={{ server_anti_cheat_protection_type_13 }}
 
 # Disables anti-cheat protection for type 14.
-AntiCheatProtectionType14=true
+AntiCheatProtectionType14={{ server_anti_cheat_protection_type_14 }}
 
 # Disables anti-cheat protection for type 15.
-AntiCheatProtectionType15=true
+AntiCheatProtectionType15={{ server_anti_cheat_protection_type_15 }}
 
 # Disables anti-cheat protection for type 16.
-AntiCheatProtectionType16=true
+AntiCheatProtectionType16={{ server_anti_cheat_protection_type_16 }}
 
 # Disables anti-cheat protection for type 17.
-AntiCheatProtectionType17=true
+AntiCheatProtectionType17={{ server_anti_cheat_protection_type_17 }}
 
 # Disables anti-cheat protection for type 18.
-AntiCheatProtectionType18=true
+AntiCheatProtectionType18={{ server_anti_cheat_protection_type_18 }}
 
 # Disables anti-cheat protection for type 19.
-AntiCheatProtectionType19=true
+AntiCheatProtectionType19={{ server_anti_cheat_protection_type_19 }}
 
 # Disables anti-cheat protection for type 20.
-AntiCheatProtectionType20=true
+AntiCheatProtectionType20={{ server_anti_cheat_protection_type_20 }}
 
-AntiCheatProtectionType21=true
+AntiCheatProtectionType21={{ server_anti_cheat_protection_type_21 }}
 
-AntiCheatProtectionType22=true
+AntiCheatProtectionType22={{ server_anti_cheat_protection_type_22 }}
 
-AntiCheatProtectionType23=true
+AntiCheatProtectionType23={{ server_anti_cheat_protection_type_23 }}
 
-AntiCheatProtectionType24=true
+AntiCheatProtectionType24={{ server_anti_cheat_protection_type_24 }}
 
 # Threshold value multiplier for anti-cheat protection: type 2.\nMinimum=1.00 Maximum=10.00 Default=3.00
 AntiCheatProtectionType2ThresholdMultiplier=3.0

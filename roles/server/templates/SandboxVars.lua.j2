@@ -185,13 +185,13 @@ SandboxVars = {
     -- Number of days until 100% growth. -1 means no growth. Zero means use the Erosion Speed option. Maximum 36,500 (100 years). Minimum=-1 Maximum=36500 Default=0
     ErosionDays = 0,
     -- Modifies the base XP gain from actions by this number. Minimum=0.00 Maximum=1000.00 Default=1.00
-    XpMultiplier = 1.0,
+    XpMultiplier = {{ server_xp_multiplier }},
     -- Determines if the XP multiplier affects passively levelled skills eg. Fitness and Strength.
-    XpMultiplierAffectsPassive = false,
+    XpMultiplierAffectsPassive = {{ server_xp_multiplier_affects_passive }},
     -- Use this to multiply or reduce engine general loudness. Minimum=0.00 Maximum=100.00 Default=1.00
     ZombieAttractionMultiplier = 1.0,
     -- Governs whether cars are locked, need keys to start etc.
-    VehicleEasyUse = false,
+    VehicleEasyUse = {{ server_vehicle_easy_use }},
     -- Controls the speed of plant growth. Default=Normal
     -- 1 = Very Fast
     -- 2 = Fast
@@ -234,7 +234,7 @@ SandboxVars = {
     -- 5 = Often
     LockedHouses = 6,
     -- Spawn with chips, water bottle, school bag, baseball bat and a hammer.
-    StarterKit = false,
+    StarterKit = {{ server_starter_kit }},
     -- Nutritional value of food affects the player's condition.
     Nutrition = true,
     -- Define how fast the food will spoil inside or outside fridge. Default=Normal
@@ -496,9 +496,9 @@ SandboxVars = {
     -- 2 = In bodies only
     MaggotSpawn = 1,
     -- The higher the value, the longer lightbulbs last before breaking. If 0, lightbulbs will never break. Does not affect vehicle headlights. Minimum=0.00 Maximum=1000.00 Default=1.00
-    LightBulbLifespan = 1.0,
+    LightBulbLifespan = {{ server_light_bulb_lifespan }},
     Map = {
-        AllowMiniMap = false,
+        AllowMiniMap = {{ server_allow_mini_map }},
         AllowWorldMap = true,
         MapAllKnown = false,
     },
