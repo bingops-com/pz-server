@@ -1,0 +1,15 @@
+---
+
+- name: Allow outgoing UDP traffic
+  community.general.ufw:
+    rule: allow
+    direction: out
+    proto: udp
+    to_ip: any
+
+- name: Allow incoming UDP traffic
+  community.general.ufw:
+    rule: allow
+    direction: in
+    proto: udp
+    from_ip: any

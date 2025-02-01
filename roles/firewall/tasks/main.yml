@@ -1,46 +1,13 @@
 ---
 
-- name: Ensure UFW is installed
-  apt:
-    name: ufw
-    state: present
+- name: Include install tasks
+  ansible.builtin.include_tasks: install.yml
 
-- name: Enable UFW
-  ufw:
-    state: enabled
+- name: Include configure tasks
+  ansible.builtin.include_tasks: configure.yml
 
-- name: Ensure outgoing traffic is allowed
-  ufw:
-    default: allow
-    direction: outgoing
+- name: Include rules tasks
+  ansible.builtin.include_tasks: rules.yml
 
-- name: Allow Project Zomboid UDP port through UFW
-  ufw:
-    rule: allow
-    port: 16261
-    proto: udp
-
-- name: Allow Project Zomboid UDP port through UFW
-  ufw:
-    rule: allow
-    port: 16262
-    proto: tcp
-
-- name: Allow Project Zomboid RCON port through UFW
-  ufw:
-    rule: allow
-    port: 27015
-    proto: tcp
-
-- name: Allow Node Exporter port through UFW
-  ufw:
-    rule: allow
-    port: 9100
-    proto: tcp
-
-- name: Allow SSH port through UFW (to avoid lockout)
-  ufw:
-    rule: allow
-    port: 22
-    proto: tcp
-  notify: Restart UFW
+- name: Include tunnel tasks
+  ansible.builtin.include_tasks: tunnel.yml
