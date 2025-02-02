@@ -1,11 +1,11 @@
 ---
 
 - name: Enable UFW
-  ansible.builtin.ufw:
+  community.general.ufw:
     state: enabled
 
 - name: Set UFW default outgoing policy to deny
-  ansible.builtin.ufw:
+  community.general.ufw:
     direction: outgoing
     policy: deny
   notify: Restart UFW

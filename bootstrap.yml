@@ -1,6 +1,8 @@
 ---
-- hosts: game-servers
-  become: yes
+
+- name: Bootstrap playbook
+  hosts: game-servers
+  become: true
   remote_user: ubuntu
   roles:
     - ssh

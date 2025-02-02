@@ -1,7 +1,7 @@
 ---
 
-- name: ssh user 
-  include_tasks: user.yml
+- name: SSH User
+  ansible.builtin.include_tasks: user.yml
 
-- name: ssh config 
-  include_tasks: config.yml
+- name: SSH Config
+  ansible.builtin.include_tasks: config.yml

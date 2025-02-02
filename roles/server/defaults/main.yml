@@ -11,14 +11,14 @@ server_config_path: "{{ server_user_home }}/Zomboid/Server"
 
 #### server.ini ####
 server_default_port: 16261
-server_password: ""
+# server_password: ""
 server_max_players: 16
 server_public: false
 server_pvp: false
 server_max_account_per_user: 1
 
-server_minutes_per_page: 0.1 # The number of in-game minutes it takes to read one page of a book\nMinimum=0.00 Maximum=60.00 Default=1.00
-server_map_remote_player_visibility: 3 # Controls display of remote players on the in-game map.\n1=Hidden 2=Friends 3=Everyone\nMinimum=1 Maximum=3 Default=1
+server_minutes_per_page: 0.1  # The number of in-game minutes it takes to read one page of a book\nMinimum=0.00 Maximum=60.00 Default=1.00
+server_map_remote_player_visibility: 3  # Controls display of remote players on the in-game map.\n1=Hidden 2=Friends 3=Everyone\nMinimum=1 Maximum=3 Default=1
 
 server_rcon_port: 27015
 # server_rcon_password: "PickAStrongPassword"
@@ -50,92 +50,92 @@ server_anti_cheat_protection_type_23: false
 server_anti_cheat_protection_type_24: false
 
 server_mods:
-  - name: "modoptions" # https://steamcommunity.com/workshop/filedetails/?id=2169435993
+  - name: "modoptions"  # https://steamcommunity.com/workshop/filedetails/?id=2169435993
     id: "2169435993"
-  - name: "damnlib" # https://steamcommunity.com/workshop/filedetails/?id=3171167894
+  - name: "damnlib"  # https://steamcommunity.com/workshop/filedetails/?id=3171167894
     id: "3171167894"
-  - name: "tsarslib" # https://steamcommunity.com/workshop/filedetails/?id=2392709985
+  - name: "tsarslib"  # https://steamcommunity.com/workshop/filedetails/?id=2392709985
     id: "2392709985"
-  - name: "EasyConfigChucked" # https://steamcommunity.com/workshop/filedetails/?id=2529746725
+  - name: "EasyConfigChucked"  # https://steamcommunity.com/workshop/filedetails/?id=2529746725
     id: "2529746725"
-  - name: "errorMagnifier" # https://steamcommunity.com/workshop/filedetails/?id=2896041179
+  - name: "errorMagnifier"  # https://steamcommunity.com/workshop/filedetails/?id=2896041179
     id: "2896041179"
-  - name: "Grapeseed" # https://steamcommunity.com/sharedfiles/filedetails/?id=2463499011&searchtext=
+  - name: "Grapeseed"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2463499011&searchtext=
     id: "2463499011"
-  - name: "BedfordFalls" # https://steamcommunity.com/sharedfiles/filedetails/?id=522891356&searchtext=
+  - name: "BedfordFalls"  # https://steamcommunity.com/sharedfiles/filedetails/?id=522891356&searchtext=
     id: "522891356"
-  - name: "92amgeneralM998" # https://steamcommunity.com/sharedfiles/filedetails/?id=2642541073&searchtext=
+  - name: "92amgeneralM998"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2642541073&searchtext=
     id: "2642541073"
-  - name: "P4HasBeenRead" # https://steamcommunity.com/sharedfiles/filedetails/?id=2544353492&searchtext=
+  - name: "P4HasBeenRead"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2544353492&searchtext=
     id: "2544353492"
-  - name: "BCGTools" # https://steamcommunity.com/sharedfiles/filedetails/?id=2423906082&searchtext=
+  - name: "BCGTools"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2423906082&searchtext=
     id: "2423906082"
-  - name: "86oshkoshP19A" # https://steamcommunity.com/sharedfiles/filedetails/?id=2566953935&searchtext=
+  - name: "86oshkoshP19A"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2566953935&searchtext=
     id: "2566953935"
-  - name: "RainWash" # https://steamcommunity.com/sharedfiles/filedetails/?id=2657661246&searchtext=
+  - name: "RainWash"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2657661246&searchtext=
     id: "2657661246"
-  - name: "amclub" # https://steamcommunity.com/sharedfiles/filedetails/?id=2778576730&searchtext=
+  - name: "amclub"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2778576730&searchtext=
     id: "2778576730"
-  - name: "82oshkoshM911" # https://steamcommunity.com/sharedfiles/filedetails/?id=2618213077&searchtext=
+  - name: "82oshkoshM911"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2618213077&searchtext=
     id: "2618213077"
-  - name: "BCGRareWeapons" # https://steamcommunity.com/sharedfiles/filedetails/?id=2432621382&searchtext=
+  - name: "BCGRareWeapons"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2432621382&searchtext=
     id: "2432621382"
-  - name: "87cruiser" # https://steamcommunity.com/sharedfiles/filedetails/?id=2489148104&searchtext=
+  - name: "87cruiser"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2489148104&searchtext=
     id: "2489148104"
-  - name: "91range" # https://steamcommunity.com/sharedfiles/filedetails/?id=2409333430&searchtext=
+  - name: "91range"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2409333430&searchtext=
     id: "2409333430"
-  - name: "CombatText" # https://steamcommunity.com/sharedfiles/filedetails/?id=2286124931&searchtext=
+  - name: "CombatText"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2286124931&searchtext=
     id: "2286124931"
-  - name: "78amgeneralM35A2" # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
+  - name: "78amgeneralM35A2"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
     id: "2799152995"
-  - name: "78amgeneralM49A2C" # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
+  - name: "78amgeneralM49A2C"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
     id: "2799152995"
-  - name: "78amgeneralM50A3" # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
+  - name: "78amgeneralM50A3"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
     id: "2799152995"
-  - name: "78amgeneralM62" # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
+  - name: "78amgeneralM62"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
     id: "2799152995"
-  - name: "92nissanGTR" # https://steamcommunity.com/sharedfiles/filedetails/?id=2846036306&searchtext=
+  - name: "92nissanGTR"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2846036306&searchtext=
     id: "2846036306"
-  - name: "85merc" # https://steamcommunity.com/sharedfiles/filedetails/?id=2469388752&searchtext=
+  - name: "85merc"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2469388752&searchtext=
     id: "2469388752"
-  - name: "ReducedWoodWeight2x41" # https://steamcommunity.com/sharedfiles/filedetails/?id=2377867605&searchtext=
+  - name: "ReducedWoodWeight2x41"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2377867605&searchtext=
     id: "2377867605"
-  - name: "SpnCloth" # https://steamcommunity.com/sharedfiles/filedetails/?id=2684285534&searchtext=
+  - name: "SpnCloth"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2684285534&searchtext=
     id: "2684285534"
-  - name: "ProximityInventory" # https://steamcommunity.com/sharedfiles/filedetails/?id=2847184718&searchtext=
+  - name: "ProximityInventory"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2847184718&searchtext=
     id: "2847184718"
-  - name: "88chevyS10" # https://steamcommunity.com/sharedfiles/filedetails/?id=2886832936&searchtext=
+  - name: "88chevyS10"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2886832936&searchtext=
     id: "2886832936"
-  - name: "snowiswater" # https://steamcommunity.com/sharedfiles/filedetails/?id=2704811006&searchtext=
+  - name: "snowiswater"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2704811006&searchtext=
     id: "2704811006"
-  - name: "MoreBuilds" # https://steamcommunity.com/sharedfiles/filedetails/?id=515555911&searchtext=
+  - name: "MoreBuilds"  # https://steamcommunity.com/sharedfiles/filedetails/?id=515555911&searchtext=
     id: "515555911"
-  - name: "KillCount" # https://steamcommunity.com/sharedfiles/filedetails/?id=2553809727&searchtext=
+  - name: "KillCount"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2553809727&searchtext=
     id: "2553809727"
-  - name: "noirrsling" # https://steamcommunity.com/sharedfiles/filedetails/?id=2786499395&searchtext=
+  - name: "noirrsling"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2786499395&searchtext=
     id: "2786499395"
-  - name: "TheStar" # https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426&searchtext=
+  - name: "TheStar"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426&searchtext=
     id: "2619072426"
-  - name: "Brita" # https://steamcommunity.com/sharedfiles/filedetails/?id=2200148440&searchtext=
+  - name: "Brita"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2200148440&searchtext=
     id: "2200148440"
-  - name: "Arsenal(26)GunFighter[MAIN MOD 2.0]" # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490&searchtext=
+  - name: "Arsenal(26)GunFighter[MAIN MOD 2.0]"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490&searchtext=
     id: "2297098490"
-  - name: "Arsenal(26)GunFighter" # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490&searchtext=
+  - name: "Arsenal(26)GunFighter"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490&searchtext=
     id: "2297098490"
-  - name: "BB_CommonSense" # https://steamcommunity.com/sharedfiles/filedetails/?id=2875848298&searchtext=
+  - name: "BB_CommonSense"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2875848298&searchtext=
     id: "2875848298"
-  - name: "DylansTiles" # https://steamcommunity.com/sharedfiles/filedetails/?id=2599752664&searchtext=
+  - name: "DylansTiles"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2599752664&searchtext=
     id: "2599752664"
-  - name: "nattachments" # https://steamcommunity.com/sharedfiles/filedetails/?id=2754567348
+  - name: "nattachments"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2754567348
     id: "2754567348"
-  - name: "RV_Interior_MP;RV_Interior_Vanilla" # https://steamcommunity.com/sharedfiles/filedetails/?id=2822286426&searchtext=
+  - name: "RV_Interior_MP;RV_Interior_Vanilla"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2822286426&searchtext=
     id: "2822286426"
 
 #### SandboxVars.lua ####
-server_zombies_population: "5" # Low, default : 3 -- Changing this sets the "Population Multiplier" advanced option. Default=Normal
-server_vehicle_easy_use: "true" # default : false -- Governs whether cars are locked, need keys to start etc.
-server_light_bulb_lifespan: "10" #  The higher the value, the longer lightbulbs last before breaking. If 0, lightbulbs will never break. Does not affect vehicle headlights. Minimum=0.00 Maximum=1000.00 Default=1.00
-server_allow_mini_map: "true" # default : false
-server_xp_multiplier: "3" # Modifies the base XP gain from actions by this number. Minimum=0.00 Maximum=1000.00 Default=1.00
-server_xp_multiplier_affects_passive: "true" # default : false -- Determines if the XP multiplier affects passively levelled skills eg. Fitness and Strength.
-server_starter_kit: "true" # default : false -- Spawn with chips, water bottle, school bag, baseball bat and a hammer.
+server_zombies_population: "5"  # Low, default : 3 -- Changing this sets the "Population Multiplier" advanced option. Default=Normal
+server_vehicle_easy_use: "true"  # default : false -- Governs whether cars are locked, need keys to start etc.
+server_light_bulb_lifespan: "10"  #  The higher the value, the longer lightbulbs last before breaking. If 0, lightbulbs will never break. Does not affect vehicle headlights. Minimum=0.00 Maximum=1000.00 Default=1.00
+server_allow_mini_map: "true"  # default : false
+server_xp_multiplier: "3"  # Modifies the base XP gain from actions by this number. Minimum=0.00 Maximum=1000.00 Default=1.00
+server_xp_multiplier_affects_passive: "true"  # default : false -- Determines if the XP multiplier affects passively levelled skills eg. Fitness and Strength.
+server_starter_kit: "true"  # default : false -- Spawn with chips, water bottle, school bag, baseball bat and a hammer.

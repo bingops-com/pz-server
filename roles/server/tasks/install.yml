@@ -1,48 +1,51 @@
 ---
 
 - name: Add Zomboid server user
-  user:
+  ansible.builtin.user:
     name: "{{ server_user }}"
     home: "/home/{{ server_user }}"
     shell: /bin/bash
-    create_home: yes
+    create_home: true
     state: present
 
 - name: Create Zomboid server directory
-  file:
+  ansible.builtin.file:
     path: "{{ server_game_path }}"
     state: directory
     owner: "{{ server_user }}"
     group: "{{ server_user }}"
+    mode: '0755'
 
 - name: Install zomboid dedicated server via SteamCMD
-  command: "sudo -u pzuser /usr/games/steamcmd +login anonymous +force_install_dir {{ server_game_path }} +app_update 380870 validate +quit"
+  ansible.builtin.command: "sudo -u pzuser /usr/games/steamcmd +login anonymous +force_install_dir {{ server_game_path }} +app_update 380870 validate +quit"
   register: pz_install
   changed_when: >
     "Success! App '380870' fully installed." in pz_install.stdout
 
 - name: Create server configuration directory
-  file:
+  ansible.builtin.file:
     path: "{{ server_config_path }}"
     state: directory
     owner: "{{ server_user }}"
     group: "{{ server_user }}"
+    mode: '0755'
 
 - name: Deploy zomboid.env
-  template:
+  ansible.builtin.template:
     src: zomboid.env.j2
     dest: "{{ server_config_path }}/zomboid.env"
     owner: "{{ server_user }}"
     group: "{{ server_user }}"
+    mode: '0644'
 
 - name: Start Project Zomboid server
-  command: "sudo -u {{ server_user }} bash -c '{{ server_game_path }}/start-server.sh -servername {{ server_name }} -adminpassword {{ server_admin_password }} <{{ server_game_path }}/zomboid.control'"
+  ansible.builtin.command: "sudo -u {{ server_user }} bash -c '{{ server_game_path }}/start-server.sh -servername {{ server_name }} -adminpassword {{ server_admin_password }} <{{ server_game_path }}/zomboid.control'"
   async: 60
   poll: 0
   register: server_start
 
 - name: Remove Project Zomboid process if exists
-  command: "killall ProjectZomboid64"
+  ansible.builtin.command: "killall ProjectZomboid64"
   ignore_errors: true
 
 - name: Remove file if it exists
@@ -51,15 +54,17 @@
     state: absent
 
 - name: Deploy server.ini
-  template:
+  ansible.builtin.template:
     src: server.ini.j2
     dest: "{{ server_config_path }}/{{ server_name }}.ini"
     owner: "{{ server_user }}"
     group: "{{ server_user }}"
+    mode: '0644'
 
 - name: Deploy SandboxVars.lua
-  template:
+  ansible.builtin.template:
     src: SandboxVars.lua.j2
     dest: "{{ server_config_path }}/{{ server_name }}_SandboxVars.lua"
     owner: "{{ server_user }}"
     group: "{{ server_user }}"
+    mode: '0644'

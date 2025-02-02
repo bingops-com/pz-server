@@ -1,0 +1,13 @@
+---
+extends: default
+
+rules:
+  line-length:
+    max: 0  # Set to 0 to disable the line-length rule
+    level: warning  # Optionally change to "error" or "ignore"
+  trailing-spaces:
+    level: error
+  document-start:
+    level: warning
+  new-lines:
+    level: error

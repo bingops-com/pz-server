@@ -1,11 +1,11 @@
 ---
 
 - name: Restart SSH
-  service:
+  ansible.builtin.systemd:
     name: sshd
     state: restarted
 
 - name: Restart UFW
-  service:
+  ansible.builtin.systemd:
     name: ufw
     state: restarted
