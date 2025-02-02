@@ -1,8 +1,8 @@
 ---
 
 - name: Enable and start Playit
-  service:
+  ansible.builtin.systemd:
     name: playit
     state: started
-    daemon_reload: yes
-    enabled: yes
+    daemon_reload: true
+    enabled: true

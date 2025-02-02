@@ -1,10 +1,10 @@
 ---
 
 - name: Include prereqs tasks
-  include_tasks: prereqs.yml
+  ansible.builtin.include_tasks: prereqs.yml
 
 - name: Include install tasks
-  include_tasks: install.yml
+  ansible.builtin.include_tasks: install.yml
 
 - name: Include service tasks
-  include_tasks: service.yml
+  ansible.builtin.include_tasks: service.yml

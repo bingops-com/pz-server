@@ -2,13 +2,12 @@
 
 - name: Update apt package index
   ansible.builtin.apt:
-    update_cache: yes
-    upgrade: yes
+    update_cache: true
+    upgrade: true
 
 - name: Install OpenSSH Server (if not installed)
   ansible.builtin.apt:
-    name:
-      - openssh-server
+    name: openssh-server
     state: present
 
 - name: Ensure sudo package exists
@@ -31,7 +30,7 @@
 - name: Create new admin user without password
   ansible.builtin.user:
     name: "{{ new_admin_user }}"
-    generate_ssh_key: yes
+    generate_ssh_key: true
     ssh_key_bits: 4096
     ssh_key_type: rsa
     groups: sudo
@@ -40,13 +39,8 @@
     shell: /bin/bash
 
 - name: Add admin SSH public keys
-  ansible.builtin.authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ new_admin_user }}"
     key: "{{ item }}"
-  loop: "{{ admin_ssh_pub_keys }}"
-
-- name: Ensure SSH service is running and enabled
-  ansible.builtin.service:
-    name: sshd
-    state: restarted
-    enabled: yes
+  loop: "{{ ssh_admin_pub_keys }}"
+  notify: Restart SSH

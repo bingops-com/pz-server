@@ -1,8 +1,8 @@
 ---
 
 - name: Enable and restart PZ socket
-  systemd:
+  ansible.builtin.systemd:
     name: zomboid.socket
     state: started
-    daemon_reload: yes
-    enabled: yes
+    daemon_reload: true
+    enabled: true

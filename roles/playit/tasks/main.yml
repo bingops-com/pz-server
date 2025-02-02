@@ -1,11 +1,11 @@
 ---
 
-- name: "Add {{ playit_user }} user"
-  user:
+- name: "Add Playit user"
+  ansible.builtin.user:
     name: "{{ playit_user }}"
     home: "/home/{{ playit_user }}"
     shell: /bin/bash
-    create_home: yes
+    create_home: true
     state: present
 
 - name: Download playit binary
@@ -15,7 +15,7 @@
     mode: '0755'
 
 - name: Deploy Playit service
-  template:
+  ansible.builtin.template:
     src: playit.service.j2
     dest: /etc/systemd/system/playit.service
     owner: root

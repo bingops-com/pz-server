@@ -1,13 +1,13 @@
 ---
 
 - name: Update and upgrade apt packages
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     upgrade: dist
-    force_apt_get: yes
+    force_apt_get: true
 
 - name: Install dependencies
-  apt:
+  ansible.builtin.apt:
     name:
       - software-properties-common
       - lib32gcc-s1
@@ -17,23 +17,24 @@
     state: present
 
 - name: Create SteamCMD directory
-  file:
+  ansible.builtin.file:
     path: /opt/steamcmd
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
+    mode: "0755"
 
 - name: Install | Add i386 architecture
-  command: dpkg --add-architecture i386
+  ansible.builtin.command: dpkg --add-architecture i386
 
-- name: accept steam license
-  debconf:
+- name: Accept steam license
+  ansible.builtin.debconf:
     name: "steam"
     question: "steam/question"
     value: "I AGREE"
     vtype: "select"
 
 - name: Install SteamCMD
-  apt:
+  ansible.builtin.apt:
     name: steamcmd
-    update_cache: yes
+    update_cache: true
