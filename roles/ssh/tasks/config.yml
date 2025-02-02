@@ -1,3 +1,5 @@
+---
+
 - name: Synchronize SSHD config
   ansible.builtin.template:
     src: "sshd_config.j2"

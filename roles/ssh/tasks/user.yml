@@ -7,7 +7,7 @@
 
 - name: Install OpenSSH Server (if not installed)
   ansible.builtin.apt:
-    name: 
+    name:
       - openssh-server
     state: present
 

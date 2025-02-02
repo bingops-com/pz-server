@@ -11,7 +11,7 @@ server_config_path: "{{ server_user_home }}/Zomboid/Server"
 
 #### server.ini ####
 server_default_port: 16261
-server_password: ""
+# server_password: ""
 server_max_players: 16
 server_public: false
 server_pvp: false

@@ -22,5 +22,3 @@
     group: root
     mode: '0644'
   notify: Enable and start Playit
-
-
