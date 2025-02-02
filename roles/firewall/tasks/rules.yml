@@ -1,0 +1,64 @@
+---
+
+- name: Allow SSH port through UFW (to avoid lockout)
+  ansible.builtin.ufw:
+    rule: allow
+    port: 22
+    proto: tcp
+
+- name: Allow outgoing DNS traffic (port 53)
+  ansible.builtin.ufw:
+    rule: allow
+    direction: out
+    port: 53
+    proto: udp
+
+- name: Allow outgoing HTTP traffic (port 80)
+  ansible.builtin.ufw:
+    rule: allow
+    direction: out
+    port: 80
+    proto: tcp
+
+- name: Allow outgoing HTTPS traffic (port 443)
+  ansible.builtin.ufw:
+    rule: allow
+    direction: out
+    port: 443
+    proto: tcp
+
+- name: Allow Project Zomboid UDP port through UFW
+  ansible.builtin.ufw:
+    rule: allow
+    port: 16261
+    proto: udp
+
+- name: Allow Project Zomboid UDP port through UFW
+  ansible.builtin.ufw:
+    rule: allow
+    port: 16262
+    proto: tcp
+
+- name: Allow Project Zomboid RCON port through UFW
+  ansible.builtin.ufw:
+    rule: allow
+    port: 27015
+    proto: tcp
+
+- name: Allow Node Exporter port through UFW
+  ansible.builtin.ufw:
+    rule: allow
+    port: 9100
+    proto: tcp
+
+- name: Allow outgoing traffic to a specific machine
+  ansible.builtin.ufw:
+    rule: allow
+    direction: out
+    to_ip: "{{ ansible_default_ipv4.address }}"
+
+- name: Allow incoming traffic from a specific machine
+  ansible.builtin.ufw:
+    rule: allow
+    direction: in
+    from_ip: "{{ ansible_default_ipv4.address }}"
