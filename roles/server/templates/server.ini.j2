@@ -52,7 +52,7 @@ UDPPort=16262
 ResetID=580501
 
 # Enter the mod loading ID here. It can be found in \Steam\steamapps\workshop\modID\mods\modName\info.txt
-#Mods={% for mod in server_mods %}{{ mod.name }}{% if not loop.last %};{% endif %}{% endfor %}
+Mods={% for mod in server_mods %}{{ mod.name }}{% if not loop.last %};{% endif %}{% endfor %}
 
 # Enter the foldername of the mod found in \Steam\steamapps\workshop\modID\mods\modName\media\maps\
 Map=Muldraugh, KY ;Grapeseed;BedfordFalls;North;South;West;vehicle_interior
@@ -179,7 +179,7 @@ KnockedDownAllowed=true
 SneakModeHideFromOtherPlayers=true
 
 # List Workshop Mod IDs for the server to download. Each must be separated by a semicolon. Example: WorkshopItems=514427485;513111049
-#WorkshopItems={% for mod in server_mods %}{{ mod.id }}{% if not loop.last %};{% endif %}{% endfor %}
+WorkshopItems={% for mod in server_mods %}{{ mod.id }}{% if not loop.last %};{% endif %}{% endfor %}
 
 # Show Steam usernames and avatars in the Players list. Can be true (visible to everyone), false (visible to no one), or admin (visible to only admins)
 SteamScoreboard=true

@@ -24,30 +24,30 @@ server_rcon_port: 27015
 # server_rcon_password: "PickAStrongPassword"
 
 # Anticheats
-server_anti_cheat_protection_type_1: true
+server_anti_cheat_protection_type_1: false
 server_anti_cheat_protection_type_2: false
-server_anti_cheat_protection_type_3: true
-server_anti_cheat_protection_type_4: true
-server_anti_cheat_protection_type_5: true
-server_anti_cheat_protection_type_6: true
-server_anti_cheat_protection_type_7: true
-server_anti_cheat_protection_type_8: true
-server_anti_cheat_protection_type_9: true
-server_anti_cheat_protection_type_10: true
-server_anti_cheat_protection_type_11: true
+server_anti_cheat_protection_type_3: false
+server_anti_cheat_protection_type_4: false
+server_anti_cheat_protection_type_5: false
+server_anti_cheat_protection_type_6: false
+server_anti_cheat_protection_type_7: false
+server_anti_cheat_protection_type_8: false
+server_anti_cheat_protection_type_9: false
+server_anti_cheat_protection_type_10: false
+server_anti_cheat_protection_type_11: false
 server_anti_cheat_protection_type_12: false
-server_anti_cheat_protection_type_13: true
-server_anti_cheat_protection_type_14: true
-server_anti_cheat_protection_type_15: true
-server_anti_cheat_protection_type_16: true
-server_anti_cheat_protection_type_17: true
-server_anti_cheat_protection_type_18: true
-server_anti_cheat_protection_type_19: true
-server_anti_cheat_protection_type_20: true
-server_anti_cheat_protection_type_21: true
-server_anti_cheat_protection_type_22: true
-server_anti_cheat_protection_type_23: true
-server_anti_cheat_protection_type_24: true
+server_anti_cheat_protection_type_13: false
+server_anti_cheat_protection_type_14: false
+server_anti_cheat_protection_type_15: false
+server_anti_cheat_protection_type_16: false
+server_anti_cheat_protection_type_17: false
+server_anti_cheat_protection_type_18: false
+server_anti_cheat_protection_type_19: false
+server_anti_cheat_protection_type_20: false
+server_anti_cheat_protection_type_21: false
+server_anti_cheat_protection_type_22: false
+server_anti_cheat_protection_type_23: false
+server_anti_cheat_protection_type_24: false
 
 server_mods:
   - name: "modoptions" # https://steamcommunity.com/workshop/filedetails/?id=2169435993
