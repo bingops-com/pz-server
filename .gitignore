@@ -7,4 +7,5 @@ terraform.tfstate*
 credentials.auto.tfvars
 
 # Ansible
+.ansible
 group_vars/game-servers.yml
