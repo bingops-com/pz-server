@@ -2,7 +2,7 @@
 
 server_game_path: "/opt/pzserver"
 
-server_name: "bingops"
+server_name: "pz-server"
 # server_admin_password: "ReallyHardPassword"
 
 server_user: "pzuser"
@@ -50,125 +50,8 @@ server_anti_cheat_protection_type_23: false
 server_anti_cheat_protection_type_24: false
 
 server_mods:
-  - name: "modoptions"  # https://steamcommunity.com/workshop/filedetails/?id=2169435993
-    id: "2169435993"
-  - name: "damnlib"  # https://steamcommunity.com/workshop/filedetails/?id=3171167894
-    id: "3171167894"
-  - name: "tsarslib"  # https://steamcommunity.com/workshop/filedetails/?id=2392709985
-    id: "2392709985"
-  - name: "EasyConfigChucked"  # https://steamcommunity.com/workshop/filedetails/?id=2529746725
-    id: "2529746725"
-  - name: "errorMagnifier"  # https://steamcommunity.com/workshop/filedetails/?id=2896041179
-    id: "2896041179"
-  - name: "Grapeseed"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2463499011&searchtext=
-    id: "2463499011"
-  - name: "BedfordFalls"  # https://steamcommunity.com/sharedfiles/filedetails/?id=522891356&searchtext=
-    id: "522891356"
-  - name: "92amgeneralM998"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2642541073&searchtext=
-    id: "2642541073"
-  - name: "P4HasBeenRead"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2544353492&searchtext=
-    id: "2544353492"
-  - name: "BCGTools"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2423906082&searchtext=
-    id: "2423906082"
-  - name: "86oshkoshP19A"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2566953935&searchtext=
-    id: "2566953935"
-  - name: "RainWash"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2657661246&searchtext=
-    id: "2657661246"
-  - name: "amclub"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2778576730&searchtext=
-    id: "2778576730"
-  - name: "82oshkoshM911"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2618213077&searchtext=
-    id: "2618213077"
-  - name: "BCGRareWeapons"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2432621382&searchtext=
-    id: "2432621382"
-  - name: "87cruiser"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2489148104&searchtext=
-    id: "2489148104"
-  - name: "91range"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2409333430&searchtext=
-    id: "2409333430"
-  - name: "CombatText"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2286124931&searchtext=
-    id: "2286124931"
-  - name: "78amgeneralM35A2"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
-    id: "2799152995"
-  - name: "78amgeneralM49A2C"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
-    id: "2799152995"
-  - name: "78amgeneralM50A3"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
-    id: "2799152995"
-  - name: "78amgeneralM62"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
-    id: "2799152995"
-  - name: "92nissanGTR"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2846036306&searchtext=
-    id: "2846036306"
-  - name: "85merc"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2469388752&searchtext=
-    id: "2469388752"
-  - name: "ReducedWoodWeight2x41"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2377867605&searchtext=
-    id: "2377867605"
-  - name: "SpnCloth"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2684285534&searchtext=
-    id: "2684285534"
-  - name: "ProximityInventory"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2847184718&searchtext=
-    id: "2847184718"
-  - name: "88chevyS10"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2886832936&searchtext=
-    id: "2886832936"
-  - name: "snowiswater"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2704811006&searchtext=
-    id: "2704811006"
-  - name: "MoreBuilds"  # https://steamcommunity.com/sharedfiles/filedetails/?id=515555911&searchtext=
-    id: "515555911"
-  - name: "KillCount"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2553809727&searchtext=
-    id: "2553809727"
-  - name: "noirrsling"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2786499395&searchtext=
-    id: "2786499395"
-  - name: "TheStar"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426&searchtext=
-    id: "2619072426"
-  - name: "Brita"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2200148440&searchtext=
-    id: "2200148440"
-  - name: "Arsenal(26)GunFighter[MAIN MOD 2.0]"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490&searchtext=
-    id: "2297098490"
-  - name: "Arsenal(26)GunFighter"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490&searchtext=
-    id: "2297098490"
-  - name: "BB_CommonSense"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2875848298&searchtext=
-    id: "2875848298"
-  - name: "DylansTiles"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2599752664&searchtext=
-    id: "2599752664"
-  - name: "nattachments"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2754567348
-    id: "2754567348"
-  - name: "RV_Interior_MP;RV_Interior_Vanilla"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2822286426&searchtext=
-    id: "2822286426"
-  - name: "autotsartrailers" # https://steamcommunity.com/sharedfiles/filedetails/?id=2282429356&searchtext=
-    id: "2282429356"
-  - name: "ATA_Bus" # https://steamcommunity.com/sharedfiles/filedetails/?id=2592358528&searchtext=
-    id: "2592358528"
-  - name: "97bushmaster" # https://steamcommunity.com/sharedfiles/filedetails/?id=2897390033&searchtext=
-    id: "2897390033"
-  - name: "ATA_VanDeRumba" # https://steamcommunity.com/sharedfiles/filedetails/?id=2811232708&searchtext=
-    id: "2811232708"
-  - name: "TMC_TrueActions" # https://steamcommunity.com/sharedfiles/filedetails/?id=2487022075&searchtext=
-    id: "2487022075"
-  - name: "MapLegendUI" # https://steamcommunity.com/sharedfiles/filedetails/?id=2710167561&searchtext=
-    id: "2710167561"
-  - name: "VanillaGearExpanded" # https://steamcommunity.com/sharedfiles/filedetails/?id=3401134276&searchtext=
-    id: "3401134276"
-  - name: "isoContainers" # https://steamcommunity.com/sharedfiles/filedetails/?id=2625625421&searchtext=
-    id: "2625625421"
-  - name: "FencingKits" # https://steamcommunity.com/sharedfiles/filedetails/?id=2812828771&searchtext=
-    id: "2812828771"
-  - name: "ExtraMapSymbols;ExtraMapSymbolsUI" # https://steamcommunity.com/sharedfiles/filedetails/?id=2701170568&searchtext=map
-    id: "2701170568"
-  - name: "ATA_Jeep;ATA_Jeep_x10;ATA_Jeep_x2;ATA_Jeep_x4" # https://steamcommunity.com/sharedfiles/filedetails/?id=2636100523&searchtext=
-    id: "2636100523"
-  - name: "MinimalDisplayBars" # https://steamcommunity.com/sharedfiles/filedetails/?id=2004998206&searchtext=
-    id: "2004998206"
-  - name: "TakeAnyAmount" # https://steamcommunity.com/sharedfiles/filedetails/?id=2985394645&searchtext=
-    id: "2985394645"
-  - name: "FactionMap" # https://steamcommunity.com/sharedfiles/filedetails/?id=2877685881&searchtext=
-    id: "2877685881"
-  - name: "EasyPacking;EasyPackingFirearmsB41;EasyPackingGunFighter2" # https://steamcommunity.com/sharedfiles/filedetails/?id=2438225189&searchtext=pack
-    id: "2438225189"
-  - name: "StandardizedVehicleUpgrades3Core;StandardizedVehicleUpgrades3TS;StandardizedVehicleUpgrades3ZI" # https://steamcommunity.com/sharedfiles/filedetails/?id=3304580957
-    id: "3304580957"
-  - name: "StandardizedVehicleUpgrades3V" # https://steamcommunity.com/sharedfiles/filedetails/?id=3304582091
-    id: "3304582091"
-  - name: "PZKArmorForMotoriousZone" # https://steamcommunity.com/sharedfiles/filedetails/?id=3184827912
-    id: "3184827912"
-  - name: "fhqMotoriousZone;hqMotoriousZoneImports;fhqMotoriousZoneExotics;fhqMotoriousZoneRealNames;fhqMotoriousZoneUSDM" # https://steamcommunity.com/sharedfiles/filedetails/?id=2791656602
-    id: "2791656602"
-
+  - name: ""
+    id: ""
 
 #### SandboxVars.lua ####
 server_zombies_population: "5"  # Low, default : 3 -- Changing this sets the "Population Multiplier" advanced option. Default=Normal
