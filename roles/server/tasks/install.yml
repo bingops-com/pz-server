@@ -42,16 +42,15 @@
   ansible.builtin.command: "sudo -u {{ server_user }} bash -c '{{ server_game_path }}/start-server.sh -servername {{ server_name }} -adminpassword {{ server_admin_password }} <{{ server_game_path }}/zomboid.control'"
   async: 60
   poll: 0
-  register: server_start
 
 - name: Remove Project Zomboid process if exists
-  ansible.builtin.command: "killall ProjectZomboid64"
+  ansible.builtin.command: "killall -u {{ server_user }}"
   ignore_errors: true
 
-- name: Remove file if it exists
-  ansible.builtin.file:
-    path: "{{ server_game_path }}/zomboid.control"
-    state: absent
+# - name: Remove file if it exists
+#   ansible.builtin.file:
+#     path: "{{ server_game_path }}/zomboid.control"
+#     state: absent
 
 - name: Deploy server.ini
   ansible.builtin.template:
