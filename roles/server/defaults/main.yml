@@ -130,6 +130,45 @@ server_mods:
     id: "2754567348"
   - name: "RV_Interior_MP;RV_Interior_Vanilla"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2822286426&searchtext=
     id: "2822286426"
+  - name: "autotsartrailers" # https://steamcommunity.com/sharedfiles/filedetails/?id=2282429356&searchtext=
+    id: "2282429356"
+  - name: "ATA_Bus" # https://steamcommunity.com/sharedfiles/filedetails/?id=2592358528&searchtext=
+    id: "2592358528"
+  - name: "97bushmaster" # https://steamcommunity.com/sharedfiles/filedetails/?id=2897390033&searchtext=
+    id: "2897390033"
+  - name: "ATA_VanDeRumba" # https://steamcommunity.com/sharedfiles/filedetails/?id=2811232708&searchtext=
+    id: "2811232708"
+  - name: "TMC_TrueActions" # https://steamcommunity.com/sharedfiles/filedetails/?id=2487022075&searchtext=
+    id: "2487022075"
+  - name: "MapLegendUI" # https://steamcommunity.com/sharedfiles/filedetails/?id=2710167561&searchtext=
+    id: "2710167561"
+  - name: "VanillaGearExpanded" # https://steamcommunity.com/sharedfiles/filedetails/?id=3401134276&searchtext=
+    id: "3401134276"
+  - name: "isoContainers" # https://steamcommunity.com/sharedfiles/filedetails/?id=2625625421&searchtext=
+    id: "2625625421"
+  - name: "FencingKits" # https://steamcommunity.com/sharedfiles/filedetails/?id=2812828771&searchtext=
+    id: "2812828771"
+  - name: "ExtraMapSymbols;ExtraMapSymbolsUI" # https://steamcommunity.com/sharedfiles/filedetails/?id=2701170568&searchtext=map
+    id: "2701170568"
+  - name: "ATA_Jeep;ATA_Jeep_x10;ATA_Jeep_x2;ATA_Jeep_x4" # https://steamcommunity.com/sharedfiles/filedetails/?id=2636100523&searchtext=
+    id: "2636100523"
+  - name: "MinimalDisplayBars" # https://steamcommunity.com/sharedfiles/filedetails/?id=2004998206&searchtext=
+    id: "2004998206"
+  - name: "TakeAnyAmount" # https://steamcommunity.com/sharedfiles/filedetails/?id=2985394645&searchtext=
+    id: "2985394645"
+  - name: "FactionMap" # https://steamcommunity.com/sharedfiles/filedetails/?id=2877685881&searchtext=
+    id: "2877685881"
+  - name: "EasyPacking;EasyPackingFirearmsB41;EasyPackingGunFighter2" # https://steamcommunity.com/sharedfiles/filedetails/?id=2438225189&searchtext=pack
+    id: "2438225189"
+  - name: "StandardizedVehicleUpgrades3Core;StandardizedVehicleUpgrades3TS;StandardizedVehicleUpgrades3ZI" # https://steamcommunity.com/sharedfiles/filedetails/?id=3304580957
+    id: "3304580957"
+  - name: "StandardizedVehicleUpgrades3V" # https://steamcommunity.com/sharedfiles/filedetails/?id=3304582091
+    id: "3304582091"
+  - name: "PZKArmorForMotoriousZone" # https://steamcommunity.com/sharedfiles/filedetails/?id=3184827912
+    id: "3184827912"
+  - name: "fhqMotoriousZone;hqMotoriousZoneImports;fhqMotoriousZoneExotics;fhqMotoriousZoneRealNames;fhqMotoriousZoneUSDM" # https://steamcommunity.com/sharedfiles/filedetails/?id=2791656602
+    id: "2791656602"
+
 
 #### SandboxVars.lua ####
 server_zombies_population: "5"  # Low, default : 3 -- Changing this sets the "Population Multiplier" advanced option. Default=Normal
