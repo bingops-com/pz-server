@@ -15,5 +15,18 @@
     owner: root
     group: root
     mode: '0644'
-  notify:
-    - Enable and restart PZ socket
+
+- name: |
+    Stop zomboid.service]
+    DESCRIPTION [preventing errors if service is started and socket is not
+  ansible.builtin.systemd:
+    name: zomboid.service
+    state: stopped
+    enabled: true
+
+- name: Enable and start PZ socket
+  ansible.builtin.systemd:
+    name: zomboid.socket
+    state: restarted
+    enabled: true
+    daemon_reload: true

@@ -1,5 +1,7 @@
 [Unit]
+Description=Project Zomboid Server Control Socket
 BindsTo=zomboid.service
+Before=zomboid.service
 
 [Socket]
 ListenFIFO={{ server_game_path }}/zomboid.control
