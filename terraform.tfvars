@@ -9,7 +9,7 @@ nodes = {
     gw              = "192.168.1.1"
     vm_id           = 130
     cores           = 4
-    memory          = 8192 # 8GB
+    memory          = 12288 # 12GB
     network_bridge  = "vmbr0"
     role            = "master"
   },
