@@ -1,5 +1,19 @@
 ---
 
+- name: Create Node Exporter user
+  ansible.builtin.user:
+    name: node_exporter
+    system: true
+    shell: /bin/false
+
+- name: Create directories for Node Exporter
+  ansible.builtin.file:
+    path: "/etc/node_exporter"
+    state: directory
+    owner: node_exporter
+    group: node_exporter
+    mode: '0755'
+
 - name: Download Node Exporter
   ansible.builtin.get_url:
     url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
