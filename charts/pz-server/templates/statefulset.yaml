@@ -68,7 +68,9 @@ spec:
           startupProbe:
             tcpSocket:
               port: rcon
-            failureThreshold: 60
+            # A fresh Build 42 world can take well over ten minutes before RCON
+            # starts listening, even though the UDP game sockets open earlier.
+            failureThreshold: 180
             periodSeconds: 10
           readinessProbe:
             tcpSocket:
