@@ -1,6 +1,9 @@
 ---
 extends: default
 
+ignore: |
+  charts/*/templates/**
+
 rules:
   line-length:
     max: 0  # Set to 0 to disable the line-length rule

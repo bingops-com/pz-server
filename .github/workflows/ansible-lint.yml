@@ -25,7 +25,13 @@ jobs:
         run: |
           ansible-galaxy collection install -r requirements.yml
 
-      - name: Run ansible-lint
-        uses: ansible/ansible-lint-action@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          path: "./"
+          python-version: '3.x'
+
+      - name: Install ansible-lint
+        run: pip install ansible-lint
+
+      - name: Run ansible-lint
+        run: ansible-lint .
