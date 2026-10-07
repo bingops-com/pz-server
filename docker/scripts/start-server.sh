@@ -6,7 +6,12 @@ set -euo pipefail
 : "${SERVER_PASSWORD:?SERVER_PASSWORD is required}"
 : "${RCON_PASSWORD:?RCON_PASSWORD is required}"
 
-config_dir="${HOME}/Zomboid/Server"
+# The game keeps saves, accounts and configuration under its cache directory.
+# It derives the default from the passwd home of its user (/home/pz), not from
+# $HOME, so without -cachedir it writes inside the container: nothing reaches
+# the volume, the files written below are ignored and backups stay empty.
+cache_dir="${HOME}/Zomboid"
+config_dir="${cache_dir}/Server"
 
 while [[ -e /data/.backup-lock ]]; do
   lock_age=$(( $(date +%s) - $(stat -c %Y /data/.backup-lock) ))
@@ -53,7 +58,7 @@ shutdown_server() {
 
 server_pid=""
 trap shutdown_server TERM INT
-"${SERVER_DIR}/start-server.sh" -servername "${SERVER_NAME}" -adminpassword "${ADMIN_PASSWORD}" <"${control_fifo}" &
+"${SERVER_DIR}/start-server.sh" -cachedir="${cache_dir}" -servername "${SERVER_NAME}" -adminpassword "${ADMIN_PASSWORD}" <"${control_fifo}" &
 server_pid=$!
 touch "${running_marker}"
 wait "${server_pid}"

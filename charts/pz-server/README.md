@@ -13,6 +13,19 @@ When backups are enabled, `backup.secret.existingSecret` must contain
 `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `RESTIC_PASSWORD`. In LabOps,
 both Secrets are materialized by the Bitwarden Secrets Manager operator.
 
+## Persistent data
+
+The server is started with `-cachedir=/data/Zomboid`, so the world, player
+accounts and the configuration rendered from this chart all live on the PVC.
+Without that flag the game writes under the passwd home of its user, inside
+the container: the world is lost with the pod, the rendered configuration
+(join password included) is ignored and backups contain nothing. Verify after
+a rollout:
+
+```sh
+kubectl --context labprod exec -n pz-server pz-server-pz-server-0 -c pz-server -- ls /data/Zomboid/Saves/Multiplayer
+```
+
 ## Backups and restore
 
 The CronJob places a backup lock on the PVC, asks the running server to save and
