@@ -1,0 +1,59 @@
+{{- if .Values.restore.enabled }}
+{{- if not .Values.restore.id }}{{ fail "restore.id is required when restore.enabled=true" }}{{ end }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "pz-server.fullname" . }}-restore-{{ .Values.restore.id | trunc 20 | trimSuffix "-" }}
+  labels:
+    {{- include "pz-server.labels" . | nindent 4 }}
+    app.kubernetes.io/component: restore
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        {{- include "pz-server.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: restore
+    spec:
+      restartPolicy: Never
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: restore
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [/usr/local/bin/restore-server]
+          env:
+            - name: RESTIC_REPOSITORY
+              value: {{ include "pz-server.resticRepository" . | quote }}
+            - name: RESTIC_CACHE_DIR
+              value: /tmp/restic-cache
+            - name: AWS_DEFAULT_REGION
+              value: auto
+            - name: RESTIC_SNAPSHOT
+              value: {{ .Values.restore.snapshot | quote }}
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backup.secret.existingSecret }}
+                  key: {{ .Values.backup.secret.accessKeyIdKey }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backup.secret.existingSecret }}
+                  key: {{ .Values.backup.secret.secretAccessKeyKey }}
+            - name: RESTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.backup.secret.existingSecret }}
+                  key: {{ .Values.backup.secret.repositoryPasswordKey }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "pz-server.fullname" . }}-data
+{{- end }}

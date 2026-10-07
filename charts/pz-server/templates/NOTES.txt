@@ -1,0 +1,2 @@
+Project Zomboid is exposed on UDP NodePorts {{ .Values.service.nodePorts.game }} and {{ .Values.service.nodePorts.direct }}.
+RCON remains cluster-internal through {{ include "pz-server.fullname" . }}-rcon.

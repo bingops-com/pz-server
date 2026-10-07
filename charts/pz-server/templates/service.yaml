@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pz-server.fullname" . }}
+  labels:
+    {{- include "pz-server.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  {{- if eq .Values.service.type "NodePort" }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
+  {{- end }}
+  selector:
+    {{- include "pz-server.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: game
+      port: {{ .Values.server.ports.game }}
+      targetPort: game
+      protocol: UDP
+      {{- if and (eq .Values.service.type "NodePort") .Values.service.nodePorts.game }}
+      nodePort: {{ .Values.service.nodePorts.game }}
+      {{- end }}
+    - name: direct
+      port: {{ .Values.server.ports.direct }}
+      targetPort: direct
+      protocol: UDP
+      {{- if and (eq .Values.service.type "NodePort") .Values.service.nodePorts.direct }}
+      nodePort: {{ .Values.service.nodePorts.direct }}
+      {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pz-server.fullname" . }}-rcon
+  labels:
+    {{- include "pz-server.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "pz-server.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: rcon
+      port: {{ .Values.server.ports.rcon }}
+      targetPort: rcon
+      protocol: TCP

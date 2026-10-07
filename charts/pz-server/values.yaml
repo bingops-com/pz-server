@@ -1,0 +1,216 @@
+image:
+  repository: ghcr.io/bingops-com/pz-server
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+steam:
+  # Empty selects the stable Steam branch, which is Build 42.
+  beta: ""
+  validate: false
+
+server:
+  name: bingops
+  secret:
+    existingSecret: pz-server-secrets
+    adminPasswordKey: ADMIN_PASSWORD
+    serverPasswordKey: SERVER_PASSWORD
+    rconPasswordKey: RCON_PASSWORD
+  ports:
+    game: 16261
+    direct: 16262
+    rcon: 27015
+  ini:
+    PVP: false
+    PauseEmpty: true
+    GlobalChat: true
+    ChatStreams: s,r,a,w,y,sh,f,all
+    Open: true
+    AutoCreateUserInWhiteList: false
+    DisplayUserName: true
+    ShowFirstAndLastName: false
+    SpawnPoint: 0,0,0
+    SafetySystem: true
+    ShowSafety: true
+    SafetyToggleTimer: 2
+    SafetyCooldownTimer: 3
+    DefaultPort: 16261
+    UDPPort: 16262
+    Map: Muldraugh, KY
+    DoLuaChecksum: true
+    DenyLoginOnOverloadedServer: true
+    Public: false
+    PublicName: My PZ Server
+    PublicDescription: ""
+    MaxPlayers: 16
+    PingLimit: 400
+    HoursForLootRespawn: 0
+    MaxItemsForLootRespawn: 4
+    ConstructionPreventsLootRespawn: true
+    DropOffWhiteListAfterDeath: false
+    NoFire: false
+    AnnounceDeath: false
+    MinutesPerPage: 0.1
+    SaveWorldEveryMinutes: 0
+    PlayerSafehouse: false
+    AdminSafehouse: false
+    SafehouseAllowTrepass: true
+    SafehouseAllowFire: true
+    SafehouseAllowLoot: true
+    SafehouseAllowRespawn: false
+    SafehouseDaySurvivedToClaim: 0
+    SafeHouseRemovalTime: 144
+    AllowDestructionBySledgehammer: true
+    KickFastPlayers: false
+    RCONPort: 27015
+    MaxAccountsPerUser: 1
+    AllowCoop: true
+    SleepAllowed: false
+    SleepNeeded: false
+    SteamScoreboard: true
+    SteamVAC: true
+    UPnP: false
+    VoiceEnable: true
+    VoiceMinDistance: 10.0
+    VoiceMaxDistance: 100.0
+    Voice3D: true
+    SpeedLimit: 70.0
+    Faction: true
+    MapRemotePlayerVisibility: 3
+    BackupsCount: 5
+    BackupsOnStart: true
+    BackupsOnVersionChange: true
+    BackupsPeriod: 0
+  sandbox:
+    VERSION: 6
+    Zombies: 5
+    XpMultiplier: 3
+    XpMultiplierAffectsPassive: true
+    VehicleEasyUse: true
+    StarterKit: true
+    LightBulbLifespan: 10
+    AllowMiniMap: true
+
+# Migrated from the Build 41 Ansible configuration. Disabled because Build 41
+# mods and saves are not automatically compatible with Build 42.
+mods:
+  enabled: false
+  items:
+    - {name: modoptions, id: "2169435993"}
+    - {name: damnlib, id: "3171167894"}
+    - {name: tsarslib, id: "2392709985"}
+    - {name: EasyConfigChucked, id: "2529746725"}
+    - {name: errorMagnifier, id: "2896041179"}
+    - {name: Grapeseed, id: "2463499011"}
+    - {name: BedfordFalls, id: "522891356"}
+    - {name: 92amgeneralM998, id: "2642541073"}
+    - {name: P4HasBeenRead, id: "2544353492"}
+    - {name: BCGTools, id: "2423906082"}
+    - {name: 86oshkoshP19A, id: "2566953935"}
+    - {name: RainWash, id: "2657661246"}
+    - {name: amclub, id: "2778576730"}
+    - {name: 82oshkoshM911, id: "2618213077"}
+    - {name: BCGRareWeapons, id: "2432621382"}
+    - {name: 87cruiser, id: "2489148104"}
+    - {name: 91range, id: "2409333430"}
+    - {name: CombatText, id: "2286124931"}
+    - {name: 78amgeneralM35A2, id: "2799152995"}
+    - {name: 78amgeneralM49A2C, id: "2799152995"}
+    - {name: 78amgeneralM50A3, id: "2799152995"}
+    - {name: 78amgeneralM62, id: "2799152995"}
+    - {name: 92nissanGTR, id: "2846036306"}
+    - {name: 85merc, id: "2469388752"}
+    - {name: ReducedWoodWeight2x41, id: "2377867605"}
+    - {name: SpnCloth, id: "2684285534"}
+    - {name: ProximityInventory, id: "2847184718"}
+    - {name: 88chevyS10, id: "2886832936"}
+    - {name: snowiswater, id: "2704811006"}
+    - {name: MoreBuilds, id: "515555911"}
+    - {name: KillCount, id: "2553809727"}
+    - {name: noirrsling, id: "2786499395"}
+    - {name: TheStar, id: "2619072426"}
+    - {name: Brita, id: "2200148440"}
+    - {name: "Arsenal(26)GunFighter[MAIN MOD 2.0]", id: "2297098490"}
+    - {name: "Arsenal(26)GunFighter", id: "2297098490"}
+    - {name: BB_CommonSense, id: "2875848298"}
+    - {name: DylansTiles, id: "2599752664"}
+    - {name: nattachments, id: "2754567348"}
+    - {name: "RV_Interior_MP;RV_Interior_Vanilla", id: "2822286426"}
+    - {name: autotsartrailers, id: "2282429356"}
+    - {name: ATA_Bus, id: "2592358528"}
+    - {name: 97bushmaster, id: "2897390033"}
+    - {name: ATA_VanDeRumba, id: "2811232708"}
+    - {name: TMC_TrueActions, id: "2487022075"}
+    - {name: MapLegendUI, id: "2710167561"}
+    - {name: VanillaGearExpanded, id: "3401134276"}
+    - {name: isoContainers, id: "2625625421"}
+    - {name: FencingKits, id: "2812828771"}
+    - {name: "ExtraMapSymbols;ExtraMapSymbolsUI", id: "2701170568"}
+    - {name: "ATA_Jeep;ATA_Jeep_x10;ATA_Jeep_x2;ATA_Jeep_x4", id: "2636100523"}
+    - {name: MinimalDisplayBars, id: "2004998206"}
+    - {name: TakeAnyAmount, id: "2985394645"}
+    - {name: FactionMap, id: "2877685881"}
+    - {name: "EasyPacking;EasyPackingFirearmsB41;EasyPackingGunFighter2", id: "2438225189"}
+    - {name: "StandardizedVehicleUpgrades3Core;StandardizedVehicleUpgrades3TS;StandardizedVehicleUpgrades3ZI", id: "3304580957"}
+    - {name: StandardizedVehicleUpgrades3V, id: "3304582091"}
+    - {name: PZKArmorForMotoriousZone, id: "3184827912"}
+    - {name: "fhqMotoriousZone;hqMotoriousZoneImports;fhqMotoriousZoneExotics;fhqMotoriousZoneRealNames;fhqMotoriousZoneUSDM", id: "2791656602"}
+
+service:
+  type: NodePort
+  nodePorts:
+    game: 30261
+    direct: 30262
+  externalTrafficPolicy: Local
+
+persistence:
+  storageClass: local-path
+  size: 50Gi
+  accessModes: [ReadWriteOnce]
+  keep: true
+
+resources:
+  requests:
+    cpu: "2"
+    memory: 8Gi
+  limits:
+    cpu: "6"
+    memory: 16Gi
+
+backup:
+  enabled: true
+  schedule: "30 3 * * *"
+  endpoint: https://4d31056d6b4bf143606ff3ca757e0b8c.r2.cloudflarestorage.com
+  bucket: bingops-pz-labprod
+  prefix: server
+  secret:
+    existingSecret: pz-r2-credentials
+    accessKeyIdKey: AWS_ACCESS_KEY_ID
+    secretAccessKeyKey: AWS_SECRET_ACCESS_KEY
+    repositoryPasswordKey: RESTIC_PASSWORD
+  retention:
+    daily: 7
+    weekly: 4
+    monthly: 6
+
+restore:
+  enabled: false
+  # Change for every requested restore so the Job name is immutable and unique.
+  id: ""
+  snapshot: latest
+
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  fsGroupChangePolicy: OnRootMismatch
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: [ALL]
+  seccompProfile:
+    type: RuntimeDefault
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

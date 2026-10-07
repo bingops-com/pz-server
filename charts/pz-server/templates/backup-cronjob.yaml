@@ -1,0 +1,73 @@
+{{- if .Values.backup.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "pz-server.fullname" . }}-backup
+  labels:
+    {{- include "pz-server.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.backup.schedule | quote }}
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        metadata:
+          labels:
+            {{- include "pz-server.selectorLabels" . | nindent 12 }}
+            app.kubernetes.io/component: backup
+        spec:
+          restartPolicy: Never
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+            - name: backup
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              command: [/usr/local/bin/backup-server]
+              env:
+                - name: RCON_HOST
+                  value: {{ include "pz-server.fullname" . }}-rcon
+                - name: RCON_PORT
+                  value: {{ .Values.server.ports.rcon | quote }}
+                - name: RCON_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.server.secret.existingSecret }}
+                      key: {{ .Values.server.secret.rconPasswordKey }}
+                - name: RESTIC_REPOSITORY
+                  value: {{ include "pz-server.resticRepository" . | quote }}
+                - name: RESTIC_CACHE_DIR
+                  value: /tmp/restic-cache
+                - name: AWS_DEFAULT_REGION
+                  value: auto
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.backup.secret.existingSecret }}
+                      key: {{ .Values.backup.secret.accessKeyIdKey }}
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.backup.secret.existingSecret }}
+                      key: {{ .Values.backup.secret.secretAccessKeyKey }}
+                - name: RESTIC_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.backup.secret.existingSecret }}
+                      key: {{ .Values.backup.secret.repositoryPasswordKey }}
+                - {name: KEEP_DAILY, value: {{ .Values.backup.retention.daily | quote }}}
+                - {name: KEEP_WEEKLY, value: {{ .Values.backup.retention.weekly | quote }}}
+                - {name: KEEP_MONTHLY, value: {{ .Values.backup.retention.monthly | quote }}}
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              volumeMounts:
+                - name: data
+                  mountPath: /data
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: {{ include "pz-server.fullname" . }}-data
+{{- end }}

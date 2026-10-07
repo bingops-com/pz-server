@@ -1,0 +1,7 @@
+apiVersion: v2
+name: pz-server
+description: Project Zomboid Build 42 dedicated server with R2 backups
+type: application
+version: 0.1.0
+appVersion: "42"
+kubeVersion: ">=1.27.0-0"

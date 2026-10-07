@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "pz-server.fullname" . }}
+  labels:
+    {{- include "pz-server.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  serviceName: {{ include "pz-server.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "pz-server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "pz-server.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      terminationGracePeriodSeconds: 120
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: install-server
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [/usr/local/bin/install-server]
+          env:
+            - name: STEAM_BETA
+              value: {{ .Values.steam.beta | quote }}
+            - name: STEAM_VALIDATE
+              value: {{ .Values.steam.validate | quote }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      containers:
+        - name: pz-server
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: SERVER_NAME
+              value: {{ .Values.server.name | quote }}
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.server.secret.existingSecret }}
+                  key: {{ .Values.server.secret.adminPasswordKey }}
+            - name: SERVER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.server.secret.existingSecret }}
+                  key: {{ .Values.server.secret.serverPasswordKey }}
+            - name: RCON_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.server.secret.existingSecret }}
+                  key: {{ .Values.server.secret.rconPasswordKey }}
+          ports:
+            - {name: game, containerPort: {{ .Values.server.ports.game }}, protocol: UDP}
+            - {name: direct, containerPort: {{ .Values.server.ports.direct }}, protocol: UDP}
+            - {name: rcon, containerPort: {{ .Values.server.ports.rcon }}, protocol: TCP}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          startupProbe:
+            tcpSocket:
+              port: rcon
+            failureThreshold: 60
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: rcon
+            periodSeconds: 10
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: config
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "pz-server.fullname" . }}-data
+        - name: config
+          configMap:
+            name: {{ include "pz-server.fullname" . }}-config
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
