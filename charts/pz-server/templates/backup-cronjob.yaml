@@ -28,15 +28,6 @@ spec:
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: [/usr/local/bin/backup-server]
               env:
-                - name: RCON_HOST
-                  value: {{ include "pz-server.fullname" . }}-rcon
-                - name: RCON_PORT
-                  value: {{ .Values.server.ports.rcon | quote }}
-                - name: RCON_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .Values.server.secret.existingSecret }}
-                      key: {{ .Values.server.secret.rconPasswordKey }}
                 - name: RESTIC_REPOSITORY
                   value: {{ include "pz-server.resticRepository" . | quote }}
                 - name: RESTIC_CACHE_DIR

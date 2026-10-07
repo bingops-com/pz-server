@@ -66,15 +66,19 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           startupProbe:
-            tcpSocket:
-              port: rcon
-            # A fresh Build 42 world can take well over ten minutes before RCON
-            # starts listening, even though the UDP game sockets open earlier.
+            exec:
+              command:
+                - /bin/sh
+                - -ec
+                - 'port=$(printf "%04X" {{ .Values.server.ports.game }}); grep -qi ":${port} " /proc/net/udp /proc/net/udp6'
             failureThreshold: 180
             periodSeconds: 10
           readinessProbe:
-            tcpSocket:
-              port: rcon
+            exec:
+              command:
+                - /bin/sh
+                - -ec
+                - 'port=$(printf "%04X" {{ .Values.server.ports.game }}); grep -qi ":${port} " /proc/net/udp /proc/net/udp6'
             periodSeconds: 10
           volumeMounts:
             - name: data

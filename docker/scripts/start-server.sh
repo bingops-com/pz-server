@@ -29,10 +29,17 @@ fi
 sed -i '/^Password=/d;/^RCONPassword=/d' "${config_dir}/${SERVER_NAME}.ini"
 printf 'Password=%s\nRCONPassword=%s\n' "${SERVER_PASSWORD}" "${RCON_PASSWORD}" >> "${config_dir}/${SERVER_NAME}.ini"
 
-control_fifo=/tmp/pz-control
+control_fifo=/data/pz-control
+running_marker=/data/.server-running
 rm -f "${control_fifo}"
 mkfifo "${control_fifo}"
 exec 3<>"${control_fifo}"
+
+cleanup_runtime() {
+  rm -f "${running_marker}"
+}
+
+trap cleanup_runtime EXIT
 
 shutdown_server() {
   trap - TERM INT
@@ -48,4 +55,5 @@ server_pid=""
 trap shutdown_server TERM INT
 "${SERVER_DIR}/start-server.sh" -servername "${SERVER_NAME}" -adminpassword "${ADMIN_PASSWORD}" <"${control_fifo}" &
 server_pid=$!
+touch "${running_marker}"
 wait "${server_pid}"
