@@ -1,5 +1,9 @@
 # Project Zomboid Deployment with Terraform and Ansible
 
+> The VM deployment below is the legacy Build 41 deployment. The new Build 42
+> container image and Kubernetes chart live under `docker/` and
+> `charts/pz-server/`. See [the chart runbook](charts/pz-server/README.md).
+
 This documentation provides a high-level overview of setting up a Project Zomboid dedicated server using **Terraform** for VM provisioning and **Ansible** for server configuration.
 
 ![Project Zomboid Server](images/pz-server.png)
@@ -173,4 +177,3 @@ Executing the `site.yml` playbook will automatically install the Playit agent an
   ```bash
   sudo journalctl -u playit
   ```
-

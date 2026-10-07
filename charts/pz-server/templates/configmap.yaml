@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "pz-server.fullname" . }}-config
+  labels:
+    {{- include "pz-server.labels" . | nindent 4 }}
+data:
+  server.ini: |-
+    {{- range $key, $value := .Values.server.ini }}
+    {{ $key }}={{ $value }}
+    {{- end }}
+    {{- if .Values.mods.enabled }}
+    Mods={{ range $index, $mod := .Values.mods.items }}{{ if $index }};{{ end }}{{ $mod.name }}{{ end }}
+    WorkshopItems={{ range $index, $mod := .Values.mods.items }}{{ if $index }};{{ end }}{{ $mod.id }}{{ end }}
+    {{- else }}
+    Mods=
+    WorkshopItems=
+    {{- end }}
+  SandboxVars.lua: |-
+    SandboxVars = {
+    {{- range $key, $value := .Values.server.sandbox }}
+        {{ $key }} = {{ if kindIs "string" $value }}{{ $value | quote }}{{ else }}{{ $value }}{{ end }},
+    {{- end }}
+    }

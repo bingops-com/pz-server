@@ -1,0 +1,23 @@
+name: helm
+
+on:
+  push:
+    branches: [master]
+    paths: ['charts/**', '.github/workflows/helm.yml']
+  pull_request:
+    branches: [master]
+    paths: ['charts/**', '.github/workflows/helm.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.19.4
+      - run: helm lint charts/pz-server
+      - run: helm template pz-server charts/pz-server >/dev/null
