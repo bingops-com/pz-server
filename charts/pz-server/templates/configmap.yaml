@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "pz-server.labels" . | nindent 4 }}
 data:
-  server.ini: |-
+  server.ini: |
     {{- range $key, $value := .Values.server.ini }}
     {{ $key }}={{ $value }}
     {{- end }}

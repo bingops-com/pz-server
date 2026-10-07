@@ -23,6 +23,9 @@ mkdir -p "${config_dir}"
 install -m 0644 /config/server.ini "${config_dir}/${SERVER_NAME}.ini"
 install -m 0644 /config/SandboxVars.lua "${config_dir}/${SERVER_NAME}_SandboxVars.lua"
 
+if [[ -s "${config_dir}/${SERVER_NAME}.ini" ]] && [[ -n "$(tail -c 1 "${config_dir}/${SERVER_NAME}.ini")" ]]; then
+  printf '\n' >> "${config_dir}/${SERVER_NAME}.ini"
+fi
 sed -i '/^Password=/d;/^RCONPassword=/d' "${config_dir}/${SERVER_NAME}.ini"
 printf 'Password=%s\nRCONPassword=%s\n' "${SERVER_PASSWORD}" "${RCON_PASSWORD}" >> "${config_dir}/${SERVER_NAME}.ini"
 
