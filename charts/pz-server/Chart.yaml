@@ -1,3 +1,4 @@
+---
 apiVersion: v2
 name: pz-server
 description: Project Zomboid Build 42 dedicated server with R2 backups

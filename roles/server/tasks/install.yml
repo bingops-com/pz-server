@@ -18,9 +18,9 @@
 
 - name: Install zomboid dedicated server via SteamCMD
   ansible.builtin.command: "sudo -u pzuser /usr/games/steamcmd +login anonymous +force_install_dir {{ server_game_path }} +app_update 380870 validate +quit"
-  register: pz_install
+  register: server_pz_install
   changed_when: >
-    "Success! App '380870' fully installed." in pz_install.stdout
+    "Success! App '380870' fully installed." in server_pz_install.stdout
 
 - name: Create server configuration directory
   ansible.builtin.file:
