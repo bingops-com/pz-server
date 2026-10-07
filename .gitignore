@@ -9,3 +9,6 @@ credentials.auto.tfvars
 # Ansible
 .ansible
 group_vars/game-servers.yml
+agent-tools/
+pz-server/
+

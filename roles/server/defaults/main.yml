@@ -50,124 +50,794 @@ server_anti_cheat_protection_type_23: false
 server_anti_cheat_protection_type_24: false
 
 server_mods:
-  - name: "modoptions"  # https://steamcommunity.com/workshop/filedetails/?id=2169435993
+  - name: modoptions  # https://steamcommunity.com/sharedfiles/filedetails/?id=2169435993
     id: "2169435993"
-  - name: "damnlib"  # https://steamcommunity.com/workshop/filedetails/?id=3171167894
+  - name: damnlib  # https://steamcommunity.com/sharedfiles/filedetails/?id=3171167894
     id: "3171167894"
-  - name: "tsarslib"  # https://steamcommunity.com/workshop/filedetails/?id=2392709985
+  - name: tsarslib  # https://steamcommunity.com/sharedfiles/filedetails/?id=2392709985
     id: "2392709985"
-  - name: "EasyConfigChucked"  # https://steamcommunity.com/workshop/filedetails/?id=2529746725
+  - name: EasyConfigChucked  # https://steamcommunity.com/sharedfiles/filedetails/?id=2529746725
     id: "2529746725"
-  - name: "errorMagnifier"  # https://steamcommunity.com/workshop/filedetails/?id=2896041179
+  - name: errorMagnifier  # https://steamcommunity.com/sharedfiles/filedetails/?id=2896041179
     id: "2896041179"
-  - name: "Grapeseed"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2463499011&searchtext=
+  - name: Grapeseed  # https://steamcommunity.com/sharedfiles/filedetails/?id=2463499011
     id: "2463499011"
-  - name: "BedfordFalls"  # https://steamcommunity.com/sharedfiles/filedetails/?id=522891356&searchtext=
+  - name: BedfordFalls  # https://steamcommunity.com/sharedfiles/filedetails/?id=522891356
     id: "522891356"
-  - name: "92amgeneralM998"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2642541073&searchtext=
+  - name: 92amgeneralM998  # https://steamcommunity.com/sharedfiles/filedetails/?id=2642541073
     id: "2642541073"
-  - name: "P4HasBeenRead"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2544353492&searchtext=
+  - name: P4HasBeenRead  # https://steamcommunity.com/sharedfiles/filedetails/?id=2544353492
     id: "2544353492"
-  - name: "BCGTools"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2423906082&searchtext=
+  - name: BCGTools  # https://steamcommunity.com/sharedfiles/filedetails/?id=2423906082
     id: "2423906082"
-  - name: "86oshkoshP19A"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2566953935&searchtext=
+  - name: 86oshkoshP19A  # https://steamcommunity.com/sharedfiles/filedetails/?id=2566953935
     id: "2566953935"
-  - name: "RainWash"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2657661246&searchtext=
+  - name: RainWash  # https://steamcommunity.com/sharedfiles/filedetails/?id=2657661246
     id: "2657661246"
-  - name: "amclub"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2778576730&searchtext=
+  - name: amclub  # https://steamcommunity.com/sharedfiles/filedetails/?id=2778576730
     id: "2778576730"
-  - name: "82oshkoshM911"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2618213077&searchtext=
+  - name: 82oshkoshM911  # https://steamcommunity.com/sharedfiles/filedetails/?id=2618213077
     id: "2618213077"
-  - name: "BCGRareWeapons"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2432621382&searchtext=
+  - name: BCGRareWeapons  # https://steamcommunity.com/sharedfiles/filedetails/?id=2432621382
     id: "2432621382"
-  - name: "87cruiser"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2489148104&searchtext=
+  - name: 87cruiser  # https://steamcommunity.com/sharedfiles/filedetails/?id=2489148104
     id: "2489148104"
-  - name: "91range"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2409333430&searchtext=
+  - name: 91range  # https://steamcommunity.com/sharedfiles/filedetails/?id=2409333430
     id: "2409333430"
-  - name: "CombatText"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2286124931&searchtext=
+  - name: CombatText  # https://steamcommunity.com/sharedfiles/filedetails/?id=2286124931
     id: "2286124931"
-  - name: "78amgeneralM35A2"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
+  - name: 78amgeneralM35A2  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995
     id: "2799152995"
-  - name: "78amgeneralM49A2C"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
+  - name: 78amgeneralM49A2C  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995
     id: "2799152995"
-  - name: "78amgeneralM50A3"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
+  - name: 78amgeneralM50A3  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995
     id: "2799152995"
-  - name: "78amgeneralM62"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995&searchtext=
+  - name: 78amgeneralM62  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995
     id: "2799152995"
-  - name: "92nissanGTR"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2846036306&searchtext=
+  - name: 92nissanGTR  # https://steamcommunity.com/sharedfiles/filedetails/?id=2846036306
     id: "2846036306"
-  - name: "85merc"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2469388752&searchtext=
+  - name: 85merc  # https://steamcommunity.com/sharedfiles/filedetails/?id=2469388752
     id: "2469388752"
-  - name: "ReducedWoodWeight2x41"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2377867605&searchtext=
+  - name: ReducedWoodWeight2x41  # https://steamcommunity.com/sharedfiles/filedetails/?id=2377867605
     id: "2377867605"
-  - name: "SpnCloth"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2684285534&searchtext=
+  - name: SpnCloth  # https://steamcommunity.com/sharedfiles/filedetails/?id=2684285534
     id: "2684285534"
-  - name: "ProximityInventory"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2847184718&searchtext=
+  - name: ProximityInventory  # https://steamcommunity.com/sharedfiles/filedetails/?id=2847184718
     id: "2847184718"
-  - name: "88chevyS10"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2886832936&searchtext=
+  - name: 88chevyS10  # https://steamcommunity.com/sharedfiles/filedetails/?id=2886832936
     id: "2886832936"
-  - name: "snowiswater"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2704811006&searchtext=
+  - name: snowiswater  # https://steamcommunity.com/sharedfiles/filedetails/?id=2704811006
     id: "2704811006"
-  - name: "MoreBuilds"  # https://steamcommunity.com/sharedfiles/filedetails/?id=515555911&searchtext=
+  - name: MoreBuilds  # https://steamcommunity.com/sharedfiles/filedetails/?id=515555911
     id: "515555911"
-  - name: "KillCount"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2553809727&searchtext=
+  - name: KillCount  # https://steamcommunity.com/sharedfiles/filedetails/?id=2553809727
     id: "2553809727"
-  - name: "noirrsling"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2786499395&searchtext=
+  - name: noirrsling  # https://steamcommunity.com/sharedfiles/filedetails/?id=2786499395
     id: "2786499395"
-  - name: "TheStar"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426&searchtext=
+  - name: TheStar  # https://steamcommunity.com/sharedfiles/filedetails/?id=2619072426
     id: "2619072426"
-  - name: "Brita"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2200148440&searchtext=
+  - name: Brita  # https://steamcommunity.com/sharedfiles/filedetails/?id=2200148440
     id: "2200148440"
-  - name: "Arsenal(26)GunFighter[MAIN MOD 2.0]"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490&searchtext=
+  - name: "Arsenal(26)GunFighter[MAIN MOD 2.0]"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490
     id: "2297098490"
-  - name: "Arsenal(26)GunFighter"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490&searchtext=
+  - name: Arsenal(26)GunFighter  # https://steamcommunity.com/sharedfiles/filedetails/?id=2297098490
     id: "2297098490"
-  - name: "BB_CommonSense"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2875848298&searchtext=
+  - name: BB_CommonSense  # https://steamcommunity.com/sharedfiles/filedetails/?id=2875848298
     id: "2875848298"
-  - name: "DylansTiles"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2599752664&searchtext=
+  - name: DylansTiles  # https://steamcommunity.com/sharedfiles/filedetails/?id=2599752664
     id: "2599752664"
-  - name: "nattachments"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2754567348
+  - name: nattachments  # https://steamcommunity.com/sharedfiles/filedetails/?id=2754567348
     id: "2754567348"
-  - name: "RV_Interior_MP;RV_Interior_Vanilla"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2822286426&searchtext=
+  - name: RV_Interior_MP;RV_Interior_Vanilla  # https://steamcommunity.com/sharedfiles/filedetails/?id=2822286426
     id: "2822286426"
-  - name: "autotsartrailers"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2282429356&searchtext=
+  - name: autotsartrailers  # https://steamcommunity.com/sharedfiles/filedetails/?id=2282429356
     id: "2282429356"
-  - name: "ATA_Bus"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2592358528&searchtext=
+  - name: ATA_Bus  # https://steamcommunity.com/sharedfiles/filedetails/?id=2592358528
     id: "2592358528"
-  - name: "97bushmaster"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2897390033&searchtext=
+  - name: 97bushmaster  # https://steamcommunity.com/sharedfiles/filedetails/?id=2897390033
     id: "2897390033"
-  - name: "ATA_VanDeRumba"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2811232708&searchtext=
+  - name: ATA_VanDeRumba  # https://steamcommunity.com/sharedfiles/filedetails/?id=2811232708
     id: "2811232708"
-  - name: "TMC_TrueActions"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2487022075&searchtext=
+  - name: TMC_TrueActions  # https://steamcommunity.com/sharedfiles/filedetails/?id=2487022075
     id: "2487022075"
-  - name: "MapLegendUI"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2710167561&searchtext=
+  - name: MapLegendUI  # https://steamcommunity.com/sharedfiles/filedetails/?id=2710167561
     id: "2710167561"
-  - name: "VanillaGearExpanded"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3401134276&searchtext=
+  - name: VanillaGearExpanded  # https://steamcommunity.com/sharedfiles/filedetails/?id=3401134276
     id: "3401134276"
-  - name: "isoContainers"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2625625421&searchtext=
+  - name: isoContainers  # https://steamcommunity.com/sharedfiles/filedetails/?id=2625625421
     id: "2625625421"
-  - name: "FencingKits"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2812828771&searchtext=
+  - name: FencingKits  # https://steamcommunity.com/sharedfiles/filedetails/?id=2812828771
     id: "2812828771"
-  - name: "ExtraMapSymbols;ExtraMapSymbolsUI"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2701170568&searchtext=map
+  - name: ExtraMapSymbols;ExtraMapSymbolsUI  # https://steamcommunity.com/sharedfiles/filedetails/?id=2701170568
     id: "2701170568"
-  - name: "ATA_Jeep;ATA_Jeep_x10;ATA_Jeep_x2;ATA_Jeep_x4"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2636100523&searchtext=
+  - name: ATA_Jeep;ATA_Jeep_x10;ATA_Jeep_x2;ATA_Jeep_x4  # https://steamcommunity.com/sharedfiles/filedetails/?id=2636100523
     id: "2636100523"
-  - name: "MinimalDisplayBars"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2004998206&searchtext=
+  - name: MinimalDisplayBars  # https://steamcommunity.com/sharedfiles/filedetails/?id=2004998206
     id: "2004998206"
-  - name: "TakeAnyAmount"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2985394645&searchtext=
+  - name: TakeAnyAmount  # https://steamcommunity.com/sharedfiles/filedetails/?id=2985394645
     id: "2985394645"
-  - name: "FactionMap"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2877685881&searchtext=
+  - name: FactionMap  # https://steamcommunity.com/sharedfiles/filedetails/?id=2877685881
     id: "2877685881"
-  - name: "EasyPacking;EasyPackingFirearmsB41;EasyPackingGunFighter2"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2438225189&searchtext=pack
+  - name: EasyPacking;EasyPackingFirearmsB41;EasyPackingGunFighter2  # https://steamcommunity.com/sharedfiles/filedetails/?id=2438225189
     id: "2438225189"
-  - name: "StandardizedVehicleUpgrades3Core;StandardizedVehicleUpgrades3TS;StandardizedVehicleUpgrades3ZI"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3304580957
+  - name: StandardizedVehicleUpgrades3Core;StandardizedVehicleUpgrades3TS;StandardizedVehicleUpgrades3ZI  # https://steamcommunity.com/sharedfiles/filedetails/?id=3304580957
     id: "3304580957"
-  - name: "StandardizedVehicleUpgrades3V"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3304582091
+  - name: StandardizedVehicleUpgrades3V  # https://steamcommunity.com/sharedfiles/filedetails/?id=3304582091
     id: "3304582091"
-  - name: "PZKArmorForMotoriousZone"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3184827912
+  - name: PZKArmorForMotoriousZone  # https://steamcommunity.com/sharedfiles/filedetails/?id=3184827912
     id: "3184827912"
-  - name: "fhqMotoriousZone;hqMotoriousZoneImports;fhqMotoriousZoneExotics;fhqMotoriousZoneRealNames;fhqMotoriousZoneUSDM"  # https://steamcommunity.com/sharedfiles/filedetails/?id=2791656602
+  - name: fhqMotoriousZone;hqMotoriousZoneImports;fhqMotoriousZoneExotics;fhqMotoriousZoneRealNames;fhqMotoriousZoneUSDM  # https://steamcommunity.com/sharedfiles/filedetails/?id=2791656602
     id: "2791656602"
+  - name: hydecoautomaticgaragedoors  # https://steamcommunity.com/sharedfiles/filedetails/?id=3594285774
+    id: "3594285774"
+  - name: MWPWeaponsB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3747202678
+    id: "3747202678"
+  - name: VB_CommonSense  # https://steamcommunity.com/sharedfiles/filedetails/?id=3750253491
+    id: "3750253491"
+  - name: "[B42] Tatrapan"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3402789975
+    id: "3402789975"
+  - name: EQUIPMENT_UI_B42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3682936016
+    id: "3682936016"
+  - name: EQUIPMENT_UI  # https://steamcommunity.com/sharedfiles/filedetails/?id=3682936016
+    id: "3682936016"
+  - name: equipmentuipatch  # https://steamcommunity.com/sharedfiles/filedetails/?id=3682936016
+    id: "3682936016"
+  - name: tsarslib  # https://steamcommunity.com/sharedfiles/filedetails/?id=3402491515
+    id: "3402491515"
+  - name: BMWE38750i  # https://steamcommunity.com/sharedfiles/filedetails/?id=3419267262
+    id: "3419267262"
+  - name: SaucedCarts  # https://steamcommunity.com/sharedfiles/filedetails/?id=3651954650
+    id: "3651954650"
+  - name: 49powerWagon  # https://steamcommunity.com/sharedfiles/filedetails/?id=2900580391
+    id: "2900580391"
+  - name: 59meteor  # https://steamcommunity.com/sharedfiles/filedetails/?id=2772575623
+    id: "2772575623"
+  - name: ECTO1  # https://steamcommunity.com/sharedfiles/filedetails/?id=2772575623
+    id: "2772575623"
+  - name: 63beetle  # https://steamcommunity.com/sharedfiles/filedetails/?id=3005903549
+    id: "3005903549"
+  - name: 63Type2Van  # https://steamcommunity.com/sharedfiles/filedetails/?id=3041122351
+    id: "3041122351"
+  - name: 65banshee  # https://steamcommunity.com/sharedfiles/filedetails/?id=3566868353
+    id: "3566868353"
+  - name: 66pontiacLeMans  # https://steamcommunity.com/sharedfiles/filedetails/?id=3447272250
+    id: "3447272250"
+  - name: 67commando  # https://steamcommunity.com/sharedfiles/filedetails/?id=2478247379
+    id: "2478247379"
+  - name: 67gt500  # https://steamcommunity.com/sharedfiles/filedetails/?id=3026723485
+    id: "3026723485"
+  - name: 68firebird  # https://steamcommunity.com/sharedfiles/filedetails/?id=3258343790
+    id: "3258343790"
+  - name: 69camaro  # https://steamcommunity.com/sharedfiles/filedetails/?id=2991201484
+    id: "2991201484"
+  - name: 69charger  # https://steamcommunity.com/sharedfiles/filedetails/?id=3631989559
+    id: "3631989559"
+  - name: 69mini  # https://steamcommunity.com/sharedfiles/filedetails/?id=2937786633
+    id: "2937786633"
+  - name: 69mini_ItalianJob  # https://steamcommunity.com/sharedfiles/filedetails/?id=2937786633
+    id: "2937786633"
+  - name: 69mini_MrBean  # https://steamcommunity.com/sharedfiles/filedetails/?id=2937786633
+    id: "2937786633"
+  - name: 69mini_PitbullSpecial  # https://steamcommunity.com/sharedfiles/filedetails/?id=2937786633
+    id: "2937786633"
+  - name: 70dodge  # https://steamcommunity.com/sharedfiles/filedetails/?id=2873290424
+    id: "2873290424"
+  - name: 70fordEscort  # https://steamcommunity.com/sharedfiles/filedetails/?id=3670063857
+    id: "3670063857"
+  - name: 70barracuda  # https://steamcommunity.com/sharedfiles/filedetails/?id=2913633066
+    id: "2913633066"
+  - name: 70roadRunner  # https://steamcommunity.com/sharedfiles/filedetails/?id=3642935062
+    id: "3642935062"
+  - name: 73fordFalcon  # https://steamcommunity.com/sharedfiles/filedetails/?id=3490370700
+    id: "3490370700"
+  - name: 73fordFalconPS  # https://steamcommunity.com/sharedfiles/filedetails/?id=3490370700
+    id: "3490370700"
+  - name: 73nissanGTR  # https://steamcommunity.com/sharedfiles/filedetails/?id=3743371090
+    id: "3743371090"
+  - name: 75grandPrix  # https://steamcommunity.com/sharedfiles/filedetails/?id=3213391371
+    id: "3213391371"
+  - name: 76chevyKseries  # https://steamcommunity.com/sharedfiles/filedetails/?id=3161951724
+    id: "3161951724"
+  - name: 76chevyKseriesExpanded  # https://steamcommunity.com/sharedfiles/filedetails/?id=3161951724
+    id: "3161951724"
+  - name: 76chryslerNewYorker  # https://steamcommunity.com/sharedfiles/filedetails/?id=3730833846
+    id: "3730833846"
+  - name: 77firebird  # https://steamcommunity.com/sharedfiles/filedetails/?id=3346905070
+    id: "3346905070"
+  - name: 78amgeneralM35A2extra  # https://steamcommunity.com/sharedfiles/filedetails/?id=2799152995
+    id: "2799152995"
+  - name: 78lamboCountach  # https://steamcommunity.com/sharedfiles/filedetails/?id=3726526329
+    id: "3726526329"
+  - name: 79camaro  # https://steamcommunity.com/sharedfiles/filedetails/?id=3703948448
+    id: "3703948448"
+  - name: 80manKat1  # https://steamcommunity.com/sharedfiles/filedetails/?id=3248388837
+    id: "3248388837"
+  - name: 81deloreanDMC12  # https://steamcommunity.com/sharedfiles/filedetails/?id=3253385114
+    id: "3253385114"
+  - name: 81deloreanDMC12BTTF  # https://steamcommunity.com/sharedfiles/filedetails/?id=3253385114
+    id: "3253385114"
+  - name: 82jeepJ10  # https://steamcommunity.com/sharedfiles/filedetails/?id=2886832257
+    id: "2886832257"
+  - name: 82jeepJ10t  # https://steamcommunity.com/sharedfiles/filedetails/?id=2886832257
+    id: "2886832257"
+  - name: 82firebird  # https://steamcommunity.com/sharedfiles/filedetails/?id=3320947974
+    id: "3320947974"
+  - name: 82firebirdKITT  # https://steamcommunity.com/sharedfiles/filedetails/?id=3320947974
+    id: "3320947974"
+  - name: 82porsche911  # https://steamcommunity.com/sharedfiles/filedetails/?id=3379334330
+    id: "3379334330"
+  - name: 84buickElectra  # https://steamcommunity.com/sharedfiles/filedetails/?id=3596903773
+    id: "3596903773"
+  - name: 84cadillacDeVille  # https://steamcommunity.com/sharedfiles/filedetails/?id=3592777775
+    id: "3592777775"
+  - name: 84corvette  # https://steamcommunity.com/sharedfiles/filedetails/?id=3684254299
+    id: "3684254299"
+  - name: 84jeepXJ  # https://steamcommunity.com/sharedfiles/filedetails/?id=3409287192
+    id: "3409287192"
+  - name: 84merc  # https://steamcommunity.com/sharedfiles/filedetails/?id=2805630347
+    id: "2805630347"
+  - name: 84oldsmobile98  # https://steamcommunity.com/sharedfiles/filedetails/?id=3601417745
+    id: "3601417745"
+  - name: 85buickLeSabre  # https://steamcommunity.com/sharedfiles/filedetails/?id=3418252689
+    id: "3418252689"
+  - name: 85chevyCaprice  # https://steamcommunity.com/sharedfiles/filedetails/?id=3413704851
+    id: "3413704851"
+  - name: 85chevyStepVan  # https://steamcommunity.com/sharedfiles/filedetails/?id=3614034284
+    id: "3614034284"
+  - name: 85chevyStepVanexpanded  # https://steamcommunity.com/sharedfiles/filedetails/?id=3614034284
+    id: "3614034284"
+  - name: 85oldsmobileDelta88  # https://steamcommunity.com/sharedfiles/filedetails/?id=3418253716
+    id: "3418253716"
+  - name: 85pontiacParisienne  # https://steamcommunity.com/sharedfiles/filedetails/?id=3413706334
+    id: "3413706334"
+  - name: 86chevyCUCV  # https://steamcommunity.com/sharedfiles/filedetails/?id=3428008364
+    id: "3428008364"
+  - name: 86fordE150  # https://steamcommunity.com/sharedfiles/filedetails/?id=2870394916
+    id: "2870394916"
+  - name: 86fordE150dnd  # https://steamcommunity.com/sharedfiles/filedetails/?id=2870394916
+    id: "2870394916"
+  - name: 86fordE150mm  # https://steamcommunity.com/sharedfiles/filedetails/?id=2870394916
+    id: "2870394916"
+  - name: 86fordE150pd  # https://steamcommunity.com/sharedfiles/filedetails/?id=2870394916
+    id: "2870394916"
+  - name: 86fordE150expanded  # https://steamcommunity.com/sharedfiles/filedetails/?id=2870394916
+    id: "2870394916"
+  - name: 87buickRegal  # https://steamcommunity.com/sharedfiles/filedetails/?id=3226885926
+    id: "3226885926"
+  - name: 87chevySuburban  # https://steamcommunity.com/sharedfiles/filedetails/?id=3196180339
+    id: "3196180339"
+  - name: 87fordB700  # https://steamcommunity.com/sharedfiles/filedetails/?id=3110911330
+    id: "3110911330"
+  - name: 87toyotaMR2  # https://steamcommunity.com/sharedfiles/filedetails/?id=3052360250
+    id: "3052360250"
+  - name: 88toyotaHilux  # https://steamcommunity.com/sharedfiles/filedetails/?id=3435796523
+    id: "3435796523"
+  - name: 89dodgeCaravan  # https://steamcommunity.com/sharedfiles/filedetails/?id=3034636011
+    id: "3034636011"
+  - name: 89fordBronco  # https://steamcommunity.com/sharedfiles/filedetails/?id=2886833398
+    id: "2886833398"
+  - name: 89trooper  # https://steamcommunity.com/sharedfiles/filedetails/?id=2932549988
+    id: "2932549988"
+  - name: 89defender  # https://steamcommunity.com/sharedfiles/filedetails/?id=3570973322
+    id: "3570973322"
+  - name: 89volvo200  # https://steamcommunity.com/sharedfiles/filedetails/?id=3292659291
+    id: "3292659291"
+  - name: 90bmwE30  # https://steamcommunity.com/sharedfiles/filedetails/?id=3110913021
+    id: "3110913021"
+  - name: 90fordF350ambulance  # https://steamcommunity.com/sharedfiles/filedetails/?id=2952802178
+    id: "2952802178"
+  - name: 90pierceArrow  # https://steamcommunity.com/sharedfiles/filedetails/?id=2942793445
+    id: "2942793445"
+  - name: 91fordLTD  # https://steamcommunity.com/sharedfiles/filedetails/?id=3366300557
+    id: "3366300557"
+  - name: 91fordRanger  # https://steamcommunity.com/sharedfiles/filedetails/?id=3539691958
+    id: "3539691958"
+  - name: 91geoMetro  # https://steamcommunity.com/sharedfiles/filedetails/?id=3008795514
+    id: "3008795514"
+  - name: 91nissan240sx  # https://steamcommunity.com/sharedfiles/filedetails/?id=3504401781
+    id: "3504401781"
+  - name: 92fordCVPI  # https://steamcommunity.com/sharedfiles/filedetails/?id=2962175696
+    id: "2962175696"
+  - name: 92jeepYJ  # https://steamcommunity.com/sharedfiles/filedetails/?id=3287727378
+    id: "3287727378"
+  - name: 92jeepYJJP18  # https://steamcommunity.com/sharedfiles/filedetails/?id=3287727378
+    id: "3287727378"
+  - name: 93chevySuburban  # https://steamcommunity.com/sharedfiles/filedetails/?id=3152529790
+    id: "3152529790"
+  - name: 93chevySuburbanExpanded  # https://steamcommunity.com/sharedfiles/filedetails/?id=3152529790
+    id: "3152529790"
+  - name: 93fordElgin  # https://steamcommunity.com/sharedfiles/filedetails/?id=2969343830
+    id: "2969343830"
+  - name: 93fordF350  # https://steamcommunity.com/sharedfiles/filedetails/?id=3073430075
+    id: "3073430075"
+  - name: 93mustangSSP  # https://steamcommunity.com/sharedfiles/filedetails/?id=3001592312
+    id: "3001592312"
+  - name: 93fordTaurus  # https://steamcommunity.com/sharedfiles/filedetails/?id=3088951320
+    id: "3088951320"
+  - name: 93townCar  # https://steamcommunity.com/sharedfiles/filedetails/?id=2932547723
+    id: "2932547723"
+  - name: 99fordCVPI  # https://steamcommunity.com/sharedfiles/filedetails/?id=2971246021
+    id: "2971246021"
+  - name: HBVCEFb42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3610677934
+    id: "3610677934"
+  - name: HBTacReload  # https://steamcommunity.com/sharedfiles/filedetails/?id=3610677934
+    id: "3610677934"
+  - name: HBAmmoCraft  # https://steamcommunity.com/sharedfiles/filedetails/?id=3610677934
+    id: "3610677934"
+  - name: FasterHoodOpening  # https://steamcommunity.com/sharedfiles/filedetails/?id=2584112711
+    id: "2584112711"
+  - name: CVI  # https://steamcommunity.com/sharedfiles/filedetails/?id=3749026793
+    id: "3749026793"
+  - name: ModManager  # https://steamcommunity.com/sharedfiles/filedetails/?id=3567084868
+    id: "3567084868"
+  - name: SandboxSettings  # https://steamcommunity.com/sharedfiles/filedetails/?id=3386906181
+    id: "3386906181"
+  - name: B42Survival  # https://steamcommunity.com/sharedfiles/filedetails/?id=3402516345
+    id: "3402516345"
+  - name: DRAW_ON_MAP  # https://steamcommunity.com/sharedfiles/filedetails/?id=2804531012
+    id: "2804531012"
+  - name: "GanydeBielovzki's Frockin Shirts n Ties"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3453676250
+    id: "3453676250"
+  - name: "GanydeBielovzki's Frockin Splendor!"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3307376332
+    id: "3307376332"
+  - name: "GanydeBielovzki's Frockin Splendor! Vol.2"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3411888105
+    id: "3411888105"
+  - name: "GanydeBielovzki's Frockin Splendor! Vol.3"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3431256608
+    id: "3431256608"
+  - name: "GanydeBielovzki's Frockin Splendor! Vol.4"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3475347500
+    id: "3475347500"
+  - name: "GanydeBielovzki's Frockin Splendor! Vol.5"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3635394848
+    id: "3635394848"
+  - name: "GanydeBielovzki's Frockin Wiseguys"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3538760023
+    id: "3538760023"
+  - name: "[J&G] Desert Multicam Uniform"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3299457564
+    id: "3299457564"
+  - name: better-auto-mechanics  # https://steamcommunity.com/sharedfiles/filedetails/?id=3635856965
+    id: "3635856965"
+  - name: KI5campers  # https://steamcommunity.com/sharedfiles/filedetails/?id=3670064951
+    id: "3670064951"
+  - name: CleanUI  # https://steamcommunity.com/sharedfiles/filedetails/?id=3437629766
+    id: "3437629766"
+  - name: FH  # https://steamcommunity.com/sharedfiles/filedetails/?id=2447729538
+    id: "2447729538"
+  - name: HereGoesTheSun  # https://steamcommunity.com/sharedfiles/filedetails/?id=3618557184
+    id: "3618557184"
+  - name: KATTAJ1_ClothesCore  # https://steamcommunity.com/sharedfiles/filedetails/?id=3470422050
+    id: "3470422050"
+  - name: LEGION18  # https://steamcommunity.com/sharedfiles/filedetails/?id=3665548194
+    id: "3665548194"
+  - name: ModLoadOrderSorter_b42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3423660713
+    id: "3423660713"
+  - name: ChuckleberryFinnAlertSystem  # https://steamcommunity.com/sharedfiles/filedetails/?id=3077900375
+    id: "3077900375"
+  - name: MoodleFramework  # https://steamcommunity.com/sharedfiles/filedetails/?id=3396446795
+    id: "3396446795"
+  - name: moodlesinlua  # https://steamcommunity.com/sharedfiles/filedetails/?id=3395171770
+    id: "3395171770"
+  - name: MoreDamagedObjects  # https://steamcommunity.com/sharedfiles/filedetails/?id=3413150945
+    id: "3413150945"
+  - name: Neat_Building  # https://steamcommunity.com/sharedfiles/filedetails/?id=3536052310
+    id: "3536052310"
+  - name: Neat_Building_Buildables_SESCompat  # https://steamcommunity.com/sharedfiles/filedetails/?id=3536052310
+    id: "3536052310"
+  - name: Neat_Building_Railings  # https://steamcommunity.com/sharedfiles/filedetails/?id=3536052310
+    id: "3536052310"
+  - name: Neat_Building_UIOnly  # https://steamcommunity.com/sharedfiles/filedetails/?id=3536052310
+    id: "3536052310"
+  - name: Neat_Crafting  # https://steamcommunity.com/sharedfiles/filedetails/?id=3502080466
+    id: "3502080466"
+  - name: Neat_Crafting_AddonXP  # https://steamcommunity.com/sharedfiles/filedetails/?id=3540503606
+    id: "3540503606"
+  - name: Neat_Building_AddonXP  # https://steamcommunity.com/sharedfiles/filedetails/?id=3540503606
+    id: "3540503606"
+  - name: NeatUI_Framework  # https://steamcommunity.com/sharedfiles/filedetails/?id=3508537032
+    id: "3508537032"
+  - name: OpenAllContainers  # https://steamcommunity.com/sharedfiles/filedetails/?id=3465040406
+    id: "3465040406"
+  - name: P4PickingMeister  # https://steamcommunity.com/sharedfiles/filedetails/?id=3422220305
+    id: "3422220305"
+  - name: Project_Cook  # https://steamcommunity.com/sharedfiles/filedetails/?id=3490188370
+    id: "3490188370"
+  - name: Project_Cook_Pixel_Icon_Pack  # https://steamcommunity.com/sharedfiles/filedetails/?id=3490188370
+    id: "3490188370"
+  - name: RainCleansBlood  # https://steamcommunity.com/sharedfiles/filedetails/?id=2956146279
+    id: "2956146279"
+  - name: ReactiveSE  # https://steamcommunity.com/sharedfiles/filedetails/?id=3656190498
+    id: "3656190498"
+  - name: SapphCooking_B42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3409143790
+    id: "3409143790"
+  - name: SkillRecoveryJournal  # https://steamcommunity.com/sharedfiles/filedetails/?id=2503622437
+    id: "2503622437"
+  - name: SomewhatWater  # https://steamcommunity.com/sharedfiles/filedetails/?id=3582960654
+    id: "3582960654"
+  - name: SomewhatWaterBright  # https://steamcommunity.com/sharedfiles/filedetails/?id=3582960654
+    id: "3582960654"
+  - name: SPNCC  # https://steamcommunity.com/sharedfiles/filedetails/?id=3414634809
+    id: "3414634809"
+  - name: SPNCCDetails  # https://steamcommunity.com/sharedfiles/filedetails/?id=3414634809
+    id: "3414634809"
+  - name: SPNCCDetailsHD  # https://steamcommunity.com/sharedfiles/filedetails/?id=3414634809
+    id: "3414634809"
+  - name: SPNCCFaces  # https://steamcommunity.com/sharedfiles/filedetails/?id=3414634809
+    id: "3414634809"
+  - name: SpnHair  # https://steamcommunity.com/sharedfiles/filedetails/?id=2463184726
+    id: "2463184726"
+  - name: SpnOpenCloth  # https://steamcommunity.com/sharedfiles/filedetails/?id=2812326159
+    id: "2812326159"
+  - name: SpnOpenClothBase  # https://steamcommunity.com/sharedfiles/filedetails/?id=2812326159
+    id: "2812326159"
+  - name: SwapIt  # https://steamcommunity.com/sharedfiles/filedetails/?id=2366717227
+    id: "2366717227"
+  - name: TacHold  # https://steamcommunity.com/sharedfiles/filedetails/?id=3677017550
+    id: "3677017550"
+  - name: "TacHold AR"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3677017550
+    id: "3677017550"
+  - name: P4TidyUpMeister  # https://steamcommunity.com/sharedfiles/filedetails/?id=2769706949
+    id: "2769706949"
+  - name: TombBody  # https://steamcommunity.com/sharedfiles/filedetails/?id=3429790870
+    id: "3429790870"
+  - name: TombBodyCustom  # https://steamcommunity.com/sharedfiles/filedetails/?id=3429790870
+    id: "3429790870"
+  - name: TombBodyTex  # https://steamcommunity.com/sharedfiles/filedetails/?id=3429790870
+    id: "3429790870"
+  - name: TombBodyTexDOLL  # https://steamcommunity.com/sharedfiles/filedetails/?id=3429790870
+    id: "3429790870"
+  - name: TombBodyTexNUDE  # https://steamcommunity.com/sharedfiles/filedetails/?id=3429790870
+    id: "3429790870"
+  - name: TombBodyCompat  # https://steamcommunity.com/sharedfiles/filedetails/?id=3431734923
+    id: "3431734923"
+  - name: TombBodyCompatBootsExp  # https://steamcommunity.com/sharedfiles/filedetails/?id=3431734923
+    id: "3431734923"
+  - name: TombBodyCompatBootsExpVanilla  # https://steamcommunity.com/sharedfiles/filedetails/?id=3431734923
+    id: "3431734923"
+  - name: TradingTrailer  # https://steamcommunity.com/sharedfiles/filedetails/?id=3572122233
+    id: "3572122233"
+  - name: KI5trailers  # https://steamcommunity.com/sharedfiles/filedetails/?id=3330403100
+    id: "3330403100"
+  - name: VanillaFoodsExpanded  # https://steamcommunity.com/sharedfiles/filedetails/?id=3577903007
+    id: "3577903007"
+  - name: VMZNEW  # https://steamcommunity.com/sharedfiles/filedetails/?id=3436499337
+    id: "3436499337"
+  - name: VehicleRepairOverhaul  # https://steamcommunity.com/sharedfiles/filedetails/?id=2757712197
+    id: "2757712197"
+  - name: VehicleSalvageOverhaulB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=2757712197
+    id: "2757712197"
+  - name: WashFix  # https://steamcommunity.com/sharedfiles/filedetails/?id=3460812542
+    id: "3460812542"
+  - name: YAPZLib  # https://steamcommunity.com/sharedfiles/filedetails/?id=3624971238
+    id: "3624971238"
+  - name: NepMoreOnFloor  # https://steamcommunity.com/sharedfiles/filedetails/?id=3457064550
+    id: "3457064550"
+  - name: ItemRarityUI;OtherModId  # https://steamcommunity.com/sharedfiles/filedetails/?id=3662387304
+    id: "3662387304"
+  - name: "\ItemRarityUI;\OtherModId"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3662387304
+    id: "3662387304"
+  - name: ItemRarityUI  # https://steamcommunity.com/sharedfiles/filedetails/?id=3662387304
+    id: "3662387304"
+  - name: ReplaceBandage_B4215_Fix  # https://steamcommunity.com/sharedfiles/filedetails/?id=3683877162
+    id: "3683877162"
+  - name: hydeco_floatingremote  # https://steamcommunity.com/sharedfiles/filedetails/?id=3678539282
+    id: "3678539282"
+  - name: LTWB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3689524052
+    id: "3689524052"
+  - name: Neat_Rocco  # https://steamcommunity.com/sharedfiles/filedetails/?id=3723726293
+    id: "3723726293"
+  - name: StarlitLibrary  # https://steamcommunity.com/sharedfiles/filedetails/?id=3378285185
+    id: "3378285185"
+  - name: UsefulBarrelsMP  # https://steamcommunity.com/sharedfiles/filedetails/?id=3436537035
+    id: "3436537035"
+  - name: ContainerFavorite  # https://steamcommunity.com/sharedfiles/filedetails/?id=3728084370
+    id: "3728084370"
+  - name: UnifiedCarryWeightFramework  # https://steamcommunity.com/sharedfiles/filedetails/?id=3682045254
+    id: "3682045254"
+  - name: GenStreetlightRestore  # https://steamcommunity.com/sharedfiles/filedetails/?id=3578735933
+    id: "3578735933"
+  - name: "[J&G] Umbrella Corp Uniform"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3675741487
+    id: "3675741487"
+  - name: LKB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3668370011
+    id: "3668370011"
+  - name: 70barracudaRusty  # https://steamcommunity.com/sharedfiles/filedetails/?id=3662731107
+    id: "3662731107"
+  - name: 91fordLTDRusty  # https://steamcommunity.com/sharedfiles/filedetails/?id=3655738523
+    id: "3655738523"
+  - name: TombGothHair  # https://steamcommunity.com/sharedfiles/filedetails/?id=3531765630
+    id: "3531765630"
+  - name: TombGothMakeup  # https://steamcommunity.com/sharedfiles/filedetails/?id=3531765630
+    id: "3531765630"
+  - name: TombGothTex  # https://steamcommunity.com/sharedfiles/filedetails/?id=3531765630
+    id: "3531765630"
+  - name: TombGothTexDOLL  # https://steamcommunity.com/sharedfiles/filedetails/?id=3531765630
+    id: "3531765630"
+  - name: TombGothTexNUDE  # https://steamcommunity.com/sharedfiles/filedetails/?id=3531765630
+    id: "3531765630"
+  - name: PlaceAnywhereMod  # https://steamcommunity.com/sharedfiles/filedetails/?id=3613917826
+    id: "3613917826"
+  - name: LNB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3580577925
+    id: "3580577925"
+  - name: LSB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3560352772
+    id: "3560352772"
+  - name: LDB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3558839307
+    id: "3558839307"
+  - name: LFB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3552050880
+    id: "3552050880"
+  - name: LCB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3549294472
+    id: "3549294472"
+  - name: LBB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3538353228
+    id: "3538353228"
+  - name: TheShortcut  # https://steamcommunity.com/sharedfiles/filedetails/?id=3470659758
+    id: "3470659758"
+  - name: ModernStatus  # https://steamcommunity.com/sharedfiles/filedetails/?id=3451167732
+    id: "3451167732"
+  - name: aLootIsFirst  # https://steamcommunity.com/sharedfiles/filedetails/?id=3032216726
+    id: "3032216726"
+  - name: BIASC  # https://steamcommunity.com/sharedfiles/filedetails/?id=3389724292
+    id: "3389724292"
+  - name: hideVanillaReadIcon  # https://steamcommunity.com/sharedfiles/filedetails/?id=2881764317
+    id: "2881764317"
+  - name: KnownAndCollected  # https://steamcommunity.com/sharedfiles/filedetails/?id=2881764317
+    id: "2881764317"
+  - name: ReplaceBandage  # https://steamcommunity.com/sharedfiles/filedetails/?id=2944344655
+    id: "2944344655"
+  - name: CleanHotBar  # https://steamcommunity.com/sharedfiles/filedetails/?id=3461263912
+    id: "3461263912"
+  - name: BetterGeneratorInfo  # https://steamcommunity.com/sharedfiles/filedetails/?id=3576056135
+    id: "3576056135"
+  - name: 1299328280/ToadTraits  # https://steamcommunity.com/sharedfiles/filedetails/?id=1299328280
+    id: "1299328280"
+  - name: 1299328280/ToadTraitsDisablePrepared  # https://steamcommunity.com/sharedfiles/filedetails/?id=1299328280
+    id: "1299328280"
+  - name: 1299328280/ToadTraitsDisableSpec  # https://steamcommunity.com/sharedfiles/filedetails/?id=1299328280
+    id: "1299328280"
+  - name: 1299328280/ToadTraitsDynamic  # https://steamcommunity.com/sharedfiles/filedetails/?id=1299328280
+    id: "1299328280"
+  - name: EURY_CLOTHINGINFO  # https://steamcommunity.com/sharedfiles/filedetails/?id=3604080281
+    id: "3604080281"
+  - name: improvedhairmenubuild42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3589548354
+    id: "3589548354"
+  - name: ATakeABathAndShowerDepthMap  # https://steamcommunity.com/sharedfiles/filedetails/?id=3592172476
+    id: "3592172476"
+  - name: TakeABathAndShowerNew  # https://steamcommunity.com/sharedfiles/filedetails/?id=3592172476
+    id: "3592172476"
+  - name: EURY_DST  # https://steamcommunity.com/sharedfiles/filedetails/?id=3572846242
+    id: "3572846242"
+  - name: Mad_EasySetAlarm  # https://steamcommunity.com/sharedfiles/filedetails/?id=3566088272
+    id: "3566088272"
+  - name: REORDER_CONTAINERS  # https://steamcommunity.com/sharedfiles/filedetails/?id=3586216562
+    id: "3586216562"
+  - name: EURY_CONTAINERS  # https://steamcommunity.com/sharedfiles/filedetails/?id=3586216562
+    id: "3586216562"
+  - name: LynxPack  # https://steamcommunity.com/sharedfiles/filedetails/?id=3470485566
+    id: "3470485566"
+  - name: CerberusPack  # https://steamcommunity.com/sharedfiles/filedetails/?id=3470478700
+    id: "3470478700"
+  - name: KATTAJ1_Military  # https://steamcommunity.com/sharedfiles/filedetails/?id=3470426196
+    id: "3470426196"
+  - name: USMilitaryPack  # https://steamcommunity.com/sharedfiles/filedetails/?id=612100872
+    id: "612100872"
+  - name: SpecLoot  # https://steamcommunity.com/sharedfiles/filedetails/?id=3457132019
+    id: "3457132019"
+  - name: DangerAwareness  # https://steamcommunity.com/sharedfiles/filedetails/?id=3170356924
+    id: "3170356924"
+  - name: FixBlowTorchPropaneTank  # https://steamcommunity.com/sharedfiles/filedetails/?id=3044705007
+    id: "3044705007"
+  - name: EquipClothingWhileMoving  # https://steamcommunity.com/sharedfiles/filedetails/?id=3446510982
+    id: "3446510982"
+  - name: GetUpQuick  # https://steamcommunity.com/sharedfiles/filedetails/?id=3444943638
+    id: "3444943638"
+  - name: BetterFlashlightsFixed  # https://steamcommunity.com/sharedfiles/filedetails/?id=3420478458
+    id: "3420478458"
+  - name: EFTBP  # https://steamcommunity.com/sharedfiles/filedetails/?id=3432928943
+    id: "3432928943"
+  - name: RUNE-EXP  # https://steamcommunity.com/sharedfiles/filedetails/?id=3391145494
+    id: "3391145494"
+  - name: UBPropFix  # https://steamcommunity.com/sharedfiles/filedetails/?id=2883755057
+    id: "2883755057"
+  - name: AutoCook  # https://steamcommunity.com/sharedfiles/filedetails/?id=3388721641
+    id: "3388721641"
+  - name: LightNailsAndScrews  # https://steamcommunity.com/sharedfiles/filedetails/?id=3387401141
+    id: "3387401141"
+  - name: ADRENALINE_MOD  # https://steamcommunity.com/sharedfiles/filedetails/?id=2807001835
+    id: "2807001835"
+  - name: LetMeEatRatsAndMice  # https://steamcommunity.com/sharedfiles/filedetails/?id=3416205082
+    id: "3416205082"
+  - name: SPIKES-PATCHES-BASIC  # https://steamcommunity.com/sharedfiles/filedetails/?id=3417132838
+    id: "3417132838"
+  - name: SPIKES-PATCHES-FANCY  # https://steamcommunity.com/sharedfiles/filedetails/?id=3417132838
+    id: "3417132838"
+  - name: EQUIPMENT_UI  # https://steamcommunity.com/sharedfiles/filedetails/?id=2950902979
+    id: "2950902979"
+  - name: "[B42] 815Tatra"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3404869345
+    id: "3404869345"
+  - name: w_animatedcanmodels  # https://steamcommunity.com/sharedfiles/filedetails/?id=3392640262
+    id: "3392640262"
+  - name: FastRipClothes  # https://steamcommunity.com/sharedfiles/filedetails/?id=3280232245
+    id: "3280232245"
+  - name: DEON_CVG  # https://steamcommunity.com/sharedfiles/filedetails/?id=3390487814
+    id: "3390487814"
+  - name: SprinterAE86  # https://steamcommunity.com/sharedfiles/filedetails/?id=2781895054
+    id: "2781895054"
+  - name: DBFaster25  # https://steamcommunity.com/sharedfiles/filedetails/?id=3393821407
+    id: "3393821407"
+  - name: DBFaster50  # https://steamcommunity.com/sharedfiles/filedetails/?id=3393821407
+    id: "3393821407"
+  - name: DBFaster60  # https://steamcommunity.com/sharedfiles/filedetails/?id=3393821407
+    id: "3393821407"
+  - name: DBFaster70  # https://steamcommunity.com/sharedfiles/filedetails/?id=3393821407
+    id: "3393821407"
+  - name: DBFaster80  # https://steamcommunity.com/sharedfiles/filedetails/?id=3393821407
+    id: "3393821407"
+  - name: ATA_Mustang_66  # https://steamcommunity.com/sharedfiles/filedetails/?id=3405574146
+    id: "3405574146"
+  - name: hand-bag-window-climb  # https://steamcommunity.com/sharedfiles/filedetails/?id=3389093252
+    id: "3389093252"
+  - name: w_emptycanmodels  # https://steamcommunity.com/sharedfiles/filedetails/?id=3422869729
+    id: "3422869729"
+  - name: SNSRW  # https://steamcommunity.com/sharedfiles/filedetails/?id=3388351722
+    id: "3388351722"
+  - name: "Ahu'sToolWeapon"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3422418897
+    id: "3422418897"
+  - name: "Ahu'sToolWeaponNoTraits"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3422418897
+    id: "3422418897"
+  - name: fhqMotoriousZone  # https://steamcommunity.com/sharedfiles/filedetails/?id=2791656602
+    id: "2791656602"
+  - name: fhqMotoriousZoneImports  # https://steamcommunity.com/sharedfiles/filedetails/?id=2791656602
+    id: "2791656602"
+  - name: fhqMotoriousZoneExotics  # https://steamcommunity.com/sharedfiles/filedetails/?id=2791656602
+    id: "2791656602"
+  - name: fhqMotoriousZoneRealNames  # https://steamcommunity.com/sharedfiles/filedetails/?id=2791656602
+    id: "2791656602"
+  - name: fhqMotoriousZoneUSDM  # https://steamcommunity.com/sharedfiles/filedetails/?id=2791656602
+    id: "2791656602"
+  - name: MM2PursuitSpecialSVU  # https://steamcommunity.com/sharedfiles/filedetails/?id=3017359186
+    id: "3017359186"
+  - name: MM2PursuitSpecial  # https://steamcommunity.com/sharedfiles/filedetails/?id=3017359186
+    id: "3017359186"
+  - name: VestandOveralls  # https://steamcommunity.com/sharedfiles/filedetails/?id=2914817886
+    id: "2914817886"
+  - name: VanillaVehiclesAnimated  # https://steamcommunity.com/sharedfiles/filedetails/?id=3281755175
+    id: "3281755175"
+  - name: VanillaVehiclesAnimated_SVU  # https://steamcommunity.com/sharedfiles/filedetails/?id=3281755175
+    id: "3281755175"
+  - name: VVA_cullseats  # https://steamcommunity.com/sharedfiles/filedetails/?id=3281755175
+    id: "3281755175"
+  - name: VVA_PikamyDelight  # https://steamcommunity.com/sharedfiles/filedetails/?id=3281755175
+    id: "3281755175"
+  - name: VVA_slowdoors  # https://steamcommunity.com/sharedfiles/filedetails/?id=3281755175
+    id: "3281755175"
+  - name: VVA_snapDoors  # https://steamcommunity.com/sharedfiles/filedetails/?id=3281755175
+    id: "3281755175"
+  - name: VVA_transparentWindows  # https://steamcommunity.com/sharedfiles/filedetails/?id=3281755175
+    id: "3281755175"
+  - name: "[J&G] Black Multicam Uniform"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3315302991
+    id: "3315302991"
+  - name: "[J&G] Caution Pack"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3369825662
+    id: "3369825662"
+  - name: MapSymbolsPlusDeonHand  # https://steamcommunity.com/sharedfiles/filedetails/?id=3399645148
+    id: "3399645148"
+  - name: manageContainers  # https://steamcommunity.com/sharedfiles/filedetails/?id=2650547917
+    id: "2650547917"
+  - name: P4PostFlag  # https://steamcommunity.com/sharedfiles/filedetails/?id=3184471683
+    id: "3184471683"
+  - name: RepairableWindows  # https://steamcommunity.com/sharedfiles/filedetails/?id=3378304610
+    id: "3378304610"
+  - name: MiniHealthPanel  # https://steamcommunity.com/sharedfiles/filedetails/?id=2866258937
+    id: "2866258937"
+  - name: ExerciseWithCorpses  # https://steamcommunity.com/sharedfiles/filedetails/?id=3404074048
+    id: "3404074048"
+  - name: JBMoveCorpses  # https://steamcommunity.com/sharedfiles/filedetails/?id=3415416226
+    id: "3415416226"
+  - name: LT  # https://steamcommunity.com/sharedfiles/filedetails/?id=3387547602
+    id: "3387547602"
+  - name: ammomaker  # https://steamcommunity.com/sharedfiles/filedetails/?id=2788256295
+    id: "2788256295"
+  - name: TEBFP  # https://steamcommunity.com/sharedfiles/filedetails/?id=2961450523
+    id: "2961450523"
+  - name: guns93  # https://steamcommunity.com/sharedfiles/filedetails/?id=3183820077
+    id: "3183820077"
+  - name: TNFPNameVFE  # https://steamcommunity.com/sharedfiles/filedetails/?id=3243805556
+    id: "3243805556"
+  - name: TNFPNameB41Revamped  # https://steamcommunity.com/sharedfiles/filedetails/?id=3243805556
+    id: "3243805556"
+  - name: TNFPNatoReponse  # https://steamcommunity.com/sharedfiles/filedetails/?id=3243805556
+    id: "3243805556"
+  - name: TNFPNatoReponseBandits  # https://steamcommunity.com/sharedfiles/filedetails/?id=3243805556
+    id: "3243805556"
+  - name: TNFPFirearmsPatch  # https://steamcommunity.com/sharedfiles/filedetails/?id=3243805556
+    id: "3243805556"
+  - name: TNFPFirearmsPatchFirerate  # https://steamcommunity.com/sharedfiles/filedetails/?id=3243805556
+    id: "3243805556"
+  - name: TNFPDurability  # https://steamcommunity.com/sharedfiles/filedetails/?id=3243805556
+    id: "3243805556"
+  - name: TNFP  # https://steamcommunity.com/sharedfiles/filedetails/?id=3243805556
+    id: "3243805556"
+  - name: TNFPB42  # https://steamcommunity.com/sharedfiles/filedetails/?id=3243805556
+    id: "3243805556"
+  - name: "[J&G] Alpine Multicam Uniform"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3303746488
+    id: "3303746488"
+  - name: ElyonLib  # https://steamcommunity.com/sharedfiles/filedetails/?id=3384377738
+    id: "3384377738"
+  - name: KnoxBuildworks  # https://steamcommunity.com/sharedfiles/filedetails/?id=3772269882
+    id: "3772269882"
+  - name: KnoxBuildworksVanillaExpanded  # https://steamcommunity.com/sharedfiles/filedetails/?id=3772269882
+    id: "3772269882"
+  - name: alicesWeaponSling  # https://steamcommunity.com/sharedfiles/filedetails/?id=3775549570
+    id: "3775549570"
+  - name: alicesWeaponSlingRadialMenu  # https://steamcommunity.com/sharedfiles/filedetails/?id=3775549570
+    id: "3775549570"
+  - name: "TacHold Pistol"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3680633169
+    id: "3680633169"
+  - name: "TacHold Pistol AR"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3680633169
+    id: "3680633169"
+  - name: SVRPClassicBows  # https://steamcommunity.com/sharedfiles/filedetails/?id=3776949545
+    id: "3776949545"
+  - name: LadderClimb  # https://steamcommunity.com/sharedfiles/filedetails/?id=3778915544
+    id: "3778915544"
+  - name: TargetSquareOnLoad  # https://steamcommunity.com/sharedfiles/filedetails/?id=2969455858
+    id: "2969455858"
+  - name: "Bedding Covers-With Pillows"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3028528478
+    id: "3028528478"
+  - name: "Bedding Covers-no pillows"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3028528478
+    id: "3028528478"
+  - name: blankets  # https://steamcommunity.com/sharedfiles/filedetails/?id=3028528478
+    id: "3028528478"
+  - name: AatheomEMVFSM  # https://steamcommunity.com/sharedfiles/filedetails/?id=3322066592
+    id: "3322066592"
+  - name: ImmersiveBlackouts  # https://steamcommunity.com/sharedfiles/filedetails/?id=3607686447
+    id: "3607686447"
+  - name: 98stagea  # https://steamcommunity.com/sharedfiles/filedetails/?id=3315443103
+    id: "3315443103"
+  - name: 04vwTouran  # https://steamcommunity.com/sharedfiles/filedetails/?id=3478633453
+    id: "3478633453"
+  - name: EPH  # https://steamcommunity.com/sharedfiles/filedetails/?id=3502344463
+    id: "3502344463"
+  - name: 95impreza  # https://steamcommunity.com/sharedfiles/filedetails/?id=3647735736
+    id: "3647735736"
+  - name: 96lancerEVO  # https://steamcommunity.com/sharedfiles/filedetails/?id=3647736504
+    id: "3647736504"
+  - name: lockMartM577  # https://steamcommunity.com/sharedfiles/filedetails/?id=3652371248
+    id: "3652371248"
+  - name: 96saturnSseries  # https://steamcommunity.com/sharedfiles/filedetails/?id=3679880253
+    id: "3679880253"
+  - name: cobbM540  # https://steamcommunity.com/sharedfiles/filedetails/?id=3722240318
+    id: "3722240318"
+  - name: 69fordMustang  # https://steamcommunity.com/sharedfiles/filedetails/?id=3756938756
+    id: "3756938756"
+  - name: 69fordMustangExtra  # https://steamcommunity.com/sharedfiles/filedetails/?id=3756938756
+    id: "3756938756"
+  - name: 70chevelle  # https://steamcommunity.com/sharedfiles/filedetails/?id=3766571591
+    id: "3766571591"
+  - name: UniversalGunlight  # https://steamcommunity.com/sharedfiles/filedetails/?id=3767037119
+    id: "3767037119"
+  - name: 91lexusLS400  # https://steamcommunity.com/sharedfiles/filedetails/?id=3770890864
+    id: "3770890864"
+  - name: ModFolders  # https://steamcommunity.com/sharedfiles/filedetails/?id=3779201168
+    id: "3779201168"
+  - name: 87toyotaCorolla  # https://steamcommunity.com/sharedfiles/filedetails/?id=3779315249
+    id: "3779315249"
+  - name: LGExtendedElectricity  # https://steamcommunity.com/sharedfiles/filedetails/?id=3779562002
+    id: "3779562002"
+  - name: LGRealisticPowerUsage  # https://steamcommunity.com/sharedfiles/filedetails/?id=3779562002
+    id: "3779562002"
+  - name: CAExtendedCategories  # https://steamcommunity.com/sharedfiles/filedetails/?id=3650035249
+    id: "3650035249"
+  - name: LGExtendedPlumbing  # https://steamcommunity.com/sharedfiles/filedetails/?id=3779561845
+    id: "3779561845"
+  - name: rSemiTruck  # https://steamcommunity.com/sharedfiles/filedetails/?id=3409472393
+    id: "3409472393"
+  - name: rSemiTruckhM911  # https://steamcommunity.com/sharedfiles/filedetails/?id=3409472393
+    id: "3409472393"
+  - name: ContextMenuCleanup  # https://steamcommunity.com/sharedfiles/filedetails/?id=3780688809
+    id: "3780688809"
+  - name: CraftableTallWoodenFences  # https://steamcommunity.com/sharedfiles/filedetails/?id=3781002132
+    id: "3781002132"
+  - name: FancyHandworkB42_19  # https://steamcommunity.com/sharedfiles/filedetails/?id=3771638611
+    id: "3771638611"
+  - name: AutoAllBETA  # https://steamcommunity.com/sharedfiles/filedetails/?id=3781941980
+    id: "3781941980"
+  - name: Tuna_GunRacks  # https://steamcommunity.com/sharedfiles/filedetails/?id=3784677588
+    id: "3784677588"
+  - name: Tuna_EquipmentRacks  # https://steamcommunity.com/sharedfiles/filedetails/?id=3793403177
+    id: "3793403177"
 
 
 #### SandboxVars.lua ####
