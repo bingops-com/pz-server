@@ -115,6 +115,12 @@ separate runtime/worker tags and records their immutable digests. The planner
 rejects unknown/incomplete releases before interrupting an existing game.
 
 An upgrade requires a verified pre-upgrade world backup and a ready check.
+Binary installation receipts bind the world ID, repository, full snapshot and
+Steam build. A later request can reuse that exact artifact after checking the
+installed build, while issuing a receipt for the new request/version. This
+allows binaries to be preloaded into a separate retained PVC before cutover;
+it never skips the fresh world backup. Different or legacy artifact receipts
+require a restore. A receipt/build mismatch blocks the operation.
 This also applies when a recreated GameRoom has no previous version in status:
 a restored or retained world gets a fresh backup before its first installation.
 Downgrading executables is not a safe automatic rollback for a world already

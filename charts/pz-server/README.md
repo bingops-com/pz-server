@@ -81,3 +81,5 @@ helm lint charts/pz-server
 ```sh
 helm template pz-server charts/pz-server >/dev/null
 ```
+
+`replicaCount` defaults to 1. During the GitOps ownership handoff it can be set to 0 while retaining the original StatefulSet and PVC as a rollback source. Set the legacy Service type to ClusterIP before assigning its public NodePorts to the GameRoom workload.

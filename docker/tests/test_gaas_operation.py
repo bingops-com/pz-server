@@ -93,6 +93,39 @@ class OperationTests(unittest.TestCase):
                 operation.operate('RestoreWorld', 'request', 'world')
             run.assert_not_called()
 
+    def install_artifact(self, args, **_):
+        target = Path(args[args.index('--target') + 1]) / 'data/server/steamapps'
+        target.mkdir(parents=True)
+        (target / 'appmanifest_380870.acf').write_text('"buildid" "200"')
+        return ''
+
+    def test_same_artifact_reuses_binaries_with_a_fresh_request_receipt(self):
+        with patch.object(operation, 'run', side_effect=self.install_artifact) as run:
+            self.assertFalse(operation.operate('InstallRelease', 'first', 'world')['artifactReused'])
+            with patch.dict(os.environ, {'GAAS_VERSION': 'runtime-update'}):
+                result = operation.operate('InstallRelease', 'second', 'world')
+            self.assertTrue(result['artifactReused'])
+            self.assertEqual(result['requestId'], 'second')
+            self.assertEqual(result['version'], 'runtime-update')
+            self.assertEqual(run.call_count, 1)
+            self.assertEqual(json.loads((self.root / '.gaas-release.json').read_text()), result)
+
+    def test_different_artifact_requires_a_new_restore(self):
+        with patch.object(operation, 'run', side_effect=self.install_artifact) as run:
+            operation.operate('InstallRelease', 'first', 'world')
+            with patch.dict(os.environ, {'GAAS_BINARY_SNAPSHOT': 'c' * 64}):
+                result = operation.operate('InstallRelease', 'second', 'world')
+            self.assertFalse(result['artifactReused'])
+            self.assertEqual(run.call_count, 2)
+
+    def test_matching_receipt_cannot_hide_a_wrong_installed_build(self):
+        with patch.object(operation, 'run', side_effect=self.install_artifact) as run:
+            operation.operate('InstallRelease', 'first', 'world')
+            (self.root / 'server/steamapps/appmanifest_380870.acf').write_text('"buildid" "100"')
+            with self.assertRaises(ValueError):
+                operation.operate('InstallRelease', 'second', 'world')
+            self.assertEqual(run.call_count, 1)
+
     def test_configured_server_name_must_match_restored_world(self):
         world(self.root / 'Zomboid')
         with patch.dict(os.environ, {'GAAS_SERVER_NAME': 'wrong-name'}):

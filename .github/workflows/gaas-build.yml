@@ -3,7 +3,7 @@ name: gaas-build
 
 "on":
   push:
-    branches: [feat/gaming-as-a-service]
+    branches: [master, feat/gaming-as-a-service]
     paths: ['gaas/**', 'docker/**', 'charts/**', '.github/workflows/gaas-build.yml']
   workflow_dispatch:
 

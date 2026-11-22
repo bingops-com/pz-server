@@ -93,6 +93,19 @@ def operate(action, identity, world_id):
         snapshot = os.environ['GAAS_BINARY_SNAPSHOT']
         if not re.fullmatch(r'[0-9a-f]{64}', snapshot):
             raise ValueError('Release snapshots must use their complete immutable identifier')
+        marker = DATA / '.gaas-release.json'
+        artifact = {'worldId': world_id, 'steamBuildId': expected_build,
+                    'binaryRepository': repository, 'binarySnapshot': snapshot}
+        if marker.exists():
+            installed = json.loads(marker.read_text())
+            if installed.get('worldId') != world_id:
+                raise ValueError('Installed release belongs to another world')
+            if all(installed.get(key) == value for key, value in artifact.items()):
+                if steam_build(DATA / 'server') != expected_build:
+                    raise ValueError('Installed binaries differ from their artifact receipt')
+                result.update(artifact, version=os.environ['GAAS_VERSION'], artifactReused=True)
+                atomic_json(marker, result)
+                return result
         with tempfile.TemporaryDirectory(prefix='.gaas-release-', dir=DATA) as staging:
             run(['restic', 'restore', snapshot, '--target', staging,
                  '--include', '/data/server', '--quiet'], repository=repository)
@@ -105,8 +118,8 @@ def operate(action, identity, world_id):
             if current.exists():
                 current.rename(previous)
             candidate.rename(current)
-            result.update(version=os.environ['GAAS_VERSION'], steamBuildId=expected_build)
-            atomic_json(DATA / '.gaas-release.json', result)
+            result.update(artifact, version=os.environ['GAAS_VERSION'], artifactReused=False)
+            atomic_json(marker, result)
             if previous.exists():
                 shutil.rmtree(previous)
     elif action == 'BackupStoppedWorld':
