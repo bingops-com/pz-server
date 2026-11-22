@@ -1,0 +1,49 @@
+---
+name: gaas-build
+
+"on":
+  push:
+    branches: [feat/gaming-as-a-service]
+    paths: ['gaas/**', 'docker/**', 'charts/**', '.github/workflows/gaas-build.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - name: Build isolated game runtime
+        id: runtime
+        uses: docker/build-push-action@v6
+        with:
+          context: docker
+          push: true
+          tags: ghcr.io/bingops-com/pz-server:gaas-${{ github.sha }}
+      - name: Build operator and Terraform worker
+        id: operator
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: gaas/Dockerfile
+          push: true
+          tags: ghcr.io/bingops-com/pz-server:operator-${{ github.sha }}
+      - name: Record immutable image references
+        env:
+          RUNTIME_DIGEST: ${{ steps.runtime.outputs.digest }}
+          OPERATOR_DIGEST: ${{ steps.operator.outputs.digest }}
+        run: |
+          printf 'runtime=ghcr.io/bingops-com/pz-server@%s\noperator=ghcr.io/bingops-com/pz-server@%s\n' "$RUNTIME_DIGEST" "$OPERATOR_DIGEST" > image-references.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gaas-image-references
+          path: image-references.txt

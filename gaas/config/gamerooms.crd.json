@@ -56,7 +56,9 @@
                 "required": [
                   "game",
                   "version",
-                  "world"
+                  "world",
+                  "network",
+                  "serverCredentialsSecretRef"
                 ],
                 "properties": {
                   "game": {
@@ -90,7 +92,8 @@
                     "required": [
                       "id",
                       "repository",
-                      "credentialsSecretRef"
+                      "credentialsSecretRef",
+                      "serverName"
                     ],
                     "properties": {
                       "id": {
@@ -108,7 +111,13 @@
                       "repository": {
                         "type": "string",
                         "minLength": 1,
-                        "description": "Restic repository URL without embedded credentials."
+                        "description": "Restic repository URL without embedded credentials.",
+                        "x-kubernetes-validations": [
+                          {
+                            "rule": "self == oldSelf",
+                            "message": "World repository migration requires an explicit recovery workflow"
+                          }
+                        ]
                       },
                       "credentialsSecretRef": {
                         "type": "string",
@@ -126,6 +135,92 @@
                         "minLength": 1,
                         "maxLength": 63,
                         "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+                      },
+                      "serverName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 63,
+                        "pattern": "^[a-zA-Z0-9_-]+$",
+                        "x-kubernetes-validations": [
+                          {
+                            "rule": "self == oldSelf",
+                            "message": "The restored game server name is immutable"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "serverCredentialsSecretRef": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 63,
+                    "pattern": "^[a-z0-9][a-z0-9-]*$"
+                  },
+                  "retryNonce": {
+                    "type": "string",
+                    "maxLength": 128
+                  },
+                  "network": {
+                    "type": "object",
+                    "required": [
+                      "targetIP",
+                      "nodePorts",
+                      "publicPorts"
+                    ],
+                    "properties": {
+                      "targetIP": {
+                        "type": "string",
+                        "format": "ipv4"
+                      },
+                      "nodePorts": {
+                        "type": "object",
+                        "required": [
+                          "game",
+                          "direct"
+                        ],
+                        "properties": {
+                          "game": {
+                            "type": "integer",
+                            "minimum": 30000,
+                            "maximum": 32767
+                          },
+                          "direct": {
+                            "type": "integer",
+                            "minimum": 30000,
+                            "maximum": 32767
+                          }
+                        },
+                        "x-kubernetes-validations": [
+                          {
+                            "rule": "self.game != self.direct",
+                            "message": "NodePorts must differ"
+                          }
+                        ]
+                      },
+                      "publicPorts": {
+                        "type": "object",
+                        "required": [
+                          "game",
+                          "direct"
+                        ],
+                        "properties": {
+                          "game": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 65535
+                          },
+                          "direct": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 65535
+                          }
+                        },
+                        "x-kubernetes-validations": [
+                          {
+                            "rule": "self.game != self.direct",
+                            "message": "Public ports must differ"
+                          }
+                        ]
                       }
                     }
                   }

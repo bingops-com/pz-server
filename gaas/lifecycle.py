@@ -5,8 +5,17 @@ Jobs. These decisions are not a substitute for backup/health verification.
 """
 from dataclasses import dataclass
 import hashlib
+import re
 
 FINALIZER = "gaming.bingops.com/preserve-world"
+
+
+def release_valid(release):
+    return bool(isinstance(release, dict)
+                and re.fullmatch(r'[^\s@]+@sha256:[0-9a-f]{64}', release.get('runtimeImage', ''))
+                and re.fullmatch(r'[0-9]+', release.get('steamBuildId', ''))
+                and re.fullmatch(r'[0-9a-f]{64}', release.get('binarySnapshot', ''))
+                and release.get('binaryRepository') and release.get('operationProtocol') == 1)
 
 
 @dataclass(frozen=True)
@@ -54,11 +63,7 @@ def decide(room: dict, observed: dict, releases: dict) -> Decision:
     # remains possible even if a newer requested release was invalid.
     if not stopping:
         release = releases.get(target)
-        if not release or spec.get("game") != "project-zomboid":
-            return result("Blocked", holds=bool(running))
-        if not all(release.get(key) for key in ("runtimeImage", "steamBuildId", "binarySnapshot")):
-            return result("Blocked", holds=bool(running))
-        if "@sha256:" not in release["runtimeImage"]:
+        if not release_valid(release) or spec.get("game") != "project-zomboid":
             return result("Blocked", holds=bool(running))
 
     changing = not stopping and observed.get("version") != target
@@ -69,7 +74,7 @@ def decide(room: dict, observed: dict, releases: dict) -> Decision:
         and bool(receipt.get("snapshot"))
     )
 
-    if stopping or (changing and world_ready):
+    if stopping or (changing and world_ready and observed.get("version") is not None):
         if observed.get("scheduledBackupActive"):
             return result("WaitingForBackup")
         if not observed.get("scheduledBackupSuspended"):

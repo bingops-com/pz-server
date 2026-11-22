@@ -47,7 +47,7 @@ def require_suspended_inventory(document: dict, gateway: str = "shared") -> None
             raise ValueError("GameRoom reconciliation is not current")
         if status.get("phase") not in {"Suspended", "Finalized"}:
             raise ValueError("GameRoom shutdown is not complete")
-        if status.get("everStarted", True) and not (
+        if (status.get("worldReady") or status.get("everStarted", True)) and not (
             status.get("backup", {}).get("verified") is True
             and status.get("backup", {}).get("snapshot")
             and status.get("backup", {}).get("requestId") == request_id(
@@ -110,7 +110,7 @@ def main() -> None:
     except (ValueError, RuntimeError, OSError, json.JSONDecodeError) as error:
         # Messages here deliberately contain no Terraform diagnostics or state.
         parser.exit(1, str(error) + "\n")
-    print(json.dumps(result))
+    print('GAAS_TERRAFORM_RESULT_JSON=' + json.dumps(result))
 
 
 if __name__ == "__main__":

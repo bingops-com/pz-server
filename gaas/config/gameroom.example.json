@@ -16,7 +16,20 @@
     "world": {
       "id": "zomboid-restorecheck",
       "repository": "s3:https://EXAMPLE.invalid/TEST-BUCKET/world",
-      "credentialsSecretRef": "example-test-only"
+      "credentialsSecretRef": "example-test-only",
+      "serverName": "bingops"
+    },
+    "serverCredentialsSecretRef": "example-test-only",
+    "network": {
+      "targetIP": "192.0.2.10",
+      "nodePorts": {
+        "game": 30761,
+        "direct": 30762
+      },
+      "publicPorts": {
+        "game": 17261,
+        "direct": 17262
+      }
     }
   }
 }

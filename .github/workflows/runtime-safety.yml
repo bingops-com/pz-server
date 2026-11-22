@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.19.4
+      - name: Install the YAML parser used by the runtime adapter tests
+        run: python3 -m pip install PyYAML==6.0.2
       - name: Check shell syntax
         run: bash -n docker/scripts/backup.sh
       - name: Check backup safety without infrastructure

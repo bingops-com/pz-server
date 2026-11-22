@@ -1,10 +1,11 @@
 # Gaming as a Service preparation
 
-This branch contains a GameRoom CRD, the pure lifecycle decision engine and a
-restricted Terraform transition worker. It is not a deployed operator. The
-Kubernetes runtime adapter, event loop, worker image, release artefact pipeline
-and GitOps installation/adoption are unfinished. Creating the example object
-will not create a game server; do not add it to production Argo CD yet.
+This branch contains the GameRoom CRD, a lease-elected controller, the Project
+Zomboid Kubernetes adapter, isolated restore/install/backup Jobs and a guarded
+Terraform worker. It is undergoing isolated acceptance testing. Production
+adoption has not happened. The example is deliberately non-runnable until a
+real release catalogue and reviewed gateway configuration are supplied.
+Do not add it to production Argo CD yet.
 
 ## Verified existing infrastructure
 
@@ -26,6 +27,18 @@ LabOps branch `feat/gaas-lifecycle`. Read its owning runbook before running
 Terraform. Never initialize an empty state and apply it as an adoption shortcut.
 
 ## Code boundaries
+
+- `controller.py` polls GameRooms, acquires a Kubernetes Lease before mutations,
+  runs one lifecycle operation per room, and reconciles the shared gateway.
+  It is read-only unless `--apply` is explicitly passed.
+- `runtime.py` renders the owned Helm resources with zero initial replicas and
+  suspended backups. It refuses adoption of existing workloads and retains
+  world PVCs without garbage-collection owner references. `world.serverName`
+  is the original PZ save name and must be preserved when restoring a copy.
+- `docker/scripts/gaas-operation.py` restores a world through a staging directory,
+  validates restored SQLite databases, installs an immutable binary snapshot
+  after checking the Steam build, and restores each shutdown backup again
+  before emitting a verified receipt. No game state or credentials enter logs.
 
 - `config/gamerooms.crd.json` defines `gaming.bingops.com/v1alpha1`, namespaced
   GameRooms with game, version, desired state, world repository and a shared
@@ -74,7 +87,9 @@ changes. Other game adapters are follow-up work.
 Steam build is 26486687 and the runtime image is 0.1.3. The existing installer
 downloads a moving Steam branch at startup. A trustworthy release needs an
 immutable runtime-image digest and a recoverable binary artefact/snapshot for
-its Steam build. This artefact pipeline is not implemented yet. The planner
+its Steam build. The acceptance export Job snapshots the live installation from a read-only
+PVC mount into a separate encrypted Restic repository; GitHub Actions builds
+separate runtime/worker tags and records their immutable digests. The planner
 rejects unknown/incomplete releases before interrupting an existing game.
 
 An upgrade requires a verified pre-upgrade world backup and a ready check.
@@ -83,10 +98,10 @@ modified by a newer game release; an explicit world restore may also be needed.
 
 ## Inputs and activation still required
 
-Recover the existing Hetzner, Cloudflare and edge-specific Tailscale OAuth
-credentials from the password manager. Only their names/UUID mappings belong
-in Git; plaintext values must be materialized by Bitwarden Secrets Manager.
-Do not request new credentials until the existing ones have been located.
+The existing Hetzner, Cloudflare and edge-specific Tailscale OAuth entries
+were found in Bitwarden Secrets Manager. LabOps acceptance manifests map their
+UUIDs to `gaas-terraform-credentials`; no new tokens were requested and no
+plaintext values belong in Git. The token and credentials are never logged.
 
 Before cloud workers are enabled, create restricted state Secret/Lease RBAC,
 a protected encrypted backup and tested restoration of that backend, and
@@ -95,9 +110,10 @@ lineage and resource IDs, stop other writers, and verify a non-destructive
 adoption plan. The inactive backend example and full prerequisites are owned
 by LabOps `terraform/edge-gateway/README.md`. No backend migration was run.
 
-Then finish the runtime adapter and event loop, build immutable worker/runtime
-images, and test a disposable restored world and a separately named gateway
-before reviewing any cutover of the active server. Retained world volumes must
+Build the immutable worker/runtime images, then test a disposable restored
+world and a separately named gateway before reviewing any cutover of the active
+server. The acceptance RBAC/state namespace is separate from the retained local
+production Terraform state; a test run does not migrate or replace that state. Retained world volumes must
 not have the GameRoom as a garbage-collected owner. Never delete the namespace,
 world PVC, retained IPv4 or existing gateway as implicit cleanup.
 
@@ -109,7 +125,7 @@ python3 -m unittest discover -s docker/tests -v
 kubectl --context labprod create --dry-run=server -f gaas/config/gamerooms.crd.json
 ```
 
-The 30 lifecycle/worker unit tests and 8 backup tests pass locally. The CRD
+The lifecycle/worker/controller tests and backup/operation tests pass locally. The CRD
 passes Kubernetes server dry-run validation and has not been installed. LabOps
 has 3 provider-mocked Terraform tests covering enabled/suspend/resume. Those
 mocked tests do not contact cloud APIs or prove network connectivity.

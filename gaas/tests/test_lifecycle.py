@@ -6,7 +6,8 @@ from gaas.lifecycle import decide, request_id, shared_gateway_required, validate
 
 RELEASES = {
     version: {"runtimeImage": "example.invalid/pz@sha256:" + "a" * 64,
-              "steamBuildId": build, "binarySnapshot": "a" * 64}
+              "steamBuildId": build, "binarySnapshot": "a" * 64,
+              "binaryRepository": "s3:https://example.invalid/releases", "operationProtocol": 1}
     for version, build in (("release-one", "100"), ("release-two", "200"))
 }
 
