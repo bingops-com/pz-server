@@ -27,7 +27,7 @@
     "tailscaleEnrollmentVerified": true,
     "suspensionVerified": true,
     "retainedDNSAndIPv4Verified": true,
-    "currentEnabled": false,
+    "currentEnabled": true,
     "twoRoomRoutesPreparedWhileSuspended": true,
     "backendNamespace": "gaas-state",
     "backendSuffix": "gaas-test-20261122-edge",
@@ -39,7 +39,18 @@
       "terraformStateDecoded": true,
       "liveBackendModified": false,
       "scope": "test backend only; file restore, not live backend reinstall"
-    }
+    },
+    "currentServerId": 177228833,
+    "currentTailscaleIP": "100.102.228.87",
+    "retainedIPv4Reused": true,
+    "firstPublicTestA2S": {
+      "room": "gaas-pz-two",
+      "endpoint": "pz-gaas-20261122.bingops.com:17271",
+      "online": true,
+      "players": 0,
+      "verifiedAtUTC": "2026-11-22T19:39:01Z"
+    },
+    "tailscalePolicyChanged": false
   },
   "testWorlds": {
     "sourceSnapshot": "2a2c94a8",
@@ -68,7 +79,16 @@
     ],
     "worldRestoreVerified": true,
     "secondBinaryInstallationVerified": true,
-    "firstBinaryInstallation": "explicit-retry-in-progress"
+    "firstBinaryInstallation": "verified",
+    "runningBackupCheck": {
+      "job": "gaas-running-backup-check-20261122",
+      "scriptFromCronJob": true,
+      "result": "passed",
+      "snapshotShortId": "da117eaf",
+      "integrityCheck": "passed",
+      "gameRestartObserved": true,
+      "publicRecoveryVerified": false
+    }
   },
   "binaryRelease": {
     "steamBuildId": "26486687",
@@ -94,7 +114,10 @@
     "generationSerialization": "passed",
     "operatorImage": "ghcr.io/bingops-com/pz-server@sha256:ec4055e2550654c0ddfdae6241c08df936922a24e2ba41048c505b799ba29b3f",
     "operatorExecutableSmokeInCluster": "passed",
-    "runtimeExecutableSmokeInCluster": "passed"
+    "runtimeExecutableSmokeInCluster": "passed",
+    "offlineLockedProviderInit": "passed in CI with networking disabled",
+    "providerMirrorBuild": "https://github.com/bingops-com/pz-server/actions/runs/45061438274",
+    "providerMirrorWorkerImage": "ghcr.io/bingops-com/pz-server@sha256:b7db20aaf4a3681a486d52bdc48652459a7187626b4812def2446b3f65c7b8ee"
   },
   "observedInterruption": {
     "nodeRebootConfirmedByUptime": true,
@@ -170,7 +193,11 @@
       "playwright": 11,
       "githubWriteTests": "simulated GitHub API, not live App writes",
       "firstImageBootInCluster": "passed",
-      "anonymousGamesAPI": "401"
+      "anonymousGamesAPI": "401",
+      "latestImageBootInCluster": "passed; disposable Pods and public ConfigMap removed",
+      "latestImageHealthz": 200,
+      "latestImageLoginRequired": true,
+      "latestImageAnonymousGamesAPI": 401
     },
     "activationBlocker": "Dedicated repository-restricted GitHub App installation and Bitwarden private-key mapping absent; no production rollout or default-branch merge",
     "gameCreationForm": false
@@ -216,12 +243,15 @@
     "jobNames": [
       "gaas-world-seed-20261122",
       "gaas-world-seed-two-20261122",
-      "gaas-state-recoverycheck-20261122"
+      "gaas-state-recoverycheck-20261122",
+      "pod/gaas-portal-smoke-20261122",
+      "pod/gaas-portal-cache-smoke-20261122",
+      "configmap/gaas-portal-smoke"
     ],
     "encryptedRepositoriesRetained": true,
-    "testGatewayVMEnabled": false,
+    "testGatewayVMEnabled": true,
     "testIPv4AndDNSRetained": true,
     "failedJobsRetainedForDiagnostics": true
   },
-  "updatedAtUTC": "2026-11-22T19:35:00Z"
+  "updatedAtUTC": "2026-11-22T19:40:45+00:00"
 }

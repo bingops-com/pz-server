@@ -22,11 +22,12 @@ configuration and original gateway ownership have not changed.
 The bounded binary-export retry completed before the third reboot, including
 the full integrity check. Its immutable snapshot is recorded in the JSON
 report and the LabOps release catalogue; do not repeat this completed export.
-Both isolated worlds were restored and the second binary installation
-completed. The first installation and the test gateway start were explicitly
-resumed using declared retry nonces after checking their failed Jobs and
-retained backend. Full game routing and shared-consumer acceptance remain
-pending until successful observations are recorded in the JSON report.
+Both isolated worlds and binary installations were restored and verified.
+The first installation and the test gateway start were explicitly resumed
+using declared retry nonces after checking failed Jobs and the retained
+backend. The second room replied through its public UDP endpoint, and its
+scheduled-backup script completed successfully on a running game. Read the
+JSON report for the latest shared-consumer, suspension and resume observations.
 
 Read-only inspection of the host's retained kernel journals found Machine Check
 hardware-error records on its Ryzen 9 5950X at these boots and on 2026-11-21,

@@ -167,10 +167,11 @@ The immutable binary export completed with a full Restic integrity check:
 Steam build `26486687`, snapshot
 `d238fa72ae31f746704fb049a7a959a3eecd8d15e3b366acd5a33e8ca6d58ba7`
 in the separate `gaas-releases-20261122` repository. The acceptance catalogue
-pins this receipt and an immutable runtime image. Both test worlds were
-restored; one binary installation completed and the other is explicitly
-retrying after a third host reboot. See the current acceptance report for the
-latest observed state rather than rerunning the completed export.
+pins this receipt and an immutable runtime image. Both test worlds and their
+binary installations were restored and verified. The scheduled-backup script
+also passed on the running second test room. See the current acceptance report
+for the latest lifecycle observations rather than rerunning the completed
+export.
 
 Still in progress: lifecycle-managed game startup,
 public test-game UDP routing, concurrent consumers and resume. An actual game
