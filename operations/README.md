@@ -25,9 +25,15 @@ report and the LabOps release catalogue; do not repeat this completed export.
 Both isolated worlds and binary installations were restored and verified.
 The first installation and the test gateway start were explicitly resumed
 using declared retry nonces after checking failed Jobs and the retained
-backend. The second room replied through its public UDP endpoint, and its
-scheduled-backup script completed successfully on a running game. Read the
-JSON report for the latest shared-consumer, suspension and resume observations.
+backend. Both public test endpoints replied through one gateway; the scheduled
+backup script passed on a running game. One consumer was suspended without
+interrupting the other, then the last verified suspension removed the test VM
+while retaining its IP/DNS. Resume reused the world/PVC and address on a new VM.
+Deleting/recreating the second GameRoom retained its PVC, produced a fresh
+deletion backup and passed all three SQLite checks on a read-only mount.
+Both test objects finish Suspended with the test VM absent. A current encrypted
+backend bundle was restored to a file and compared without changing live state.
+Read the JSON report for receipts, exact IDs and remaining activation limits.
 
 Read-only inspection of the host's retained kernel journals found Machine Check
 hardware-error records on its Ryzen 9 5950X at these boots and on 2026-11-21,

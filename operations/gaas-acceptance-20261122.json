@@ -1,6 +1,6 @@
 {
   "date": "2026-11-22",
-  "status": "isolated-acceptance-in-progress-after-third-host-reboot",
+  "status": "isolated-lifecycle-acceptance-passed-production-not-activated",
   "sourceBranches": {
     "pz-server": "feat/gaming-as-a-service",
     "labops": "feat/gaas-lifecycle",
@@ -17,7 +17,14 @@
     "configurationChanged": false,
     "terraformStateMigrated": false,
     "publicA2SVerifiedAfterSecondReboot": true,
-    "publicA2SVerifiedAfterThirdReboot": true
+    "publicA2SVerifiedAfterThirdReboot": true,
+    "finalPublicA2SVerified": true,
+    "finalPlayers": 0,
+    "finalGateway": {
+      "id": 169230729,
+      "ipv4": "188.245.252.46",
+      "status": "running"
+    }
   },
   "isolatedGateway": {
     "name": "gaas-test-edge-20261122",
@@ -27,21 +34,22 @@
     "tailscaleEnrollmentVerified": true,
     "suspensionVerified": true,
     "retainedDNSAndIPv4Verified": true,
-    "currentEnabled": true,
+    "currentEnabled": false,
     "twoRoomRoutesPreparedWhileSuspended": true,
     "backendNamespace": "gaas-state",
     "backendSuffix": "gaas-test-20261122-edge",
     "stateRecoveryBundle": {
-      "snapshot": "0af4ac0f3bab91fce3b38af9cd50e2514193ece20aa7b3cb902dcaf11ea5422e",
+      "snapshot": "051f0d1002bbcac6cf0ef1797b036f8f7c3da1c1ea098207e1509d5f70374566",
       "stateSecretsChecked": 1,
       "resticIntegrity": "passed",
       "restoredBundleMatches": true,
       "terraformStateDecoded": true,
       "liveBackendModified": false,
-      "scope": "test backend only; file restore, not live backend reinstall"
+      "scope": "test backend only; file restore, not live backend reinstall",
+      "verifiedAfterFinalSuspension": true
     },
-    "currentServerId": 177228833,
-    "currentTailscaleIP": "100.102.228.87",
+    "currentServerId": null,
+    "currentTailscaleIP": null,
     "retainedIPv4Reused": true,
     "firstPublicTestA2S": {
       "room": "gaas-pz-two",
@@ -57,6 +65,22 @@
       "ip": "91.98.196.54",
       "assignee_id": null,
       "auto_delete": false
+    },
+    "previousStateRecoveryBundle": {
+      "snapshot": "0af4ac0f3bab91fce3b38af9cd50e2514193ece20aa7b3cb902dcaf11ea5422e",
+      "stateSecretsChecked": 1,
+      "resticIntegrity": "passed",
+      "restoredBundleMatches": true,
+      "terraformStateDecoded": true,
+      "liveBackendModified": false,
+      "scope": "test backend only; file restore, not live backend reinstall"
+    },
+    "retainedIPAfterFinalSuspension": {
+      "id": 164378290,
+      "ip": "91.98.196.54",
+      "name": "gaas-test-edge-20261122-ipv4",
+      "assignee_id": null,
+      "auto_delete": false
     }
   },
   "testWorlds": {
@@ -68,7 +92,7 @@
       "gaas-pz-one",
       "gaas-pz-two"
     ],
-    "currentDesiredState": "Running",
+    "currentDesiredState": "Suspended",
     "lifecycleStartVerified": true,
     "seedReceipts": [
       {
@@ -132,7 +156,45 @@
       ],
       "sharedVMCount": 1,
       "sharedVMId": 177228833
-    }
+    },
+    "resumeProof": {
+      "retainedPVCUIDsUnchanged": true,
+      "noBinaryReinstall": true,
+      "worldMarker": {
+        "worldId": "gaas-pz-one-20261122",
+        "serverName": "bingops"
+      },
+      "publicA2SVerified": true,
+      "newVMId": 177230182
+    },
+    "deletionProof": {
+      "originalUID": "c95c8abb-1c4f-464c-9dd9-4ee958481411",
+      "deletionGeneration": 4,
+      "finalizerRemovedByController": true,
+      "generatedWorkloadsRemoved": true,
+      "retainedPVCUID": "afea6ea3-a25b-4d0f-9e70-d668e007b607",
+      "firstPublicEndpointUnaffected": true,
+      "readOnlyWorldCheck": {
+        "worldId": "gaas-pz-two-20261122",
+        "backup": {
+          "requestId": "f2cfca10f5a1085b2d38fee6",
+          "action": "BackupStoppedWorld",
+          "worldId": "gaas-pz-two-20261122",
+          "snapshot": "2310e88094ca99a589d64720bfc635a5d2716d7e7c7d1b1be1a41ed53b67b3a7",
+          "verified": true
+        },
+        "sqliteDatabasesChecked": 3,
+        "readOnlyMount": true
+      },
+      "firstCheck": "Rejected stale pre-delete generation 3 expectation; corrected to observed deletion generation 4",
+      "recreatedRoomUID": "a7e64dac-c432-4789-bd2b-04a34781068f",
+      "retainedPVCUIDUnchangedAfterRecreation": true
+    },
+    "sharedGatewayRetentionVerified": true,
+    "lastConsumerSuspensionVerified": true,
+    "resumeVerified": true,
+    "deleteAndRecreateVerified": true,
+    "finalRecreatedSecondRoom": "Suspended and never started under new UID; latest verified deletion backup remains on retained PVC and in its separate repository"
   },
   "binaryRelease": {
     "steamBuildId": "26486687",
@@ -149,19 +211,26 @@
     "repeatExportRequired": false
   },
   "regressionTests": {
-    "controllerLifecycleWorker": 43,
+    "controllerLifecycleWorker": 44,
     "backupAndOperations": 15,
     "providerMockedTerraform": 3,
     "results": "passed",
     "publishedExecutableSmokeTest": "passed",
     "smokeRun": "https://github.com/bingops-com/pz-server/actions/runs/45043316876",
     "generationSerialization": "passed",
-    "operatorImage": "ghcr.io/bingops-com/pz-server@sha256:ec4055e2550654c0ddfdae6241c08df936922a24e2ba41048c505b799ba29b3f",
+    "operatorImage": "ghcr.io/bingops-com/pz-server@sha256:21f974998fff6ee1e3cae3ad912aef50bd000415f2f639c76e18ed80c08326fa",
     "operatorExecutableSmokeInCluster": "passed",
     "runtimeExecutableSmokeInCluster": "passed",
     "offlineLockedProviderInit": "passed in CI with networking disabled",
     "providerMirrorBuild": "https://github.com/bingops-com/pz-server/actions/runs/45061438274",
-    "providerMirrorWorkerImage": "ghcr.io/bingops-com/pz-server@sha256:b7db20aaf4a3681a486d52bdc48652459a7187626b4812def2446b3f65c7b8ee"
+    "providerMirrorWorkerImage": "ghcr.io/bingops-com/pz-server@sha256:b7db20aaf4a3681a486d52bdc48652459a7187626b4812def2446b3f65c7b8ee",
+    "restoredWorldPreInstallBackup": "passed: 44 regression tests, CI and published-image smoke in labprod",
+    "finalControllerBuild": "https://github.com/bingops-com/pz-server/actions/runs/45063626875",
+    "finalControllerSmoke": {
+      "generationSerialization": true,
+      "restoredWorldPreInstallBackup": true
+    },
+    "initialInstallAfterFinalGuardRerun": false
   },
   "observedInterruption": {
     "nodeRebootConfirmedByUptime": true,
@@ -241,19 +310,29 @@
       "latestImageBootInCluster": "passed; disposable Pods and public ConfigMap removed",
       "latestImageHealthz": 200,
       "latestImageLoginRequired": true,
-      "latestImageAnonymousGamesAPI": 401
+      "latestImageAnonymousGamesAPI": 401,
+      "realGitHubPublicRead": {
+        "result": "passed",
+        "revision": "1a96d33e8ffd9da4d8610c6392f7fa25156f0c94",
+        "rooms": 2,
+        "versions": [
+          "steam-26486687-acceptance"
+        ],
+        "writable": false,
+        "atUTC": "2026-11-22T19:49:07+00:00"
+      }
     },
     "activationBlocker": "Dedicated repository-restricted GitHub App installation and Bitwarden private-key mapping absent; no production rollout or default-branch merge",
-    "gameCreationForm": false
+    "gameCreationForm": false,
+    "realAppGitWritesVerified": false,
+    "realCandidateOIDCLoginVerified": false
   },
   "pending": [
-    "Complete current isolated binary-install and gateway retries; verify both public UDP endpoints.",
-    "Verify two consumers share the gateway and the last verified suspension releases it.",
-    "Verify resume with retained world and address; finish with both test rooms Suspended.",
-    "Test a real game update using a second immutable Steam build.",
-    "Resolve repeated Proxmox host reboots; Machine Check records remain a diagnostic lead, not an established cause.",
-    "Install dedicated GitHub App, materialize its private key through Bitwarden and review production portal activation.",
-    "Back up and restore production Terraform backend before a reviewed ownership handoff."
+    "Validate an actual game upgrade with a second immutable Steam build; current live tests used build 26486687 only.",
+    "Install dedicated GitHub App and Bitwarden key mapping, then validate real portal writes and review production activation.",
+    "Resolve Proxmox host reboot cause; no hardware settings were changed.",
+    "Protect and restore production Terraform state, review workload ownership/cutover and merge the selected GitOps source; production has not been adopted.",
+    "A real game-client join was not exercised; network acceptance used read-only A2S information probes."
   ],
   "gitops": {
     "application": "gaas-acceptance",
@@ -265,7 +344,7 @@
       "gaas-pz-two"
     ],
     "status": "Synced",
-    "verifiedRevision": "c4c298543a12079d998b01f85fe5d479c758a508",
+    "verifiedRevision": "b922285e9e94cf62dd6ada545b587337af86fe07",
     "intentRoundTrip": {
       "room": "gaas-pz-one",
       "generation": 2,
@@ -280,6 +359,10 @@
       "nonce": "after-host-reboot-20261122-1924",
       "gatewayJob": "gaas-edge-d98393bdd436fdd93cf9e0a7",
       "backendReinitialized": false
+    },
+    "finalDesiredStates": {
+      "gaas-pz-one": "Suspended",
+      "gaas-pz-two": "Suspended"
     }
   },
   "cleanup": {
@@ -293,11 +376,143 @@
       "configmap/gaas-portal-smoke"
     ],
     "encryptedRepositoriesRetained": true,
-    "testGatewayVMEnabled": true,
+    "testGatewayVMEnabled": false,
     "testIPv4AndDNSRetained": true,
-    "failedJobsRetainedForDiagnostics": true
+    "failedJobsRetainedForDiagnostics": false,
+    "terminalJobsRemoved": [
+      {
+        "name": "gaas-edge-06469d813d8727b7d36fab37",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-edge-17c2fa6dc6d9ee25a5a893c3",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-edge-49ebbaa5fcc929c1f1973e94",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-edge-7a992017eff5978c7f1086f2",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-edge-8250c0a8581141eec2958e27",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-edge-8775ccaecb50b17c9a9deca2",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-edge-8a27458fe2e6cdec2423c0d8",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-edge-95aa665c2ed35070478b9962",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-edge-c2dc1250499191e47daeb9c7",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-edge-d98393bdd436fdd93cf9e0a7",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-edge-da22d7ae1066a5ce26d6b593",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-edge-e02b2c211176726eabcff9e0",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-edge-f8c8ae6a4e36a08eb365d00c",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-edge-plan-diagnostics-20261122",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-edge-plan-diagnostics-v2",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-edge-plan-diagnostics-v3",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-f1d53f00-backupstoppe-6310ca22bedd90f7",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-f1d53f00-backupstoppe-ec85bda783f6632d",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-f1d53f00-installrelea-763d65c8a1e9f017",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-f1d53f00-installrelea-814ea7f815924618",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-f1d53f00-restoreworld-763d65c8a1e9f017",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-operator-smoke-20261122",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-release-export-20261122",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-release-export-controlled-20261122",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-release-export-retry-20261122",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-release-resolve-20261122",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-retained-world-check-20261122",
+        "result": "Failed"
+      },
+      {
+        "name": "gaas-retained-world-check-v2-20261122",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-running-backup-check-20261122",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-runtime-smoke-20261122",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-state-recoverycheck-20261122",
+        "result": "Complete"
+      },
+      {
+        "name": "gaas-final-guard-smoke-20261122",
+        "result": "Complete"
+      }
+    ],
+    "failedJobDiagnostics": "Public outcomes retained in this report and runbook; terminal test Jobs removed to release Pods and private scratch data",
+    "retainedDataIncludesInterruptedBinaryStaging": true
   },
-  "updatedAtUTC": "2026-11-22T19:47:19+00:00",
+  "updatedAtUTC": "2026-11-22T20:02:02+00:00",
   "lifecycleChecks": [
     {
       "label": "first-room-suspended-other-remains-online",
@@ -431,6 +646,103 @@
       "testVMs": [],
       "gatewayEnabled": false,
       "dnsIPv4": "91.98.196.54"
+    },
+    {
+      "label": "resume-same-world-new-vm-retained-ip",
+      "atUTC": "2026-11-22T19:50:40+00:00",
+      "rooms": [
+        {
+          "name": "gaas-pz-one",
+          "uid": "f1d53f00-6245-4468-8c95-22202b52991e",
+          "generation": 6,
+          "observedGeneration": 6,
+          "desired": "Running",
+          "phase": "Running",
+          "backup": {
+            "action": "BackupStoppedWorld",
+            "requestId": "6310ca22bedd90f7a0265207",
+            "snapshot": "3d2f7ffa4ad7690e6a46637123972dc30f19cde6081da5eddb3c48448acd31d0",
+            "verified": true,
+            "worldId": "gaas-pz-one-20261122"
+          },
+          "version": "steam-26486687-acceptance"
+        },
+        {
+          "name": "gaas-pz-two",
+          "uid": "c95c8abb-1c4f-464c-9dd9-4ee958481411",
+          "generation": 3,
+          "observedGeneration": 3,
+          "desired": "Suspended",
+          "phase": "Suspended",
+          "backup": {
+            "action": "BackupStoppedWorld",
+            "requestId": "1f0b5836d071d0cb19ea6186",
+            "snapshot": "51c87ccc9dc1d61b007a99d42276cd8dcb29c01a9a47321e49aa436b431bd2f4",
+            "verified": true,
+            "worldId": "gaas-pz-two-20261122"
+          },
+          "version": "steam-26486687-acceptance"
+        }
+      ],
+      "publicQueries": [
+        {
+          "online": true,
+          "players": 0,
+          "maxPlayers": 16,
+          "queryVersion": "1.0.0.0",
+          "latencyMs": 160,
+          "endpoint": "pz-gaas-20261122.bingops.com:17261"
+        }
+      ],
+      "testVMs": [
+        {
+          "id": 177230182,
+          "ipv4": "91.98.196.54"
+        }
+      ],
+      "gatewayEnabled": true,
+      "dnsIPv4": "91.98.196.54"
+    },
+    {
+      "label": "final-all-test-rooms-suspended-gateway-absent",
+      "atUTC": "2026-11-22T19:57:36+00:00",
+      "rooms": [
+        {
+          "name": "gaas-pz-one",
+          "uid": "f1d53f00-6245-4468-8c95-22202b52991e",
+          "generation": 7,
+          "observedGeneration": 7,
+          "desired": "Suspended",
+          "phase": "Suspended",
+          "backup": {
+            "action": "BackupStoppedWorld",
+            "requestId": "ec85bda783f6632d9818745c",
+            "snapshot": "55358eb1b08b74fe1c1bf2981537e9ab9f7d339e268b8ac2e873e2028eaabdf3",
+            "verified": true,
+            "worldId": "gaas-pz-one-20261122"
+          },
+          "version": "steam-26486687-acceptance"
+        },
+        {
+          "name": "gaas-pz-two",
+          "uid": "a7e64dac-c432-4789-bd2b-04a34781068f",
+          "generation": 1,
+          "observedGeneration": 1,
+          "desired": "Suspended",
+          "phase": "Suspended",
+          "backup": {},
+          "version": null
+        }
+      ],
+      "publicQueries": [],
+      "testVMs": [],
+      "gatewayEnabled": false,
+      "dnsIPv4": "91.98.196.54"
     }
-  ]
+  ],
+  "sourceCodeRevisions": {
+    "pz-server": "dfd51459879447ff6a9b5f10fceeaf745908178b",
+    "labops": "b922285e9e94cf62dd6ada545b587337af86fe07",
+    "portal": "f24b27a8a4b22cf7a50c2aeea6e27776b220f7aa"
+  }
 }

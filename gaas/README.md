@@ -175,8 +175,18 @@ also passed on the running second test room. See the current acceptance report
 for the latest lifecycle observations rather than rerunning the completed
 export.
 
-Still in progress: lifecycle-managed game startup,
-public test-game UDP routing, concurrent consumers and resume. An actual game
-release update requires a second immutable Steam build; changing catalogue keys
-for the same build proves redeployment only. Production workload configuration
-and the original Terraform state have not been changed by this preparation.
+The isolated acceptance run verified both public UDP endpoints through one
+gateway VM, suspension of one consumer without interrupting the other, verified
+last-consumer shutdown and VM deletion, and resume with a new VM on the retained
+address and unchanged world PVC. It also deleted/recreated the second GameRoom:
+the finalizer produced a fresh backup, generated workloads were collected and
+the retained world passed all three SQLite checks through a read-only mount.
+The final Git intent is both rooms Suspended with no test gateway VM. The latest
+test backend was encrypted, restored to a file and compared without modifying
+the live backend. Full observations are in `operations/gaas-acceptance-20261122.json`.
+
+An actual game release update still requires a second immutable Steam build;
+changing catalogue keys for the same build proves redeployment only. Portal
+App writes, production ownership/state handoff and the host reboot cause remain
+unresolved. Production workload configuration and the original Terraform state
+have not been changed by this preparation.
