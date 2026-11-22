@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-22",
+  "production": {
+    "namespace": "pz-server",
+    "statefulSet": "pz-server-pz-server",
+    "image": "ghcr.io/bingops-com/pz-server:0.1.3",
+    "steamBuildId": "26486687",
+    "ready": true,
+    "restartsBefore": 74,
+    "restartsAfter": 74,
+    "configurationChanged": false
+  },
+  "backup": {
+    "lastSuccessfulTime": "2026-11-22T03:30:58Z",
+    "snapshot": "2a2c94a8",
+    "repositorySnapshotsChecked": 41,
+    "dataPacksChecked": 82,
+    "restore": "passed",
+    "sqliteIntegrity": {
+      "databasesChecked": 3,
+      "result": "ok"
+    },
+    "productionVolumeMounted": false,
+    "disposableJob": "pz-gaas-restorecheck-20261122",
+    "disposableJobRemoved": true
+  },
+  "regressionTests": {
+    "count": 8,
+    "result": "passed",
+    "url": "https://github.com/bingops-com/pz-server/actions/runs/45027159229"
+  },
+  "backupFixesDeployed": false,
+  "operatorImplemented": false,
+  "cloudLifecycleTested": false,
+  "blockers": [
+    "Existing Hetzner gateway identity and configuration have not been located.",
+    "Provider credentials and reproducible network bootstrap are not yet confirmed."
+  ]
+}
