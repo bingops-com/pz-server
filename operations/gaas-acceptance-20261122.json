@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-22",
+  "status": "in-progress",
+  "sourceBranches": {
+    "pz-server": "feat/gaming-as-a-service",
+    "labops": "feat/gaas-lifecycle"
+  },
+  "production": {
+    "namespace": "pz-server",
+    "statefulSet": "pz-server-pz-server",
+    "steamBuildId": "26486687",
+    "ready": true,
+    "publicA2SVerified": true,
+    "restartsBefore": 74,
+    "restartsAfterNodeReboot": 75,
+    "configurationChanged": false,
+    "terraformStateMigrated": false
+  },
+  "isolatedGateway": {
+    "name": "gaas-test-edge-20261122",
+    "publicIPv4": "91.98.196.54",
+    "dns": "pz-gaas-20261122.bingops.com",
+    "createdViaGuardedWorker": true,
+    "tailscaleEnrollmentVerified": true,
+    "suspensionVerified": true,
+    "retainedDNSAndIPv4Verified": true,
+    "currentEnabled": false,
+    "twoRoomRoutesPreparedWhileSuspended": true,
+    "backendNamespace": "gaas-state",
+    "backendSuffix": "gaas-test-20261122-edge"
+  },
+  "testWorlds": {
+    "sourceSnapshot": "2a2c94a8",
+    "serverName": "bingops",
+    "separateRepositories": true,
+    "seedIntegrityChecksPassed": true,
+    "rooms": [
+      "gaas-pz-one",
+      "gaas-pz-two"
+    ],
+    "currentDesiredState": "Suspended",
+    "lifecycleStartVerified": false
+  },
+  "binaryRelease": {
+    "steamBuildId": "26486687",
+    "status": "export-retry-running",
+    "productionPVCMount": "read-only binaries; no world writes",
+    "firstJobInterruptedByNodeReboot": true
+  },
+  "regressionTests": {
+    "controllerLifecycleWorker": 41,
+    "backupAndOperations": 15,
+    "providerMockedTerraform": 3,
+    "results": "passed",
+    "publishedExecutableSmokeTest": "passed",
+    "smokeRun": "https://github.com/bingops-com/pz-server/actions/runs/45043316876"
+  },
+  "observedInterruption": {
+    "nodeRebootConfirmedByUptime": true,
+    "containersInterruptedAt": "2026-11-22T15:15:46Z",
+    "cause": "not established",
+    "controllerRecovered": true,
+    "failedWorkerRetriedWithExplicitConfigChange": true,
+    "intermediateWorkerImageExecFormatError": true
+  },
+  "ux": {
+    "proposal": "gaas/portal-design.md",
+    "portalGitWritingImplemented": false,
+    "githubAppInstalled": false
+  },
+  "pending": [
+    "Complete immutable binary export and full integrity check.",
+    "Start isolated restored games and verify public UDP routing.",
+    "Verify two consumers share the gateway and the last verified suspension releases it.",
+    "Verify resume with retained world and address.",
+    "Test a real game update using a second immutable Steam build.",
+    "Back up and restore production Terraform backend before a reviewed ownership handoff."
+  ]
+}

@@ -35,5 +35,7 @@
   "blockers": [
     "Existing Hetzner gateway identity and configuration have not been located.",
     "Provider credentials and reproducible network bootstrap are not yet confirmed."
-  ]
+  ],
+  "reportScope": "Historical initial restore-only check; later findings are in the superseding report.",
+  "supersededBy": "gaas-acceptance-20261122.json"
 }
