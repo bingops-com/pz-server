@@ -1,0 +1,65 @@
+---
+name: gaas-build
+
+"on":
+  push:
+    branches: [master, feat/gaming-as-a-service]
+    paths: ['gaas/**', 'docker/**', 'charts/**', '.github/workflows/gaas-build.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - name: Build isolated game runtime
+        id: runtime
+        uses: docker/build-push-action@v6
+        with:
+          context: docker
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/bingops-com/pz-server:gaas-${{ github.sha }}
+      - name: Build operator and Terraform worker
+        id: operator
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: gaas/Dockerfile
+          platforms: linux/amd64
+          cache-from: type=gha,scope=gaas-operator
+          cache-to: type=gha,mode=max,scope=gaas-operator
+          push: true
+          tags: ghcr.io/bingops-com/pz-server:operator-${{ github.sha }}
+      - name: Smoke test published executables
+        env:
+          RUNTIME_IMAGE: ghcr.io/bingops-com/pz-server:gaas-${{ github.sha }}
+          OPERATOR_IMAGE: ghcr.io/bingops-com/pz-server:operator-${{ github.sha }}
+        run: |
+          docker run --rm --platform linux/amd64 --entrypoint /bin/sh "$OPERATOR_IMAGE" -ec 'python3 --version; kubectl version --client=true; helm version --short; terraform version -json'
+          docker run --rm --platform linux/amd64 --entrypoint /bin/sh "$RUNTIME_IMAGE" -ec 'python3 --version; restic version; test -x /usr/local/bin/gaas-operation'
+      - name: Verify locked providers initialize without network or credentials
+        env:
+          OPERATOR_IMAGE: ghcr.io/bingops-com/pz-server:operator-${{ github.sha }}
+        run: |
+          docker run --rm --network none --platform linux/amd64 --entrypoint /bin/sh "$OPERATOR_IMAGE" -ec 'mkdir /tmp/provider-check; cp /opt/terraform/fixture/main.tf /opt/terraform/fixture/.terraform.lock.hcl /tmp/provider-check/; terraform -chdir=/tmp/provider-check init -backend=false -input=false -lockfile=readonly'
+      - name: Record immutable image references
+        env:
+          RUNTIME_DIGEST: ${{ steps.runtime.outputs.digest }}
+          OPERATOR_DIGEST: ${{ steps.operator.outputs.digest }}
+        run: |
+          printf 'runtime=ghcr.io/bingops-com/pz-server@%s\noperator=ghcr.io/bingops-com/pz-server@%s\n' "$RUNTIME_DIGEST" "$OPERATOR_DIGEST" > image-references.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gaas-image-references
+          path: image-references.txt

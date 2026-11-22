@@ -1,0 +1,35 @@
+{
+  "apiVersion": "gaming.bingops.com/v1alpha1",
+  "kind": "GameRoom",
+  "metadata": {
+    "name": "zomboid-restorecheck",
+    "namespace": "pz-server",
+    "finalizers": [
+      "gaming.bingops.com/preserve-world"
+    ]
+  },
+  "spec": {
+    "game": "project-zomboid",
+    "version": "steam-26486687",
+    "state": "Suspended",
+    "gatewayRef": "shared",
+    "world": {
+      "id": "zomboid-restorecheck",
+      "repository": "s3:https://EXAMPLE.invalid/TEST-BUCKET/world",
+      "credentialsSecretRef": "example-test-only",
+      "serverName": "bingops"
+    },
+    "serverCredentialsSecretRef": "example-test-only",
+    "network": {
+      "targetIP": "192.0.2.10",
+      "nodePorts": {
+        "game": 30761,
+        "direct": 30762
+      },
+      "publicPorts": {
+        "game": 17261,
+        "direct": 17262
+      }
+    }
+  }
+}

@@ -28,6 +28,7 @@ COPY --chmod=0755 scripts/start-server.sh /usr/local/bin/start-server
 COPY --chmod=0755 scripts/backup.sh /usr/local/bin/backup-server
 COPY --chmod=0755 scripts/restore.sh /usr/local/bin/restore-server
 COPY --chmod=0755 scripts/pz-rcon.py /usr/local/bin/pz-rcon
+COPY --chmod=0755 scripts/gaas-operation.py /usr/local/bin/gaas-operation
 
 ENV HOME=/data \
     LANG=en_US.UTF-8 \
