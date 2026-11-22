@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from gaas.terraform_worker import command, execute, require_suspended_inventory, validate_backend
+from gaas.terraform_worker import command, execute, require_suspended_inventory, validate_backend, validate_state_identity
 from gaas.lifecycle import request_id
 
 
@@ -25,6 +25,11 @@ class WorkerTests(unittest.TestCase):
         self.write_backend("local")
         with self.assertRaises(ValueError):
             validate_backend(self.root, "gaas-state", "test")
+
+    def test_kubernetes_backend_rejects_numeric_suffix_before_init(self):
+        with self.assertRaises(ValueError):
+            validate_state_identity('gaas-state', 'test-20261122')
+        validate_state_identity('gaas-state', 'test-20261122-edge')
 
     def test_wrong_state_cannot_be_used(self):
         with self.assertRaises(ValueError):

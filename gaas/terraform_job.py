@@ -5,11 +5,12 @@ from pathlib import Path
 import re
 import subprocess
 
-from gaas.terraform_worker import command, execute
+from gaas.terraform_worker import command, execute, validate_state_identity
 
 
 def main():
     config = json.loads(os.environ['GAAS_GATEWAY_CONFIG'])
+    validate_state_identity(config['stateNamespace'], config['stateSuffix'])
     if not re.fullmatch(r'[0-9a-f]{40}', config['sourceRevision']):
         raise ValueError('Terraform source must use an immutable commit SHA')
     if config['sourceRepository'] != 'https://github.com/bingops-com/labops.git':

@@ -9,8 +9,16 @@ import os
 from pathlib import Path
 import subprocess
 import tempfile
+import re
 
 from gaas.lifecycle import request_id, validate_terraform_plan
+
+
+def validate_state_identity(namespace: str, suffix: str) -> None:
+    if not re.fullmatch(r'[a-z0-9](?:[a-z0-9-]*[a-z0-9])?', namespace):
+        raise ValueError('Invalid state namespace')
+    if not re.fullmatch(r'[a-z0-9](?:[a-z0-9-]*[a-z0-9])?', suffix) or re.search(r'-[0-9]+$', suffix):
+        raise ValueError('State suffix must be a DNS label and must not end in a numeric segment')
 
 
 def command(arguments: list[str], workdir: Path) -> str:
@@ -21,6 +29,7 @@ def command(arguments: list[str], workdir: Path) -> str:
 
 
 def validate_backend(workdir: Path, namespace: str, suffix: str) -> None:
+    validate_state_identity(namespace, suffix)
     metadata = workdir / ".terraform" / "terraform.tfstate"
     if not metadata.is_file():
         raise ValueError("Initialize the migrated Kubernetes backend before execution")
