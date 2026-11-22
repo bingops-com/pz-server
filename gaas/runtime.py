@@ -107,6 +107,20 @@ class Zomboid:
     def job_name(self, room, action, identity):
         return 'gaas-' + room['metadata']['uid'][:8] + '-' + action.lower()[:12] + '-' + identity[:16]
 
+    def active_jobs(self, room):
+        # Generation changes do not cancel a Pod writing to the retained PVC.
+        # Serialize against all offline operations owned by this room UID.
+        jobs = self.kube.listing('job', room['metadata']['namespace'], UID_LABEL + '=' + room['metadata']['uid'])
+        active = []
+        for job in jobs:
+            if job_state(job) != 'Pending':
+                continue
+            for container in job['spec']['template']['spec']['containers']:
+                action = next((e.get('value') for e in container.get('env', []) if e['name'] == 'GAAS_ACTION'), None)
+                if action in ('RestoreWorld', 'InstallRelease', 'BackupStoppedWorld'):
+                    active.append((job, action))
+        return active
+
     def observe(self, room, releases, identity, gateway_ready):
         namespace = room['metadata']['namespace']
         n = names(room)
@@ -124,6 +138,12 @@ class Zomboid:
                     'scheduledBackupSuspended': cron is None or cron['spec'].get('suspend', False),
                     'scheduledBackupActive': bool(cron and cron.get('status', {}).get('active')),
                     'ready': bool(server and server.get('status', {}).get('readyReplicas') == 1)}
+        active = self.active_jobs(room)
+        observed['activeOperationCount'] = len(active)
+        if len(active) == 1:
+            job, action = active[0]
+            observed.update(activeOperation=action, activeOperationIsCurrent=(
+                job['metadata']['name'] == self.job_name(room, action, identity)))
         # Readiness must correspond to the current StatefulSet generation.
         if server and server.get('status', {}).get('observedGeneration') != server['metadata']['generation']:
             observed['ready'] = False
@@ -160,6 +180,8 @@ class Zomboid:
             return
         if action in ('Start', 'VerifyRelease'):
             if action == 'Start':
+                if self.active_jobs(room):
+                    raise ValueError('An offline operation is still using the world volume')
                 objects = rendered(room, releases[room['spec']['version']], self.chart)
                 for obj in objects:
                     if obj['kind'] == 'ConfigMap':
@@ -177,6 +199,8 @@ class Zomboid:
         job_name = self.job_name(room, action, decision.request_id)
         if self.kube.get('job', job_name, namespace):
             return
+        if self.active_jobs(room):
+            raise ValueError('An earlier offline operation is still using the world volume')
         if observed.get('podExists') or observed.get('running'):
             raise ValueError('Offline operations require a terminated game Pod')
         version = (observed.get('version') or room['spec']['version']) if action == 'BackupStoppedWorld' else room['spec']['version']

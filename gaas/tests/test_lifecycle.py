@@ -100,6 +100,15 @@ class LifecycleTests(unittest.TestCase):
     def test_new_world_is_restored_before_start(self):
         self.assertEqual(decide(room(), {}, RELEASES).operation, "RestoreWorld")
 
+    def test_new_generation_does_not_start_another_offline_operation(self):
+        observed = dict(ready(), running=False, podExists=False, activeOperation='InstallRelease',
+                        activeOperationCount=1, activeOperationIsCurrent=False)
+        for desired in (room(state='Suspended', generation=2), room(version='release-two', generation=2)):
+            decision = decide(desired, observed, RELEASES)
+            self.assertEqual(decision.phase, 'WaitingForOperation')
+            self.assertIsNone(decision.operation)
+            self.assertTrue(decision.needs_gateway)
+
     def test_ready_room_is_idempotent(self):
         decision = decide(room(), ready(), RELEASES)
         self.assertEqual(decision.phase, "Running")

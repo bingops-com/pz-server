@@ -56,6 +56,15 @@ def decide(room: dict, observed: dict, releases: dict) -> Decision:
     def result(phase, operation=None, holds=True):
         return Decision(phase, operation, identity, holds)
 
+    if observed.get('activeOperationCount', 0) > 1:
+        return result('Blocked')
+    if observed.get('activeOperation'):
+        if observed.get('activeOperationIsCurrent'):
+            phase = {'RestoreWorld': 'Restoring', 'InstallRelease': 'Updating',
+                     'BackupStoppedWorld': 'BackingUp'}[observed['activeOperation']]
+            return result(phase)
+        return result('WaitingForOperation')
+
     if observed.get("error"):
         return result("Blocked", holds=bool(running or world_ready))
 

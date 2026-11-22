@@ -194,6 +194,24 @@ class ControllerTests(unittest.TestCase):
         env = {item['name']: item.get('value') for item in server['spec']['template']['spec']['containers'][0]['env']}
         self.assertEqual(env['SERVER_NAME'], 'bingops')
 
+    def test_suspension_waits_for_a_restore_from_an_older_generation(self):
+        self.kube.create(room())
+        self.controller.tick()  # Creates an offline restore; do not complete it.
+        jobs = [obj for key, obj in self.kube.objects.items() if key[0] == 'job'
+                and UID_LABEL in obj['metadata'].get('labels', {})]
+        self.assertEqual(len(jobs), 1)
+        self.kube.patch(RESOURCE, 'one', 'test-games', {'spec': {'state': 'Suspended'}})
+        for _ in range(3):
+            reports = self.controller.tick()
+            self.assertTrue(any(r.get('phase') == 'WaitingForOperation' for r in reports))
+        current_jobs = [obj for key, obj in self.kube.objects.items() if key[0] == 'job'
+                        and UID_LABEL in obj['metadata'].get('labels', {})]
+        self.assertEqual(len(current_jobs), 1)
+        self.assertEqual(self.kube.get('statefulset', names(room())['server'], 'test-games')['spec']['replicas'], 0)
+        self.kube.schedule()
+        self.rounds()
+        self.assertEqual(self.kube.get(RESOURCE, 'one', 'test-games')['status']['phase'], 'Suspended')
+
 
 if __name__ == '__main__':
     unittest.main()
