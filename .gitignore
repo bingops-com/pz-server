@@ -1,5 +1,7 @@
 # Jetbrains
 .idea/
+__pycache__/
+*.pyc
 
 # Terraform
 .terraform*

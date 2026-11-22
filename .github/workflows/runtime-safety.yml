@@ -17,3 +17,5 @@ jobs:
         run: bash -n docker/scripts/backup.sh
       - name: Check backup safety without infrastructure
         run: python3 -m unittest discover -s docker/tests -v
+      - name: Check game lifecycle and gateway safeguards without infrastructure
+        run: python3 -m unittest discover -s gaas/tests -v
