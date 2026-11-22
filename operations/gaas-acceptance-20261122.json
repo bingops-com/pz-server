@@ -50,7 +50,14 @@
       "players": 0,
       "verifiedAtUTC": "2026-11-22T19:39:01Z"
     },
-    "tailscalePolicyChanged": false
+    "tailscalePolicyChanged": false,
+    "retainedIPAfterLastSuspension": {
+      "id": 164378290,
+      "name": "gaas-test-edge-20261122-ipv4",
+      "ip": "91.98.196.54",
+      "assignee_id": null,
+      "auto_delete": false
+    }
   },
   "testWorlds": {
     "sourceSnapshot": "2a2c94a8",
@@ -62,7 +69,7 @@
       "gaas-pz-two"
     ],
     "currentDesiredState": "Running",
-    "lifecycleStartVerified": false,
+    "lifecycleStartVerified": true,
     "seedReceipts": [
       {
         "job": "gaas-world-seed-20261122",
@@ -87,7 +94,44 @@
       "snapshotShortId": "da117eaf",
       "integrityCheck": "passed",
       "gameRestartObserved": true,
-      "publicRecoveryVerified": false
+      "publicRecoveryVerified": true
+    },
+    "retainedVolumesBeforeSuspension": [
+      {
+        "name": "gaas-world-gaas-pz-one-20261122-74b98351",
+        "uid": "74c35773-fe24-4ae7-99e2-137fc3091549",
+        "volumeName": "pvc-74c35773-fe24-4ae7-99e2-137fc3091549",
+        "ownerReferences": []
+      },
+      {
+        "name": "gaas-world-gaas-pz-two-20261122-aedd39b8",
+        "uid": "afea6ea3-a25b-4d0f-9e70-d668e007b607",
+        "volumeName": "pvc-afea6ea3-a25b-4d0f-9e70-d668e007b607",
+        "ownerReferences": []
+      }
+    ],
+    "bothRunningProof": {
+      "atUTC": "2026-11-22T19:43:19+00:00",
+      "publicQueries": [
+        {
+          "online": true,
+          "players": 0,
+          "maxPlayers": 16,
+          "queryVersion": "1.0.0.0",
+          "latencyMs": 157,
+          "endpoint": "pz-gaas-20261122.bingops.com:17261"
+        },
+        {
+          "online": true,
+          "players": 0,
+          "maxPlayers": 16,
+          "queryVersion": "1.0.0.0",
+          "latencyMs": 158,
+          "endpoint": "pz-gaas-20261122.bingops.com:17271"
+        }
+      ],
+      "sharedVMCount": 1,
+      "sharedVMId": 177228833
     }
   },
   "binaryRelease": {
@@ -253,5 +297,140 @@
     "testIPv4AndDNSRetained": true,
     "failedJobsRetainedForDiagnostics": true
   },
-  "updatedAtUTC": "2026-11-22T19:40:45+00:00"
+  "updatedAtUTC": "2026-11-22T19:47:19+00:00",
+  "lifecycleChecks": [
+    {
+      "label": "first-room-suspended-other-remains-online",
+      "atUTC": "2026-11-22T19:45:30+00:00",
+      "rooms": [
+        {
+          "name": "gaas-pz-one",
+          "uid": "f1d53f00-6245-4468-8c95-22202b52991e",
+          "generation": 5,
+          "observedGeneration": 5,
+          "desired": "Suspended",
+          "phase": "Suspended",
+          "backup": {
+            "action": "BackupStoppedWorld",
+            "requestId": "6310ca22bedd90f7a0265207",
+            "snapshot": "3d2f7ffa4ad7690e6a46637123972dc30f19cde6081da5eddb3c48448acd31d0",
+            "verified": true,
+            "worldId": "gaas-pz-one-20261122"
+          },
+          "version": "steam-26486687-acceptance"
+        },
+        {
+          "name": "gaas-pz-two",
+          "uid": "c95c8abb-1c4f-464c-9dd9-4ee958481411",
+          "generation": 2,
+          "observedGeneration": 2,
+          "desired": "Running",
+          "phase": "Running",
+          "backup": {},
+          "version": "steam-26486687-acceptance"
+        }
+      ],
+      "publicQueries": [
+        {
+          "online": true,
+          "players": 0,
+          "maxPlayers": 16,
+          "queryVersion": "1.0.0.0",
+          "latencyMs": 168,
+          "endpoint": "pz-gaas-20261122.bingops.com:17271"
+        }
+      ],
+      "testVMs": [
+        {
+          "id": 177228833,
+          "ipv4": "91.98.196.54"
+        }
+      ],
+      "gatewayEnabled": true,
+      "dnsIPv4": "91.98.196.54"
+    },
+    {
+      "label": "last-consumer-stopping-gateway-still-retained",
+      "atUTC": "2026-11-22T19:46:03+00:00",
+      "rooms": [
+        {
+          "name": "gaas-pz-one",
+          "uid": "f1d53f00-6245-4468-8c95-22202b52991e",
+          "generation": 5,
+          "observedGeneration": 5,
+          "desired": "Suspended",
+          "phase": "Suspended",
+          "backup": {
+            "action": "BackupStoppedWorld",
+            "requestId": "6310ca22bedd90f7a0265207",
+            "snapshot": "3d2f7ffa4ad7690e6a46637123972dc30f19cde6081da5eddb3c48448acd31d0",
+            "verified": true,
+            "worldId": "gaas-pz-one-20261122"
+          },
+          "version": "steam-26486687-acceptance"
+        },
+        {
+          "name": "gaas-pz-two",
+          "uid": "c95c8abb-1c4f-464c-9dd9-4ee958481411",
+          "generation": 3,
+          "observedGeneration": 3,
+          "desired": "Suspended",
+          "phase": "Stopping",
+          "backup": {},
+          "version": "steam-26486687-acceptance"
+        }
+      ],
+      "publicQueries": [],
+      "testVMs": [
+        {
+          "id": 177228833,
+          "ipv4": "91.98.196.54"
+        }
+      ],
+      "gatewayEnabled": true,
+      "dnsIPv4": "91.98.196.54"
+    },
+    {
+      "label": "last-consumer-suspended-test-vm-removed",
+      "atUTC": "2026-11-22T19:47:19+00:00",
+      "rooms": [
+        {
+          "name": "gaas-pz-one",
+          "uid": "f1d53f00-6245-4468-8c95-22202b52991e",
+          "generation": 5,
+          "observedGeneration": 5,
+          "desired": "Suspended",
+          "phase": "Suspended",
+          "backup": {
+            "action": "BackupStoppedWorld",
+            "requestId": "6310ca22bedd90f7a0265207",
+            "snapshot": "3d2f7ffa4ad7690e6a46637123972dc30f19cde6081da5eddb3c48448acd31d0",
+            "verified": true,
+            "worldId": "gaas-pz-one-20261122"
+          },
+          "version": "steam-26486687-acceptance"
+        },
+        {
+          "name": "gaas-pz-two",
+          "uid": "c95c8abb-1c4f-464c-9dd9-4ee958481411",
+          "generation": 3,
+          "observedGeneration": 3,
+          "desired": "Suspended",
+          "phase": "Suspended",
+          "backup": {
+            "action": "BackupStoppedWorld",
+            "requestId": "1f0b5836d071d0cb19ea6186",
+            "snapshot": "51c87ccc9dc1d61b007a99d42276cd8dcb29c01a9a47321e49aa436b431bd2f4",
+            "verified": true,
+            "worldId": "gaas-pz-two-20261122"
+          },
+          "version": "steam-26486687-acceptance"
+        }
+      ],
+      "publicQueries": [],
+      "testVMs": [],
+      "gatewayEnabled": false,
+      "dnsIPv4": "91.98.196.54"
+    }
+  ]
 }
