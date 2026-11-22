@@ -510,7 +510,7 @@ server_mods:
     id: "3457064550"
   - name: ItemRarityUI;OtherModId  # https://steamcommunity.com/sharedfiles/filedetails/?id=3662387304
     id: "3662387304"
-  - name: "\ItemRarityUI;\OtherModId"  # https://steamcommunity.com/sharedfiles/filedetails/?id=3662387304
+  - name: '\ItemRarityUI;\OtherModId'  # https://steamcommunity.com/sharedfiles/filedetails/?id=3662387304
     id: "3662387304"
   - name: ItemRarityUI  # https://steamcommunity.com/sharedfiles/filedetails/?id=3662387304
     id: "3662387304"
