@@ -156,5 +156,17 @@
     },
     "refreshAnnotationUsed": true,
     "productionRootChanged": false
+  },
+  "cleanup": {
+    "completedValidationJobsRemoved": true,
+    "jobNames": [
+      "gaas-world-seed-20261122",
+      "gaas-world-seed-two-20261122",
+      "gaas-state-recoverycheck-20261122"
+    ],
+    "encryptedRepositoriesRetained": true,
+    "testGatewayVMEnabled": false,
+    "testIPv4AndDNSRetained": true,
+    "failedJobsRetainedForDiagnostics": true
   }
 }
