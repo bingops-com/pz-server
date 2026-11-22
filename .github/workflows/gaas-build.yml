@@ -27,6 +27,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: docker
+          platforms: linux/amd64
           push: true
           tags: ghcr.io/bingops-com/pz-server:gaas-${{ github.sha }}
       - name: Build operator and Terraform worker
@@ -35,8 +36,16 @@ jobs:
         with:
           context: .
           file: gaas/Dockerfile
+          platforms: linux/amd64
           push: true
           tags: ghcr.io/bingops-com/pz-server:operator-${{ github.sha }}
+      - name: Smoke test published executables
+        env:
+          RUNTIME_IMAGE: ghcr.io/bingops-com/pz-server:gaas-${{ github.sha }}
+          OPERATOR_IMAGE: ghcr.io/bingops-com/pz-server:operator-${{ github.sha }}
+        run: |
+          docker run --rm --platform linux/amd64 --entrypoint /bin/sh "$OPERATOR_IMAGE" -ec 'python3 --version; kubectl version --client=true; helm version --short; terraform version -json'
+          docker run --rm --platform linux/amd64 --entrypoint /bin/sh "$RUNTIME_IMAGE" -ec 'python3 --version; restic version; test -x /usr/local/bin/gaas-operation'
       - name: Record immutable image references
         env:
           RUNTIME_DIGEST: ${{ steps.runtime.outputs.digest }}
