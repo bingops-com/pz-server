@@ -67,6 +67,17 @@ class LifecycleTests(unittest.TestCase):
         live["backup"] = {"requestId": decision.request_id, "snapshot": "pre-upgrade", "verified": True}
         self.assertEqual(decide(desired, live, RELEASES).operation, "InstallRelease")
 
+    def test_recreated_room_without_version_backs_up_retained_world_before_install(self):
+        desired = room(version="release-two", uid="new-room-uid")
+        live = {"worldReady": True, "running": False, "podExists": False,
+                "scheduledBackupSuspended": True, "gatewayReady": True}
+        decision = decide(desired, live, RELEASES)
+        self.assertEqual(decision.operation, "BackupStoppedWorld")
+        live["backup"] = {"requestId": "prior-room-backup", "snapshot": "old", "verified": True}
+        self.assertEqual(decide(desired, live, RELEASES).operation, "BackupStoppedWorld")
+        live["backup"] = {"requestId": decision.request_id, "snapshot": "fresh", "verified": True}
+        self.assertEqual(decide(desired, live, RELEASES).operation, "InstallRelease")
+
     def test_invalid_release_never_interrupts_existing_game(self):
         decision = decide(room(version="unknown"), ready(), RELEASES)
         self.assertEqual(decision.phase, "Blocked")

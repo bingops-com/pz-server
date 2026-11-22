@@ -115,6 +115,8 @@ separate runtime/worker tags and records their immutable digests. The planner
 rejects unknown/incomplete releases before interrupting an existing game.
 
 An upgrade requires a verified pre-upgrade world backup and a ready check.
+This also applies when a recreated GameRoom has no previous version in status:
+a restored or retained world gets a fresh backup before its first installation.
 Downgrading executables is not a safe automatic rollback for a world already
 modified by a newer game release; an explicit world restore may also be needed.
 

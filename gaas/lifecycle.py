@@ -83,7 +83,9 @@ def decide(room: dict, observed: dict, releases: dict) -> Decision:
         and bool(receipt.get("snapshot"))
     )
 
-    if stopping or (changing and world_ready and observed.get("version") is not None):
+    # A recreated GameRoom can find an existing world without its previous
+    # status.version. Treat that world as valuable data before any install.
+    if stopping or (changing and world_ready):
         if observed.get("scheduledBackupActive"):
             return result("WaitingForBackup")
         if not observed.get("scheduledBackupSuspended"):

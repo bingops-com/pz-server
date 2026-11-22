@@ -37,6 +37,8 @@ jobs:
           context: .
           file: gaas/Dockerfile
           platforms: linux/amd64
+          cache-from: type=gha,scope=gaas-operator
+          cache-to: type=gha,mode=max,scope=gaas-operator
           push: true
           tags: ghcr.io/bingops-com/pz-server:operator-${{ github.sha }}
       - name: Smoke test published executables
