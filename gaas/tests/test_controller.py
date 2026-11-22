@@ -19,7 +19,7 @@ def room(name='one', offset=0):
         'resourceVersion': '1', 'finalizers': [FINALIZER]}, 'spec': {
         'game': 'project-zomboid', 'version': 'release-one', 'state': 'Running', 'gatewayRef': 'shared',
         'serverCredentialsSecretRef': 'test-server-credentials',
-        'world': {'id': name, 'serverName': 'bingops', 'repository': 's3:https://example.invalid/world',
+        'world': {'id': name, 'serverName': 'bingops', 'repository': 's3:https://example.invalid/world/' + name,
                   'credentialsSecretRef': 'test-backup-credentials'},
         'network': {'targetIP': '192.0.2.10', 'nodePorts': {'game': 30761 + offset, 'direct': 30762 + offset},
                     'publicPorts': {'game': 17261 + offset, 'direct': 17262 + offset}}}}
@@ -168,6 +168,18 @@ class ControllerTests(unittest.TestCase):
         self.kube.create(room())
         reports = self.rounds(1)
         self.assertTrue(any(report.get('phase') == 'Blocked' for report in reports))
+        status = self.kube.get(RESOURCE, 'one', 'test-games')['status']
+        self.assertEqual(status['phase'], 'Blocked')
+        self.assertIn('adopt', status['message'].lower())
+
+    def test_distinct_worlds_cannot_share_a_backup_repository(self):
+        one, two = room(), room('two', 10)
+        two['spec']['world']['repository'] = one['spec']['world']['repository'] + '/'
+        self.kube.create(one)
+        self.kube.create(two)
+        reports = self.rounds(1)
+        self.assertEqual(sum(r.get('phase') == 'Blocked' for r in reports), 2)
+        self.assertFalse(any(key[0] == 'statefulset' for key in self.kube.objects))
 
     def test_dry_run_has_no_mutations(self):
         self.kube.create(room())

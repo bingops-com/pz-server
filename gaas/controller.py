@@ -57,7 +57,8 @@ def duplicates(rooms):
     seen, invalid = {}, set()
     for room in rooms:
         meta, spec = room['metadata'], room['spec']
-        allocations = [('world', meta['namespace'], spec['world']['id'])]
+        allocations = [('world', meta['namespace'], spec['world']['id']),
+                       ('repository', spec['world']['repository'].rstrip('/'))]
         for protocol, ports in [('udp', spec.get('network', {}).get('publicPorts', {})),
                                 ('nodeport', spec.get('network', {}).get('nodePorts', {}))]:
             for port in ports.values():
@@ -92,7 +93,7 @@ class Controller:
                 if self.apply and not self.leader.acquire():
                     raise RuntimeError('Controller leadership lost')
                 if meta['uid'] in invalid:
-                    raise ValueError('World or port allocation is shared by multiple GameRooms')
+                    raise ValueError('World, backup repository or port allocation is shared by multiple GameRooms')
                 release = releases.get(spec['version'])
                 active = room.get('status', {}).get('activeRelease')
                 stopping = meta.get('deletionTimestamp') or spec.get('state') == 'Suspended'
@@ -128,6 +129,7 @@ class Controller:
                     if decision.operation:
                         self.runtime.perform(room, observed, decision, releases)
                     status = dict(room.get('status', {}), observedGeneration=meta['generation'], phase=decision.phase,
+                                  message=observed.get('error', '') if decision.phase == 'Blocked' else '',
                                   worldReady=observed.get('worldReady', False), version=observed.get('version'),
                                   backup=observed.get('backup', {}), gatewayRequired=decision.needs_gateway,
                                   everStarted=room.get('status', {}).get('everStarted', False) or observed.get('podExists', False))
@@ -145,6 +147,11 @@ class Controller:
             except (ValueError, RuntimeError, KeyError) as error:
                 # Conservative retention on any incomplete room observation.
                 decisions.append(Decision('Blocked', None, '', True))
+                if self.apply:
+                    status = dict(room.get('status', {}), phase='Blocked', message=str(error),
+                                  observedGeneration=meta['generation'], gatewayRequired=True)
+                    if status != room.get('status', {}):
+                        self.kube.patch(RESOURCE, meta['name'], meta['namespace'], {'status': status}, status=True)
                 reports.append({'room': meta['name'], 'phase': 'Blocked', 'reason': str(error)})
         # Finalizer-only room processing is incomplete this tick. Do not infer
         # a zero-consumer gateway transition until every room was observed.
