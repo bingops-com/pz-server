@@ -1,0 +1,101 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "pz-gaas-restorecheck-20261122",
+    "namespace": "pz-server",
+    "labels": {
+      "app.kubernetes.io/name": "pz-gaas-restorecheck"
+    }
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "activeDeadlineSeconds": 900,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app.kubernetes.io/name": "pz-gaas-restorecheck"
+        }
+      },
+      "spec": {
+        "restartPolicy": "Never",
+        "automountServiceAccountToken": false,
+        "securityContext": {
+          "runAsUser": 1000,
+          "runAsGroup": 1000,
+          "fsGroup": 1000
+        },
+        "containers": [
+          {
+            "name": "restorecheck",
+            "image": "ghcr.io/bingops-com/pz-server@sha256:e00438367209e4812472a90c2e18616567e83fd8cc5f0ad62d4ff5596a8e1e6d",
+            "command": [
+              "/bin/bash",
+              "-ec"
+            ],
+            "args": [
+              "restic check --read-data\nrestic restore \"$RESTIC_SNAPSHOT\" --target /restore --include /data/Zomboid --quiet\npython3 - <<'PY'\nimport sqlite3\nfrom pathlib import Path\nroot = Path('/restore/data/Zomboid')\nworlds = root / 'Saves' / 'Multiplayer'\nif not worlds.is_dir() or not any(worlds.iterdir()):\n    raise SystemExit('FAIL: restored multiplayer world missing')\nif not (root / 'Server').is_dir():\n    raise SystemExit('FAIL: restored configuration missing')\ndatabases = list(root.rglob('*.db'))\nif not databases:\n    raise SystemExit('FAIL: restored player/account databases missing')\nfor database in databases:\n    connection = sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)\n    try:\n        if connection.execute('PRAGMA integrity_check').fetchall() != [('ok',)]:\n            raise SystemExit('FAIL: restored database integrity')\n    finally:\n        connection.close()\nprint(f'PASS: isolated restoration; {len(databases)} SQLite databases valid')\nPY\n"
+            ],
+            "env": [
+              {
+                "name": "RESTIC_REPOSITORY",
+                "value": "s3:https://4d31056d6b4bf143606ff3ca757e0b8c.r2.cloudflarestorage.com/bingops-pz-labprod/server"
+              },
+              {
+                "name": "RESTIC_SNAPSHOT",
+                "value": "2a2c94a8"
+              },
+              {
+                "name": "RESTIC_CACHE_DIR",
+                "value": "/tmp/restic-cache"
+              },
+              {
+                "name": "AWS_DEFAULT_REGION",
+                "value": "auto"
+              }
+            ],
+            "envFrom": [
+              {
+                "secretRef": {
+                  "name": "pz-r2-credentials"
+                }
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "1Gi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "restore",
+                "mountPath": "/restore"
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "restore",
+            "emptyDir": {
+              "sizeLimit": "2Gi"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
