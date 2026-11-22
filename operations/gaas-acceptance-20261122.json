@@ -1,9 +1,10 @@
 {
   "date": "2026-11-22",
-  "status": "blocked-by-proxmox-host-instability",
+  "status": "isolated-acceptance-in-progress-after-third-host-reboot",
   "sourceBranches": {
     "pz-server": "feat/gaming-as-a-service",
-    "labops": "feat/gaas-lifecycle"
+    "labops": "feat/gaas-lifecycle",
+    "portal": "feat/game-room-portal"
   },
   "production": {
     "namespace": "pz-server",
@@ -12,10 +13,11 @@
     "ready": true,
     "publicA2SVerified": true,
     "restartsBefore": 74,
-    "restartsAfterNodeReboot": 76,
+    "restartsAfterNodeReboot": 77,
     "configurationChanged": false,
     "terraformStateMigrated": false,
-    "publicA2SVerifiedAfterSecondReboot": true
+    "publicA2SVerifiedAfterSecondReboot": true,
+    "publicA2SVerifiedAfterThirdReboot": true
   },
   "isolatedGateway": {
     "name": "gaas-test-edge-20261122",
@@ -48,7 +50,7 @@
       "gaas-pz-one",
       "gaas-pz-two"
     ],
-    "currentDesiredState": "Suspended",
+    "currentDesiredState": "Running",
     "lifecycleStartVerified": false,
     "seedReceipts": [
       {
@@ -63,23 +65,36 @@
         "sourceSnapshot": "2a2c94a8",
         "serverName": "bingops"
       }
-    ]
+    ],
+    "worldRestoreVerified": true,
+    "secondBinaryInstallationVerified": true,
+    "firstBinaryInstallation": "explicit-retry-in-progress"
   },
   "binaryRelease": {
     "steamBuildId": "26486687",
-    "status": "retry-interrupted-by-second-host-reboot",
+    "status": "verified",
     "productionPVCMount": "read-only binaries; no world writes",
     "firstJobInterruptedByNodeReboot": true,
     "lastObservedProgressBeforeSecondReboot": 0.9423810725900812,
-    "automaticRetryScheduled": false
+    "automaticRetryScheduled": false,
+    "binarySnapshot": "d238fa72ae31f746704fb049a7a959a3eecd8d15e3b366acd5a33e8ca6d58ba7",
+    "binaryRepository": "s3:https://4d31056d6b4bf143606ff3ca757e0b8c.r2.cloudflarestorage.com/bingops-pz-labprod/gaas-releases-20261122",
+    "resticFullDataCheck": "passed",
+    "steamBuildUnchangedDuringExport": true,
+    "successfulJob": "gaas-release-export-controlled-20261122",
+    "repeatExportRequired": false
   },
   "regressionTests": {
-    "controllerLifecycleWorker": 41,
+    "controllerLifecycleWorker": 43,
     "backupAndOperations": 15,
     "providerMockedTerraform": 3,
     "results": "passed",
     "publishedExecutableSmokeTest": "passed",
-    "smokeRun": "https://github.com/bingops-com/pz-server/actions/runs/45043316876"
+    "smokeRun": "https://github.com/bingops-com/pz-server/actions/runs/45043316876",
+    "generationSerialization": "passed",
+    "operatorImage": "ghcr.io/bingops-com/pz-server@sha256:ec4055e2550654c0ddfdae6241c08df936922a24e2ba41048c505b799ba29b3f",
+    "operatorExecutableSmokeInCluster": "passed",
+    "runtimeExecutableSmokeInCluster": "passed"
   },
   "observedInterruption": {
     "nodeRebootConfirmedByUptime": true,
@@ -92,7 +107,8 @@
     "secondContainerInterruptionAt": "2026-11-22T16:48:09Z",
     "proxmoxBootTimesUTC": [
       "2026-11-22T15:15:15Z",
-      "2026-11-22T16:47:39Z"
+      "2026-11-22T16:47:39Z",
+      "2026-11-22T18:55:09Z"
     ],
     "cpuModel": "AMD Ryzen 9 5950X",
     "hardwareEvents": [
@@ -113,28 +129,59 @@
         "cpu": 17,
         "bank": 5,
         "status": "bea0000001000108"
+      },
+      {
+        "bootUTC": "2026-11-22T18:55:09Z",
+        "cpu": 17,
+        "bank": 5,
+        "status": "bea0000001000108"
       }
     ],
     "hardwareSettingsChanged": false,
-    "stressTestsRun": false
+    "stressTestsRun": false,
+    "motherboard": "MSI B550M PRO-VDH (MS-7C95)",
+    "biosVersion": "2.J0",
+    "biosDate": "2024-01-02",
+    "voluntaryRestarts": "user does not know",
+    "pboCurveOptimizerUndervoltXMP": "user does not know",
+    "thirdRebootInterruptedJobs": [
+      "gaas-edge-8250c0a8581141eec2958e27",
+      "gaas-f1d53f00-installrelea-763d65c8a1e9f017"
+    ]
   },
   "ux": {
     "proposal": "gaas/portal-design.md",
-    "portalGitWritingImplemented": false,
+    "portalGitWritingImplemented": true,
     "githubAppInstalled": false,
     "githubFormPrepared": ".github/workflows/game-room-state.yml in LabOps",
     "githubFormOnDefaultBranch": false,
     "inlineMockup": "/home/coder/projects/gaas-ux-preview/serveurs-gitops.html",
     "mockupActions": "simulated; no network calls",
-    "mockupInteractionChecks": "passed"
+    "mockupInteractionChecks": "passed",
+    "portalDeployed": false,
+    "portalSource": "f24b27a8a4b22cf7a50c2aeea6e27776b220f7aa",
+    "portalCandidateImage": "ghcr.io/bingops-com/portal@sha256:ed94371747d5c6cf74138d702eb6f57d16af7bc15c1cc1071e82acded3e37ddd",
+    "portalCandidateBuild": "https://github.com/bingops-com/labops/actions/runs/45056411911",
+    "portalTests": {
+      "goRaceSuite": "passed",
+      "goVet": "passed",
+      "typescript": "passed",
+      "productionWebBuild": "passed",
+      "playwright": 11,
+      "githubWriteTests": "simulated GitHub API, not live App writes",
+      "firstImageBootInCluster": "passed",
+      "anonymousGamesAPI": "401"
+    },
+    "activationBlocker": "Dedicated repository-restricted GitHub App installation and Bitwarden private-key mapping absent; no production rollout or default-branch merge",
+    "gameCreationForm": false
   },
   "pending": [
-    "Investigate repeated Proxmox host restarts and hardware Machine Check records before retrying the binary export or running concurrent game tests.",
-    "Complete immutable binary export and full integrity check.",
-    "Start isolated restored games and verify public UDP routing.",
+    "Complete current isolated binary-install and gateway retries; verify both public UDP endpoints.",
     "Verify two consumers share the gateway and the last verified suspension releases it.",
-    "Verify resume with retained world and address.",
+    "Verify resume with retained world and address; finish with both test rooms Suspended.",
     "Test a real game update using a second immutable Steam build.",
+    "Resolve repeated Proxmox host reboots; Machine Check records remain a diagnostic lead, not an established cause.",
+    "Install dedicated GitHub App, materialize its private key through Bitwarden and review production portal activation.",
     "Back up and restore production Terraform backend before a reviewed ownership handoff."
   ],
   "gitops": {
@@ -147,7 +194,7 @@
       "gaas-pz-two"
     ],
     "status": "Synced",
-    "verifiedRevision": "076908d66d87436dd315be886f999fe3793c0ebd",
+    "verifiedRevision": "c4c298543a12079d998b01f85fe5d479c758a508",
     "intentRoundTrip": {
       "room": "gaas-pz-one",
       "generation": 2,
@@ -155,7 +202,14 @@
       "phase": "Suspended"
     },
     "refreshAnnotationUsed": true,
-    "productionRootChanged": false
+    "productionRootChanged": false,
+    "retryAfterThirdHostReboot": {
+      "room": "gaas-pz-one",
+      "generation": 4,
+      "nonce": "after-host-reboot-20261122-1924",
+      "gatewayJob": "gaas-edge-d98393bdd436fdd93cf9e0a7",
+      "backendReinitialized": false
+    }
   },
   "cleanup": {
     "completedValidationJobsRemoved": true,
@@ -168,5 +222,6 @@
     "testGatewayVMEnabled": false,
     "testIPv4AndDNSRetained": true,
     "failedJobsRetainedForDiagnostics": true
-  }
+  },
+  "updatedAtUTC": "2026-11-22T19:35:00Z"
 }

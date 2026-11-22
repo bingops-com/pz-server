@@ -1,4 +1,15 @@
 FROM hashicorp/terraform:1.10.5 AS terraform
+FROM terraform AS providers
+# Download public providers once in CI, rather than on every gateway start/stop.
+# The module and dependency lock must match the configured gateway source.
+ARG GATEWAY_SOURCE_REVISION=f03dc668b3f092e570b8168af07e0b234b8015fc
+RUN git init -q /source \
+    && git -C /source fetch --depth=1 https://github.com/bingops-com/labops.git "${GATEWAY_SOURCE_REVISION}" \
+    && git -C /source checkout --detach FETCH_HEAD \
+    && mkdir /fixture \
+    && cp /source/terraform/edge-gateway/main.tf /source/terraform/edge-gateway/.terraform.lock.hcl /fixture/ \
+    && terraform -chdir=/fixture providers mirror -platform=linux_amd64 /providers
+
 FROM debian:bookworm-slim
 
 ARG KUBECTL_VERSION=v1.36.1
@@ -20,9 +31,13 @@ RUN apt-get update \
     && useradd --create-home --uid 1000 gaas
 
 COPY --from=terraform /bin/terraform /usr/local/bin/terraform
+COPY --from=providers /providers /opt/terraform/providers
+COPY --from=providers /fixture /opt/terraform/fixture
+COPY gaas/terraform.rc /opt/terraform/terraform.rc
 COPY gaas /opt/gaas/gaas
 COPY charts/pz-server /opt/gaas/charts/pz-server
 ENV PYTHONPATH=/opt/gaas
+ENV TF_CLI_CONFIG_FILE=/opt/terraform/terraform.rc
 USER 1000:1000
 WORKDIR /opt/gaas
 ENTRYPOINT ["python3", "-m", "gaas.controller"]

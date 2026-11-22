@@ -35,6 +35,9 @@ Terraform. Never initialize an empty state and apply it as an adoption shortcut.
   suspended backups. It refuses adoption of existing workloads and retains
   world PVCs without garbage-collection owner references. `world.serverName`
   is the original PZ save name and must be preserved when restoring a copy.
+  Offline Jobs are serialized across all generations of a room: changing its
+  desired state waits for an earlier restore/install/backup to terminate before
+  starting another writer or a game Pod.
 - `docker/scripts/gaas-operation.py` restores a world through a staging directory,
   validates restored SQLite databases, installs an immutable binary snapshot
   after checking the Steam build, and restores each shutdown backup again
@@ -56,19 +59,33 @@ Terraform. Never initialize an empty state and apply it as an adoption shortcut.
   default execution creates a plan only; `--apply` is explicit.
 - A suspension worker lists GameRooms across all namespaces and rechecks the
   shared gateway's consumers immediately before applying the saved plan.
-  A future controller must serialize gateway jobs and delay new game startup
-  until an outstanding gateway transition has finished.
+  The controller serializes gateway Jobs and delays game startup until an
+  outstanding gateway transition has finished.
 
 No template/example contains real credentials. The example remains Suspended
 and uses a deliberately invalid repository URL. Its finalizer must only be
 removed after the actual runtime adapter has completed its safe shutdown.
+
+The worker image contains a filesystem mirror of the three providers selected
+by the pinned LabOps module lock file. CI initializes a copy of that lock file
+with networking disabled, without credentials or a backend. Gateway Jobs keep
+`-lockfile=readonly` and never fall back to downloading other provider versions.
+When the module's provider requirements/lock change, rebuild the worker with
+the matching `GATEWAY_SOURCE_REVISION` before changing its immutable digest in
+Git. This removes repeated provider downloads, not cloud API/network needs.
+See [Terraform provider mirrors](https://developer.hashicorp.com/terraform/cli/commands/providers/mirror).
 
 ## GitOps and ownership
 
 The proposed user interface reuses LabOps Portal and writes deterministic Git
 changes, without requiring an AI for each action. See [the UX proposal](portal-design.md)
 for the form, action policies, concurrency handling and activation prerequisites.
-The portal write integration has not been implemented or deployed.
+The portal integration is implemented on `bingops-com/portal` branch
+`feat/game-room-portal`, with its activation procedure in `docs/gaming.md`.
+It previews typed Git changes, commits start/stop requests and opens version
+PRs. It is tested against simulated GitHub responses and a real image boot;
+it is not deployed to the production portal. Live writes require a dedicated,
+repository-restricted GitHub App, whose private key stays in Bitwarden.
 
 Git/Argo CD will own desired GameRooms. One operator will own their generated
 runtime objects, Jobs and status; Argo CD must not simultaneously force their
@@ -146,7 +163,16 @@ were deleted; the test DNS/IP were retained. The original gateway stayed online.
 The active production PZ endpoint responds to A2S queries through its existing
 gateway. These checks do not yet prove test-game UDP routing.
 
-Still in progress: immutable binary export, lifecycle-managed game startup,
+The immutable binary export completed with a full Restic integrity check:
+Steam build `26486687`, snapshot
+`d238fa72ae31f746704fb049a7a959a3eecd8d15e3b366acd5a33e8ca6d58ba7`
+in the separate `gaas-releases-20261122` repository. The acceptance catalogue
+pins this receipt and an immutable runtime image. Both test worlds were
+restored; one binary installation completed and the other is explicitly
+retrying after a third host reboot. See the current acceptance report for the
+latest observed state rather than rerunning the completed export.
+
+Still in progress: lifecycle-managed game startup,
 public test-game UDP routing, concurrent consumers and resume. An actual game
 release update requires a second immutable Steam build; changing catalogue keys
 for the same build proves redeployment only. Production workload configuration

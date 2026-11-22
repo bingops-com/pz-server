@@ -1,0 +1,10 @@
+provider_installation {
+  filesystem_mirror {
+    path = "/opt/terraform/providers"
+    include = [
+      "registry.terraform.io/cloudflare/cloudflare",
+      "registry.terraform.io/hetznercloud/hcloud",
+      "registry.terraform.io/tailscale/tailscale",
+    ]
+  }
+}

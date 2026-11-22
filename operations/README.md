@@ -12,29 +12,38 @@ printing player names. A successful reply checks the UDP information path,
 not a full game-client connection. Its query version is not the immutable
 Steam build used by the release catalogue.
 
-## Current acceptance blocker
+## Acceptance progress and host instability
 
-The entire Proxmox host rebooted at 15:15 and 16:47 UTC on 2026-11-22,
-interrupting both binary-export attempts and the existing PZ workload. PZ
-recovered and replied to public A2S queries after the second reboot. The test
-GameRooms remain Suspended and their gateway VM remains absent. No further
-binary export or concurrent-game start is scheduled automatically.
+The entire Proxmox host rebooted at 15:15, 16:47 and 18:55 UTC on 2026-11-22,
+interrupting acceptance Jobs and the existing PZ workload. Production PZ
+recovered and replied to public A2S queries after the third reboot. Its
+configuration and original gateway ownership have not changed.
+
+The bounded binary-export retry completed before the third reboot, including
+the full integrity check. Its immutable snapshot is recorded in the JSON
+report and the LabOps release catalogue; do not repeat this completed export.
+Both isolated worlds were restored and the second binary installation
+completed. The first installation and the test gateway start were explicitly
+resumed using declared retry nonces after checking their failed Jobs and
+retained backend. Full game routing and shared-consumer acceptance remain
+pending until successful observations are recorded in the JSON report.
 
 Read-only inspection of the host's retained kernel journals found Machine Check
-hardware-error records on its Ryzen 9 5950X at both boots and on 2026-11-21,
+hardware-error records on its Ryzen 9 5950X at these boots and on 2026-11-21,
 before this intervention. These records are a diagnostic lead, not a proven
 component-level cause. No BIOS, CPU, RAM, kernel or hypervisor configuration
-was changed; no stress test was run. Investigate the host before resuming the
-acceptance load. The [kernel MCE documentation](https://docs.kernel.org/arch/x86/x86_64/machinecheck.html)
+was changed; no stress test was run. The reboot cause remains unresolved;
+bounded acceptance retries do not establish host stability. The
+[kernel MCE documentation](https://docs.kernel.org/arch/x86/x86_64/machinecheck.html)
 explains the meaning and CPU-specific decoding boundary of these records.
 
-After host recovery, inspect the existing test backend and Argo/controller
-status before retrying. Declare a new export Job name, reuse the dedicated
-binary Restic repository and its uploaded packs, and remove only stale locks
-after confirming that no exporter remains active. Require a successful full
-integrity check and full snapshot ID before filling the immutable release
-catalogue. The source Job and the owning LabOps acceptance runbook describe
-the inputs. Do not initialize an empty Terraform backend or adopt production
+After any interruption, inspect the existing test backend and Argo/controller
+status before retrying. Change only the affected declared retry nonce; do not
+delete backend state or overwrite a successful release receipt. A failed
+binary export can reuse its dedicated Restic repository and uploaded packs;
+remove only stale locks after confirming that no exporter remains active.
+The source Jobs and the owning LabOps acceptance runbook describe the inputs.
+Do not initialize an empty Terraform backend or adopt production
 as a workaround. The current test backend has a verified encrypted recovery
 bundle; its restoration to a live backend remains a separate reviewed action.
 
