@@ -135,6 +135,19 @@ class TerraformSafetyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_terraform_plan(plan, enabled=False, expected_name="test-edge")
 
+    def test_route_hash_can_change_only_while_suspended(self):
+        plan = {"resource_changes": [change("terraform_data.bootstrap_revision", ["delete", "create"])]}
+        self.assertEqual(len(validate_terraform_plan(plan, enabled=False, expected_name="test-edge")), 1)
+        with self.assertRaises(ValueError):
+            validate_terraform_plan(plan, enabled=True, expected_name="test-edge")
+
+    def test_cloud_replacements_remain_blocked_while_suspended(self):
+        for address in ("hcloud_server.edge_gateway[0]", "hcloud_primary_ip.edge_gateway",
+                        "hcloud_firewall.edge_gateway", "hcloud_ssh_key.operator"):
+            with self.subTest(address=address), self.assertRaises(ValueError):
+                validate_terraform_plan({"resource_changes": [change(address, ["delete", "create"])]},
+                                        enabled=False, expected_name="test-edge")
+
     def test_summary_never_returns_sensitive_plan_values(self):
         plan = {"resource_changes": [change("hcloud_server.edge_gateway[0]", ["create"], after={"name": "test-edge", "user_data": "SECRET"})]}
         summary = validate_terraform_plan(plan, enabled=True, expected_name="test-edge")

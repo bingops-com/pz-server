@@ -132,7 +132,11 @@ def validate_terraform_plan(plan: dict, *, enabled: bool, expected_name: str) ->
         if address not in allowed and not address.startswith('cloudflare_record.public_services["'):
             raise ValueError("Terraform plan contains an unrelated resource")
         if "delete" in actions:
-            if enabled or address not in removable or actions != ["delete"]:
+            # While suspended, route edits may replace this Terraform-only
+            # hash marker. It is not a VM or another retained cloud resource.
+            metadata_only = (not enabled and address == "terraform_data.bootstrap_revision"
+                             and actions in (["delete", "create"], ["create", "delete"]))
+            if not metadata_only and (enabled or address not in removable or actions != ["delete"]):
                 raise ValueError("Unsafe deletion or shared-gateway replacement")
         if resource.get("type") == "hcloud_server":
             for attributes in (change.get("before"), change.get("after")):

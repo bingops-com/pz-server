@@ -73,20 +73,20 @@ class Gateway:
         config = config or self.config
         return {'apiVersion': 'batch/v1', 'kind': 'Job', 'metadata': {
             'name': name, 'namespace': self.namespace,
-            'labels': {'app.kubernetes.io/managed-by': 'gaas-operator', 'gaming.bingops.com/gateway': self.config.get('name', 'shared')}},
+            'labels': {'app.kubernetes.io/managed-by': 'gaas-operator', 'gaming.bingops.com/gateway': config.get('name', 'shared')}},
             'spec': {'backoffLimit': 0, 'activeDeadlineSeconds': 1800, 'template': {'spec': {
                 'restartPolicy': 'Never', 'serviceAccountName': 'gaas-terraform',
                 'securityContext': {'runAsNonRoot': True, 'runAsUser': 1000, 'runAsGroup': 1000,
                                     'fsGroup': 1000, 'seccompProfile': {'type': 'RuntimeDefault'}},
-                'containers': [{'name': 'terraform', 'image': self.config['workerImage'],
+                'containers': [{'name': 'terraform', 'image': config['workerImage'],
                     'command': ['python3', '-m', 'gaas.terraform_job'],
                     'env': [{'name': 'GAAS_GATEWAY_CONFIG', 'value': json.dumps(config)},
                             {'name': 'GAAS_GATEWAY_ENABLED', 'value': str(enabled).lower()},
                             {'name': 'TAILSCALE_TAILNET', 'value': '-'}],
-                    'envFrom': [{'secretRef': {'name': self.config['credentialsSecretRef']}}],
+                    'envFrom': [{'secretRef': {'name': config['credentialsSecretRef']}}],
                     'resources': {'requests': {'cpu': '100m', 'memory': '256Mi'}, 'limits': {'memory': '1Gi'}},
                     'securityContext': {'allowPrivilegeEscalation': False, 'capabilities': {'drop': ['ALL']}},
                     'volumeMounts': [{'name': 'work', 'mountPath': '/work'},
                                      {'name': 'operator-key', 'mountPath': '/config', 'readOnly': True}]}],
                 'volumes': [{'name': 'work', 'emptyDir': {}}, {'name': 'operator-key', 'configMap': {
-                    'name': self.config['publicKeyConfigMap']}}]}}}}
+                    'name': config['publicKeyConfigMap']}}]}}}}
