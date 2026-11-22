@@ -1,6 +1,6 @@
 {
   "date": "2026-11-22",
-  "status": "in-progress",
+  "status": "blocked-by-proxmox-host-instability",
   "sourceBranches": {
     "pz-server": "feat/gaming-as-a-service",
     "labops": "feat/gaas-lifecycle"
@@ -12,9 +12,10 @@
     "ready": true,
     "publicA2SVerified": true,
     "restartsBefore": 74,
-    "restartsAfterNodeReboot": 75,
+    "restartsAfterNodeReboot": 76,
     "configurationChanged": false,
-    "terraformStateMigrated": false
+    "terraformStateMigrated": false,
+    "publicA2SVerifiedAfterSecondReboot": true
   },
   "isolatedGateway": {
     "name": "gaas-test-edge-20261122",
@@ -48,13 +49,29 @@
       "gaas-pz-two"
     ],
     "currentDesiredState": "Suspended",
-    "lifecycleStartVerified": false
+    "lifecycleStartVerified": false,
+    "seedReceipts": [
+      {
+        "job": "gaas-world-seed-20261122",
+        "snapshot": "73a7cae3",
+        "sourceSnapshot": "2a2c94a8",
+        "serverName": "bingops"
+      },
+      {
+        "job": "gaas-world-seed-two-20261122",
+        "snapshot": "79e5c2e30b4687477030299e4fa5f60c8117a55a59a6fc59510ae9f21619183c",
+        "sourceSnapshot": "2a2c94a8",
+        "serverName": "bingops"
+      }
+    ]
   },
   "binaryRelease": {
     "steamBuildId": "26486687",
-    "status": "export-retry-running",
+    "status": "retry-interrupted-by-second-host-reboot",
     "productionPVCMount": "read-only binaries; no world writes",
-    "firstJobInterruptedByNodeReboot": true
+    "firstJobInterruptedByNodeReboot": true,
+    "lastObservedProgressBeforeSecondReboot": 0.9423810725900812,
+    "automaticRetryScheduled": false
   },
   "regressionTests": {
     "controllerLifecycleWorker": 41,
@@ -67,10 +84,39 @@
   "observedInterruption": {
     "nodeRebootConfirmedByUptime": true,
     "containersInterruptedAt": "2026-11-22T15:15:46Z",
-    "cause": "not established",
+    "cause": "Undetermined; Machine Check hardware errors recorded at host boot, including before this task.",
     "controllerRecovered": true,
     "failedWorkerRetriedWithExplicitConfigChange": true,
-    "intermediateWorkerImageExecFormatError": true
+    "intermediateWorkerImageExecFormatError": true,
+    "scope": "entire Proxmox hypervisor and its VMs",
+    "secondContainerInterruptionAt": "2026-11-22T16:48:09Z",
+    "proxmoxBootTimesUTC": [
+      "2026-11-22T15:15:15Z",
+      "2026-11-22T16:47:39Z"
+    ],
+    "cpuModel": "AMD Ryzen 9 5950X",
+    "hardwareEvents": [
+      {
+        "bootUTC": "2026-11-21T16:25:19Z",
+        "cpu": 19,
+        "bank": 5,
+        "status": "bea0000000000108"
+      },
+      {
+        "bootUTC": "2026-11-22T15:15:15Z",
+        "cpu": 3,
+        "bank": 1,
+        "status": "baa00000060e0809"
+      },
+      {
+        "bootUTC": "2026-11-22T16:47:39Z",
+        "cpu": 17,
+        "bank": 5,
+        "status": "bea0000001000108"
+      }
+    ],
+    "hardwareSettingsChanged": false,
+    "stressTestsRun": false
   },
   "ux": {
     "proposal": "gaas/portal-design.md",
@@ -83,6 +129,7 @@
     "mockupInteractionChecks": "passed"
   },
   "pending": [
+    "Investigate repeated Proxmox host restarts and hardware Machine Check records before retrying the binary export or running concurrent game tests.",
     "Complete immutable binary export and full integrity check.",
     "Start isolated restored games and verify public UDP routing.",
     "Verify two consumers share the gateway and the last verified suspension releases it.",
