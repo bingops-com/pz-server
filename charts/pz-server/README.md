@@ -35,7 +35,27 @@ restarts automatically but waits for the lock to disappear. This creates a
 short nightly outage in exchange for a consistent filesystem backup. A
 six-hour stale-lock guard prevents a failed backup node from blocking startup
 indefinitely. The default policy retains 7 daily, 4 weekly and 6 monthly
-snapshots.
+snapshots. Snapshot retention is grouped by paths and tags rather than the
+ephemeral Kubernetes Job hostname. Backups use a stable Restic host identity.
+
+The repository must already be initialized. Storage access is checked before
+stopping the game; an authentication or network error never triggers repository
+initialization. Console timeouts report the failing stage. The backup lock is
+acquired exclusively so concurrent manual jobs cannot remove another backup's
+lock.
+
+For lifecycle-managed shutdown, first scale the StatefulSet to zero and confirm
+its Pod has terminated, then run the backup with `BACKUP_MODE=stopped`. This
+mode refuses to upload while a running marker remains. Never delete the PVC or
+external gateway on the basis of a failed backup. A controller must also stop
+Argo CD from immediately recreating a deliberately suspended workload by giving
+one controller clear ownership of its runtime resources.
+
+Run the offline backup safety checks with:
+
+```sh
+python3 -m unittest discover -s docker/tests -v
+```
 
 Restore is deliberately disabled by default. Before restoring, scale the
 StatefulSet and backup CronJob down, ensure `/data/Zomboid` is empty, then set

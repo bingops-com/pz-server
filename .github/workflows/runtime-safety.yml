@@ -1,0 +1,19 @@
+name: runtime-safety
+on:
+  push:
+    branches: [master, feat/gaming-as-a-service]
+    paths: ['docker/scripts/**', 'docker/tests/**', 'gaas/**', '.github/workflows/runtime-safety.yml']
+  pull_request:
+    branches: [master]
+    paths: ['docker/scripts/**', 'docker/tests/**', 'gaas/**', '.github/workflows/runtime-safety.yml']
+permissions:
+  contents: read
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check shell syntax
+        run: bash -n docker/scripts/backup.sh
+      - name: Check backup safety without infrastructure
+        run: python3 -m unittest discover -s docker/tests -v
