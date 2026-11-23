@@ -1,30 +1,27 @@
-# Gaming as a Service preparation
+# Gaming as a Service
 
-This branch contains the GameRoom CRD, a lease-elected controller, the Project
-Zomboid Kubernetes adapter, isolated restore/install/backup Jobs and a guarded
-Terraform worker. It is undergoing isolated acceptance testing. Production
-adoption has not happened. The example is deliberately non-runnable until a
-real release catalogue and reviewed gateway configuration are supplied.
-Do not add it to production Argo CD yet.
+The GameRoom CRD, lease-elected controller and Project Zomboid adapter are
+installed in the production `gaming` namespace. Git/Argo CD own desired rooms;
+the controller owns generated workloads and verified offline operations.
+The example remains deliberately non-runnable without a real release catalogue
+and reviewed gateway configuration.
 
-## Verified existing infrastructure
+## Production ownership and recovery
 
-`labops-edge-01` is already owned by the LabOps Terraform stack on the local
-`feat/edge-gateway` branch. Its VM ID is `169230729` (CX23, Nuremberg), retained
-IPv4 ID is `154062800`, and public IPv4 is `188.245.252.46`. The stack owns the
-DNS-only `pz.bingops.com` record, Hetzner firewall, Tailscale enrollment and
-nftables configuration. It forwards public UDP 16261/16262 to
-192.168.10.151:30261/30262 through the existing subnet router.
+The [LabOps production runbook](https://github.com/bingops-com/labops/tree/master/apps/workloads/gaas/production)
+is the deployment and recovery source of truth. Its dated acceptance receipt
+records observed lifecycle results and remaining limits. The original gateway
+state was migrated with lineage/IDs preserved into `gaming-state`, suffix
+`edge-gateway`, and its local execution copy was retired after encrypted
+backup/restore comparison. Never initialize an empty backend over retained
+resources or resume the retired local writer.
 
-The VM is online in Tailscale as 100.97.24.17 with tag `edge-gateway`.
-Public SSH is closed by the declared firewall. Tailscale SSH from the current
-Proxmox operator identity was denied by tailnet policy. SSH is not required
-for API-driven provisioning; no ACL was changed or bypassed.
-
-The gateway's current state is still the protected local state under
-`labops/terraform/edge-gateway`. The lifecycle refactor is in the isolated
-LabOps branch `feat/gaas-lifecycle`. Read its owning runbook before running
-Terraform. Never initialize an empty state and apply it as an adoption shortcut.
+The shared gateway is named `labops-edge-01`. IPv4 `188.245.252.46`, primary IP
+`154062800` and `pz.bingops.com` remain retained across VM removal/recreation.
+UDP 16261/16262 forward to 192.168.10.151:30261/30262. VM and Tailscale node
+identities change on resume; their initial IDs are historical adoption facts.
+SSH is not required for API provisioning. Existing firewall and Tailscale
+access boundaries remain in force.
 
 ## Code boundaries
 
@@ -77,20 +74,18 @@ See [Terraform provider mirrors](https://developer.hashicorp.com/terraform/cli/c
 
 ## GitOps and ownership
 
-The proposed user interface reuses LabOps Portal and writes deterministic Git
-changes, without requiring an AI for each action. See [the UX proposal](portal-design.md)
-for the form, action policies, concurrency handling and activation prerequisites.
-The portal integration is implemented on `bingops-com/portal` branch
-`feat/game-room-portal`, with its activation procedure in `docs/gaming.md`.
-It previews typed Git changes, commits start/stop requests and opens version
-PRs. It is tested against simulated GitHub responses and a real image boot;
-it is not deployed to the production portal. Live writes require a dedicated,
-repository-restricted GitHub App, whose private key stays in Bitwarden.
+LabOps Portal has a gaming page with current Git/Argo/GameRoom status. Without
+a GitHub App it links to the owner GitHub form for Running/Suspended changes;
+the workflow records typed intent directly in Git without AI or cloud/Kubernetes
+credentials. A dedicated repository-restricted App remains optional for
+integrated Portal buttons and version PRs; its private key belongs in Bitwarden.
+See the Portal repository's `docs/gaming.md` for authentication and write policies.
 
-Git/Argo CD will own desired GameRooms. One operator will own their generated
-runtime objects, Jobs and status; Argo CD must not simultaneously force their
-replicas or image back to another value. The existing production StatefulSet
-remains owned by its current Argo Application. No ownership handoff has happened.
+Argo CD must not simultaneously force generated replicas or images. The legacy
+production Application is retained at zero replicas with a ClusterIP Service,
+no scheduled backup and immutable runtime/Steam-build rollback pins. Its original
+PVC stays retained; the GameRoom uses a separate retained PVC. Follow the owning
+runbook before rollback so newer gameplay is not silently discarded.
 
 Project Zomboid and persistent worlds stay in Kubernetes. The first consumer
 requires the shared Hetzner gateway; subsequent consumers reuse it. After the
@@ -105,14 +100,13 @@ changes. Other game adapters are follow-up work.
 
 ## Reproducible game versions
 
-`spec.version` is a release catalogue key, not just a container tag. The current
-Steam build is 26486687 and the runtime image is 0.1.3. The existing installer
-downloads a moving Steam branch at startup. A trustworthy release needs an
-immutable runtime-image digest and a recoverable binary artefact/snapshot for
-its Steam build. The acceptance export Job snapshots the live installation from a read-only
-PVC mount into a separate encrypted Restic repository; GitHub Actions builds
-separate runtime/worker tags and records their immutable digests. The planner
-rejects unknown/incomplete releases before interrupting an existing game.
+`spec.version` selects an immutable release catalogue entry, including a runtime
+image digest and full binary snapshot for one Steam build. Production starts
+with `pz-steam-26486687-r1`; the catalogue in LabOps owns its exact artifact IDs.
+The controller rejects unknown/incomplete releases before interrupting a game.
+The init container verifies the expected installed Steam build instead of
+following a moving Steam branch. The legacy chart keeps that behavior optional
+so unchanged installations retain their previous rendered configuration.
 
 An upgrade requires a verified pre-upgrade world backup and a ready check.
 Binary installation receipts bind the world ID, repository, full snapshot and
@@ -126,26 +120,16 @@ a restored or retained world gets a fresh backup before its first installation.
 Downgrading executables is not a safe automatic rollback for a world already
 modified by a newer game release; an explicit world restore may also be needed.
 
-## Inputs and activation still required
+## External inputs and reconstruction
 
-The existing Hetzner, Cloudflare and edge-specific Tailscale OAuth entries
-were found in Bitwarden Secrets Manager. LabOps acceptance manifests map their
-UUIDs to `gaas-terraform-credentials`; no new tokens were requested and no
-plaintext values belong in Git. The token and credentials are never logged.
-
-Before cloud workers are enabled, create restricted state Secret/Lease RBAC,
-a protected encrypted backup and tested restoration of that backend, and
-perform one reviewed migration of the existing local state. Preserve its
-lineage and resource IDs, stop other writers, and verify a non-destructive
-adoption plan. The inactive backend example and full prerequisites are owned
-by LabOps `terraform/edge-gateway/README.md`. No backend migration was run.
-
-Build the immutable worker/runtime images, then test a disposable restored
-world and a separately named gateway before reviewing any cutover of the active
-server. The acceptance RBAC/state namespace is separate from the retained local
-production Terraform state; a test run does not migrate or replace that state. Retained world volumes must
-not have the GameRoom as a garbage-collected owner. Never delete the namespace,
-world PVC, retained IPv4 or existing gateway as implicit cleanup.
+Existing Hetzner, Cloudflare and edge-specific Tailscale OAuth entries are
+mapped from Bitwarden to `gaas-terraform-credentials`; game/R2 Secrets use the
+same established recovery owner. No plaintext value belongs in Git or logs.
+The LabOps runbook owns Secret mappings, namespace/RBAC bootstrap, encrypted
+backend recovery, source/image pins and the dependency order. Restore and
+verify the backend before enabling production workers. Isolated acceptance
+uses its own backend and retained test resources; it must never adopt the
+production state. World PVCs have no garbage-collection owner reference.
 
 ## Validation and acceptance
 
@@ -156,7 +140,7 @@ kubectl --context labprod create --dry-run=server -f gaas/config/gamerooms.crd.j
 ```
 
 The lifecycle/worker/controller tests and backup/operation tests pass locally. The CRD
-passes Kubernetes server dry-run validation and is installed for isolated tests. LabOps
+passes Kubernetes server dry-run validation and is installed in production. LabOps
 has 3 provider-mocked Terraform tests covering enabled/suspend/resume. Those
 mocked tests do not contact cloud APIs or prove network connectivity.
 
