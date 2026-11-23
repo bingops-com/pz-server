@@ -77,7 +77,8 @@ def rendered(room, release, chart):
         for container in pod.get('containers', []) + pod.get('initContainers', []):
             container['image'] = release['runtimeImage']
             if container['name'] == 'install-server':
-                container.setdefault('env', []).append({'name': 'STEAM_EXPECTED_BUILD_ID', 'value': release['steamBuildId']})
+                container['env'] = [env for env in container.get('env', []) if env['name'] != 'STEAM_EXPECTED_BUILD_ID']
+                container['env'].append({'name': 'STEAM_EXPECTED_BUILD_ID', 'value': release['steamBuildId']})
         for volume in pod.get('volumes', []):
             if 'persistentVolumeClaim' in volume:
                 volume['persistentVolumeClaim']['claimName'] = n['volume']
