@@ -12,6 +12,10 @@ printing player names. A successful reply checks the UDP information path,
 not a full game-client connection. Its query version is not the immutable
 Steam build used by the release catalogue.
 
+The production handoff and its current lifecycle receipts are maintained in
+[LabOps production gaming](https://github.com/bingops-com/labops/tree/master/apps/workloads/gaas/production).
+The following isolated-test chronology records the earlier 2026-11-22 state.
+
 ## Acceptance progress and host instability
 
 The entire Proxmox host rebooted at 15:15, 16:47 and 18:55 UTC on 2026-11-22,
@@ -39,7 +43,10 @@ Read-only inspection of the host's retained kernel journals found Machine Check
 hardware-error records on its Ryzen 9 5950X at these boots and on 2026-11-21,
 before this intervention. These records are a diagnostic lead, not a proven
 component-level cause. No BIOS, CPU, RAM, kernel or hypervisor configuration
-was changed; no stress test was run. The reboot cause remains unresolved;
+was changed during that isolated run; no stress test was run. On 2026-11-23,
+a separate reviewed LabOps Ansible role disabled CPU boost without rebooting
+as a reversible mitigation trial; see LabOps `docs/host-stability.md`. This
+does not establish the reboot cause or long-term stability. The reboot cause remains unresolved;
 bounded acceptance retries do not establish host stability. The
 [kernel MCE documentation](https://docs.kernel.org/arch/x86/x86_64/machinecheck.html)
 explains the meaning and CPU-specific decoding boundary of these records.
