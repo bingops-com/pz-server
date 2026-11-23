@@ -24,7 +24,7 @@ spec:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           containers:
             - name: backup
-              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              image: {{ include "pz-server.image" . | quote }}
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: [/usr/local/bin/backup-server]
               env:

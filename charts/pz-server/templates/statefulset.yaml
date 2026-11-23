@@ -22,7 +22,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
         - name: install-server
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: {{ include "pz-server.image" . | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: [/usr/local/bin/install-server]
           env:
@@ -30,6 +30,10 @@ spec:
               value: {{ .Values.steam.beta | quote }}
             - name: STEAM_VALIDATE
               value: {{ .Values.steam.validate | quote }}
+            {{- if .Values.steam.expectedBuildId }}
+            - name: STEAM_EXPECTED_BUILD_ID
+              value: {{ .Values.steam.expectedBuildId | quote }}
+            {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           volumeMounts:
@@ -37,7 +41,7 @@ spec:
               mountPath: /data
       containers:
         - name: pz-server
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: {{ include "pz-server.image" . | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: SERVER_NAME

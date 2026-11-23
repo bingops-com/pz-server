@@ -172,6 +172,15 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(status['phase'], 'Blocked')
         self.assertIn('adopt', status['message'].lower())
 
+    def test_catalogue_build_overrides_chart_pin_without_duplicate_environment(self):
+        release = copy.deepcopy(RELEASE)
+        release['chartValues'] = {'steam': {'expectedBuildId': '999'}}
+        objects = rendered(room(), release, CHART)
+        server = next(obj for obj in objects if obj['kind'] == 'StatefulSet')
+        install = server['spec']['template']['spec']['initContainers'][0]
+        pins = [env for env in install['env'] if env['name'] == 'STEAM_EXPECTED_BUILD_ID']
+        self.assertEqual(pins, [{'name': 'STEAM_EXPECTED_BUILD_ID', 'value': release['steamBuildId']}])
+
     def test_distinct_worlds_cannot_share_a_backup_repository(self):
         one, two = room(), room('two', 10)
         two['spec']['world']['repository'] = one['spec']['world']['repository'] + '/'

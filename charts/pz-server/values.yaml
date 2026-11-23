@@ -4,12 +4,14 @@ replicaCount: 1
 image:
   repository: ghcr.io/bingops-com/pz-server
   tag: "0.1.3"
+  digest: ""
   pullPolicy: IfNotPresent
 
 steam:
   # Empty selects the stable Steam branch, which is Build 42.
   beta: ""
   validate: false
+  expectedBuildId: ""
 
 server:
   name: bingops
