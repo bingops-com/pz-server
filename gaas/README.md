@@ -180,3 +180,33 @@ changing catalogue keys for the same build proves redeployment only. Portal
 App writes, production ownership/state handoff and the host reboot cause remain
 unresolved. Production workload configuration and the original Terraform state
 have not been changed by this preparation.
+
+
+## Optional fully ephemeral gateway
+
+Gateway configuration can select `resourcePolicy: ephemeral` with
+`variables.retain_gateway_resources: false`, a DNS-only TTL of 60 seconds and
+`dnsDrainSeconds` at least the prior record cache lifetime. Start with 300
+seconds when migrating a legacy Auto-TTL endpoint. The policy belongs to the
+shared gateway, not to each GameRoom. Retained remains the backward-compatible
+default. Module source/image digests must be promoted together after tests.
+
+After the last current verified shutdown, the operator first withdraws DNS and
+removes compute while holding its address. Its ConfigMap persists the drain
+floor/deadline and original worker inputs across restarts. Only then does a
+separate guarded worker release IPv4, firewall, cloud SSH key and marker. World
+PVCs, encrypted saves and the protected backend remain. Release rechecks all
+namespaces for new consumers immediately before apply; no unrelated deletion or
+running-gateway replacement is permitted. Same-direction failures require an
+explicit config retry; a changed desired direction can recover a cancelled
+transition. Failed withdrawals retain the bounded pre-apply DNS TTL marker.
+
+A Running request during draining cancels release and reuses the held address.
+After full release a later Running request creates a fresh VM/address/key and
+updates every declared game hostname. DNS must resolve to the new address
+before the game starts. A suspended object's backup alone cannot allocate a
+new VM, and an already-empty backend cannot allocate idle resources merely
+for draining. `status.gatewayPhase` distinguishes withdrawal, DNS draining,
+resource release and readiness; game Suspended alone does not mean the DNS
+cache drain has finished. Existing IP favorites can become stale; actual game
+client behavior still requires a client test in addition to public A2S probes.

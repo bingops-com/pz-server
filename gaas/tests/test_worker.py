@@ -2,6 +2,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import contextlib
+import io
 from unittest.mock import patch
 
 from gaas.terraform_worker import command, execute, require_suspended_inventory, validate_backend, validate_state_identity
@@ -103,6 +105,29 @@ class WorkerTests(unittest.TestCase):
                 execute(self.root, enabled=False, expected_name="test", state_namespace="gaas-state",
                         state_suffix="test", gateway="shared", apply=True)
             self.assertFalse(any(call.args[0][1] == "apply" for call in run.call_args_list))
+
+    def test_idle_empty_backend_does_not_allocate_an_ip_for_dns_draining(self):
+        empty = {'kind': 'List', 'items': []}
+        with patch('gaas.terraform_worker.inventory', return_value=empty), \
+             patch('gaas.terraform_worker.command', side_effect=[
+                 '{"resources": []}', '', '{"resource_changes": []}', '', '{}']) as run, \
+             contextlib.redirect_stdout(io.StringIO()):
+            result = execute(self.root, enabled=False, expected_name='edge', state_namespace='gaas-state',
+                             state_suffix='test', apply=True, resource_policy='ephemeral', phase='withdraw', dns_names={'pz'})
+        self.assertTrue(result['resourcesReleased'])
+        planned = next(call.args[0] for call in run.call_args_list if call.args[0][1] == 'plan')
+        self.assertIn('-var=retain_gateway_resources=false', planned)
+        self.assertIn('-var=publish_dns=false', planned)
+
+    def test_new_consumer_also_blocks_the_final_ip_release(self):
+        with patch('gaas.terraform_worker.inventory', side_effect=[
+                {'kind': 'List', 'items': []},
+                {'kind': 'List', 'items': [{'metadata': {}, 'spec': {'state': 'Running'}}]}]), \
+             patch('gaas.terraform_worker.command', side_effect=['', '{"resource_changes": []}']) as run:
+            with self.assertRaises(ValueError):
+                execute(self.root, enabled=False, expected_name='edge', state_namespace='gaas-state',
+                        state_suffix='test', apply=True, resource_policy='ephemeral', phase='release', dns_names={'pz'})
+        self.assertFalse(any(call.args[0][1] == 'apply' for call in run.call_args_list))
 
 
 if __name__ == "__main__":

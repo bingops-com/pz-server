@@ -10,6 +10,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import re
+import ipaddress
 
 from gaas.lifecycle import request_id, validate_terraform_plan
 
@@ -78,25 +79,58 @@ def inventory(context: str | None = None) -> dict:
 
 def execute(workdir: Path, *, enabled: bool, expected_name: str, state_namespace: str,
             state_suffix: str, gateway: str = "shared", context: str | None = None,
-            apply: bool = False) -> dict:
+            apply: bool = False, resource_policy: str = 'retained', phase: str = 'steady',
+            dns_names: set[str] | None = None) -> dict:
     validate_backend(workdir, state_namespace, state_suffix)
+    if resource_policy not in {'retained', 'ephemeral'} or phase not in {'steady', 'withdraw', 'release'}:
+        raise ValueError('Invalid resource policy or gateway transition')
+    if resource_policy == 'retained' and phase != 'steady':
+        raise ValueError('Retained gateways use only the steady transition')
+    if resource_policy == 'ephemeral' and (dns_names is None or (enabled and phase != 'steady') or (not enabled and phase == 'steady')):
+        raise ValueError('An explicit ephemeral transition and DNS inventory are required')
     if not enabled:
         require_suspended_inventory(inventory(context), gateway)
     previous_umask = os.umask(0o077)
     try:
         with tempfile.TemporaryDirectory(prefix="gaas-plan-") as directory:
             plan_path = str(Path(directory) / "gateway.tfplan")
-            command(["terraform", "plan", "-input=false", "-lock-timeout=60s",
-                     "-var=enabled=" + str(enabled).lower(), "-out=" + plan_path], workdir)
+            variables = ['-var=enabled=' + str(enabled).lower()]
+            empty_backend = False
+            if resource_policy == 'ephemeral' and phase == 'withdraw':
+                state = json.loads(command(['terraform', 'state', 'pull'], workdir))
+                empty_backend = not any(r.get('instances') for r in state.get('resources', []) if r.get('mode') == 'managed')
+            if resource_policy == 'ephemeral':
+                variables += ['-var=retain_gateway_resources=' + str(phase == 'withdraw' and not empty_backend).lower(),
+                              '-var=publish_dns=' + str(enabled).lower()]
+            command(["terraform", "plan", "-input=false", "-lock-timeout=60s", *variables, "-out=" + plan_path], workdir)
             private_plan = json.loads(command(["terraform", "show", "-json", plan_path], workdir))
-            summary = validate_terraform_plan(private_plan, enabled=enabled, expected_name=expected_name)
+            summary = validate_terraform_plan(private_plan, enabled=enabled, expected_name=expected_name,
+                                              resource_policy=resource_policy, phase=phase, dns_names=dns_names)
+            ttl = max([0] + [300 if attrs.get('ttl', 1) == 1 else int(attrs.get('ttl', 300) or 300)
+                             for r in private_plan.get('resource_changes', []) if r['address'].startswith('cloudflare_record.public_services[')
+                             for attrs in [r['change'].get('before'), r['change'].get('after')] if attrs])
             if apply:
                 # Recheck immediately before apply. A new room waits for this
                 # serialized transition; it cannot start against a deleting VM.
                 if not enabled:
                     require_suspended_inventory(inventory(context), gateway)
+                if resource_policy == 'ephemeral' and phase == 'withdraw':
+                    # This bounded marker survives a crash during apply. A retry
+                    # must remember the TTL even if the DNS was already removed.
+                    print('GAAS_DNS_DRAIN_JSON=' + json.dumps({'seconds': ttl}), flush=True)
                 command(["terraform", "apply", "-input=false", "-lock-timeout=60s", plan_path], workdir)
-            return {"applied": apply, "enabled": enabled, "changes": summary}
+            result = {"applied": apply, "enabled": enabled, "changes": summary,
+                      'resourcePolicy': resource_policy, 'phase': phase, 'dnsCacheSeconds': ttl,
+                      'resourcesReleased': phase == 'release' or empty_backend}
+            if apply:
+                outputs = json.loads(command(['terraform', 'output', '-json'], workdir))
+                address = outputs.get('public_ipv4', {}).get('value')
+                if address is not None:
+                    address = str(ipaddress.IPv4Address(address))
+                if enabled and resource_policy == 'ephemeral' and address is None:
+                    raise ValueError('Enabled ephemeral gateway has no public IPv4 receipt')
+                result.update(publicIPv4=address, publicHostnames=outputs.get('public_hostnames', {}).get('value', []))
+            return result
     finally:
         os.umask(previous_umask)
 
@@ -111,11 +145,16 @@ def main() -> None:
     parser.add_argument("--context")
     parser.add_argument("--enabled", choices=("true", "false"), required=True)
     parser.add_argument("--apply", action="store_true")
+    parser.add_argument('--resource-policy', choices=['retained', 'ephemeral'], default='retained')
+    parser.add_argument('--phase', choices=['steady', 'withdraw', 'release'], default='steady')
+    parser.add_argument('--dns-name', action='append')
     args = parser.parse_args()
     try:
         result = execute(args.workdir, enabled=args.enabled == "true", expected_name=args.expected_name,
                          state_namespace=args.state_namespace, state_suffix=args.state_suffix,
-                         gateway=args.gateway, context=args.context, apply=args.apply)
+                         gateway=args.gateway, context=args.context, apply=args.apply,
+                         resource_policy=args.resource_policy, phase=args.phase,
+                         dns_names=set(args.dns_name) if args.dns_name is not None else None)
     except (ValueError, RuntimeError, OSError, json.JSONDecodeError) as error:
         # Messages here deliberately contain no Terraform diagnostics or state.
         parser.exit(1, str(error) + "\n")

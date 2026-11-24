@@ -120,40 +120,66 @@ def shared_gateway_required(decisions: list[Decision], inventory_complete: bool)
     return any(decision.needs_gateway for decision in decisions)
 
 
-def validate_terraform_plan(plan: dict, *, enabled: bool, expected_name: str) -> list[dict]:
+def validate_terraform_plan(plan: dict, *, enabled: bool, expected_name: str,
+                            resource_policy: str = "retained", phase: str = "steady",
+                            dns_names: set[str] | None = None) -> list[dict]:
     """Validate a private terraform-show JSON value; never return secret values.
 
     Automatic VM replacement (e.g. a forwarding change) is intentionally
     rejected, because it would interrupt every consumer of the shared gateway.
     Unrelated resources, IPv4/DNS deletion and all destroy-all plans are rejected.
     """
-    allowed = {
-        "hcloud_server.edge_gateway[0]", "tailscale_tailnet_key.edge_gateway[0]",
-        "hcloud_primary_ip.edge_gateway", "hcloud_firewall.edge_gateway",
-        "hcloud_ssh_key.operator", "terraform_data.bootstrap_revision",
-    }
-    removable = {"hcloud_server.edge_gateway[0]", "tailscale_tailnet_key.edge_gateway[0]"}
+    if resource_policy not in {'retained', 'ephemeral'} or phase not in {'steady', 'withdraw', 'release'}:
+        raise ValueError('Unknown gateway resource policy or transition')
+    if resource_policy == 'retained' and phase != 'steady':
+        raise ValueError('Retained resources cannot use a disposable transition')
+    if resource_policy == 'ephemeral' and (dns_names is None or (enabled and phase != 'steady')
+                                         or (not enabled and phase == 'steady')):
+        raise ValueError('Ephemeral transitions require an explicit phase and owned DNS inventory')
+    bases = {'hcloud_primary_ip.edge_gateway', 'hcloud_firewall.edge_gateway',
+             'hcloud_ssh_key.operator', 'terraform_data.bootstrap_revision'}
+    allowed = bases | {name + '[0]' for name in bases} | {
+        'hcloud_server.edge_gateway[0]', 'tailscale_tailnet_key.edge_gateway[0]'}
+    compute = {'hcloud_server.edge_gateway[0]', 'tailscale_tailnet_key.edge_gateway[0]'}
+    names = {'hcloud_server': expected_name, 'hcloud_primary_ip': expected_name + '-ipv4',
+             'hcloud_firewall': expected_name + '-firewall', 'hcloud_ssh_key': expected_name + '-operator'}
     summary = []
-    for resource in plan.get("resource_changes", []):
-        if resource.get("mode") == "data":
+    for resource in plan.get('resource_changes', []):
+        if resource.get('mode') == 'data':
             continue
-        address = resource["address"]
-        change = resource["change"]
-        actions = change["actions"]
-        if address not in allowed and not address.startswith('cloudflare_record.public_services["'):
-            raise ValueError("Terraform plan contains an unrelated resource")
-        if "delete" in actions:
-            # While suspended, route edits may replace this Terraform-only
-            # hash marker. It is not a VM or another retained cloud resource.
-            metadata_only = (not enabled and address == "terraform_data.bootstrap_revision"
-                             and actions in (["delete", "create"], ["create", "delete"]))
-            if not metadata_only and (enabled or address not in removable or actions != ["delete"]):
-                raise ValueError("Unsafe deletion or shared-gateway replacement")
-        if resource.get("type") == "hcloud_server":
-            for attributes in (change.get("before"), change.get("after")):
-                if attributes and attributes.get("name") != expected_name:
-                    raise ValueError("Unexpected gateway name in Terraform plan")
-            if not enabled and "create" in actions:
-                raise ValueError("Suspension must not create a gateway")
-        summary.append({"address": address, "actions": actions})
+        address, change = resource['address'], resource['change']
+        actions = change['actions']
+        record = re.fullmatch(r'cloudflare_record\.public_services\["([^"\\]+)"\]', address)
+        if address not in allowed and not record:
+            raise ValueError('Terraform plan contains an unrelated resource')
+        if record and dns_names is not None and record.group(1) not in dns_names:
+            raise ValueError('DNS record is outside the declared gateway names')
+        if resource_policy == 'ephemeral' and phase == 'release' and actions not in (['delete'], ['no-op']):
+            raise ValueError('Final release must not create or update resources')
+        if resource_policy == 'ephemeral' and phase == 'withdraw' and 'create' in actions and not address.startswith('terraform_data.bootstrap_revision'):
+            raise ValueError('DNS withdrawal must not allocate cloud infrastructure')
+        if 'delete' in actions:
+            marker = address in {'terraform_data.bootstrap_revision', 'terraform_data.bootstrap_revision[0]'}
+            metadata_only = not enabled and marker and phase != 'release' and actions in (['delete', 'create'], ['create', 'delete'])
+            removable = address in compute
+            if resource_policy == 'ephemeral':
+                removable = removable or bool(record) or (phase == 'release' and address in allowed)
+            if not metadata_only and (enabled or not removable or actions != ['delete']):
+                raise ValueError('Unsafe deletion or shared-gateway replacement')
+        for attributes in (change.get('before'), change.get('after')):
+            if not attributes:
+                continue
+            kind = resource.get('type', address.split('.')[0])
+            if kind in names and (resource_policy == 'ephemeral' or kind == 'hcloud_server' or 'name' in attributes):
+                if attributes.get('name') != names[kind]:
+                    raise ValueError('Unexpected resource name in gateway plan')
+            if resource_policy == 'ephemeral' and kind == 'hcloud_primary_ip' and attributes.get('type') != 'ipv4':
+                raise ValueError('Only the owned primary IPv4 is disposable')
+            if resource_policy == 'ephemeral' and record:
+                valid_names = {record.group(1), record.group(1) + '.bingops.com'}
+                if attributes.get('name') not in valid_names or attributes.get('type') != 'A' or attributes.get('proxied'):
+                    raise ValueError('Unexpected disposable DNS record')
+        if not enabled and resource.get('type') == 'hcloud_server' and 'create' in actions:
+            raise ValueError('Suspension must not create a gateway')
+        summary.append({'address': address, 'actions': actions})
     return summary

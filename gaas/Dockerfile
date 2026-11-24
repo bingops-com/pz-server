@@ -2,7 +2,7 @@ FROM hashicorp/terraform:1.10.5 AS terraform
 FROM terraform AS providers
 # Download public providers once in CI, rather than on every gateway start/stop.
 # The module and dependency lock must match the configured gateway source.
-ARG GATEWAY_SOURCE_REVISION=f03dc668b3f092e570b8168af07e0b234b8015fc
+ARG GATEWAY_SOURCE_REVISION=2db698e654a317b92694339e90f0bd4ae8ec07db
 RUN git init -q /source \
     && git -C /source fetch --depth=1 https://github.com/bingops-com/labops.git "${GATEWAY_SOURCE_REVISION}" \
     && git -C /source checkout --detach FETCH_HEAD \

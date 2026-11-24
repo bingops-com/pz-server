@@ -132,6 +132,7 @@ class Controller:
                                   message=observed.get('error', '') if decision.phase == 'Blocked' else '',
                                   worldReady=observed.get('worldReady', False), version=observed.get('version'),
                                   backup=observed.get('backup', {}), gatewayRequired=decision.needs_gateway,
+                                  gatewayPhase=gateway.phase, gatewayPublicIPv4=gateway.state.get('publicIPv4'),
                                   everStarted=room.get('status', {}).get('everStarted', False) or observed.get('podExists', False))
                     if observed.get('version') in releases:
                         status['activeRelease'] = releases[observed['version']]
@@ -161,7 +162,9 @@ class Controller:
         if self.apply:
             if not self.leader.acquire():
                 raise RuntimeError('Controller leadership lost')
-            gateway.reconcile(required)
+            gateway.reconcile(required, activation_allowed=any(
+                r['spec'].get('state', 'Running') == 'Running' and not r['metadata'].get('deletionTimestamp')
+                for r in managed))
         reports.append({'gateway': settings.get('name', 'shared'), 'required': required, 'provisioned': gateway.ready})
         return reports
 
