@@ -22,6 +22,12 @@ def main():
     test = config['expectedName'].startswith('gaas-test-')
     if not test and not config.get('productionAdoptionApproved'):
         raise ValueError('Existing gateway adoption has not been approved')
+    policy = config.get('resourcePolicy', 'retained')
+    phase = os.environ.get('GAAS_GATEWAY_PHASE', 'steady')
+    if policy not in {'retained', 'ephemeral'}:
+        raise ValueError('Invalid gateway resource policy')
+    if policy == 'ephemeral' and config['variables'].get('retain_gateway_resources') is not False:
+        raise ValueError('Ephemeral mode requires an explicit disposable resource declaration')
     os.umask(0o077)
     root = Path('/work/source')
     root.mkdir(parents=True, exist_ok=True)
@@ -53,7 +59,9 @@ def main():
     command(['terraform', 'init', '-input=false', '-lockfile=readonly'], workdir)
     result = execute(workdir, enabled=os.environ['GAAS_GATEWAY_ENABLED'] == 'true',
                      expected_name=config['expectedName'], state_namespace=namespace,
-                     state_suffix=suffix, gateway=config.get('name', 'shared'), apply=True)
+                     state_suffix=suffix, gateway=config.get('name', 'shared'), apply=True,
+                     resource_policy=policy, phase=phase,
+                     dns_names=set(config['variables'].get('public_dns_records', [])))
     print('GAAS_TERRAFORM_RESULT_JSON=' + json.dumps(result))
 
 
