@@ -65,6 +65,11 @@ removed after the actual runtime adapter has completed its safe shutdown.
 
 ## GitOps and ownership
 
+The proposed user interface reuses LabOps Portal and writes deterministic Git
+changes, without requiring an AI for each action. See [the UX proposal](portal-design.md)
+for the form, action policies, concurrency handling and activation prerequisites.
+The portal write integration has not been implemented or deployed.
+
 Git/Argo CD will own desired GameRooms. One operator will own their generated
 runtime objects, Jobs and status; Argo CD must not simultaneously force their
 replicas or image back to another value. The existing production StatefulSet
@@ -126,7 +131,7 @@ kubectl --context labprod create --dry-run=server -f gaas/config/gamerooms.crd.j
 ```
 
 The lifecycle/worker/controller tests and backup/operation tests pass locally. The CRD
-passes Kubernetes server dry-run validation and has not been installed. LabOps
+passes Kubernetes server dry-run validation and is installed for isolated tests. LabOps
 has 3 provider-mocked Terraform tests covering enabled/suspend/resume. Those
 mocked tests do not contact cloud APIs or prove network connectivity.
 
@@ -135,7 +140,14 @@ repository packs were checked and 3 SQLite databases passed integrity checks.
 The disposable Job was removed; the production PVC was never mounted by it.
 See `operations/acceptance-20261122.json` for that earlier acceptance run.
 
-Still untested: actual VM creation/deletion, Tailscale enrollment, public UDP
-routing, a second concurrent consumer, lifecycle-managed game startup and an
-actual game release update. Production configuration and Terraform state have
-not been changed by this preparation.
+The separate gateway `gaas-test-edge-20261122` was created, enrolled in Tailscale
+and suspended through the guarded worker. Its VM and consumed bootstrap key
+were deleted; the test DNS/IP were retained. The original gateway stayed online.
+The active production PZ endpoint responds to A2S queries through its existing
+gateway. These checks do not yet prove test-game UDP routing.
+
+Still in progress: immutable binary export, lifecycle-managed game startup,
+public test-game UDP routing, concurrent consumers and resume. An actual game
+release update requires a second immutable Steam build; changing catalogue keys
+for the same build proves redeployment only. Production workload configuration
+and the original Terraform state have not been changed by this preparation.
